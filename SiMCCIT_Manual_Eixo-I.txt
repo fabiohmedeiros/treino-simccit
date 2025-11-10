@@ -1,0 +1,578 @@
+﻿# Manual revisado para categorização do Sistema Multidimensional de Categorização de Comportamentos da Interação Terapêutica – SiMCCIT
+
+**Denis Roberto Zamignani**
+**Sonia Beatriz Meyer**
+
+*(Nota 1: O presente manual apresenta algumas mudanças com relação àquele apresentado na tese de Zamignani (2007). Apresenta algumas correções na redação e modificações nas categorias do Eixo I do terapeuta “Interpretação” e “Reprovação” e nos Critérios de inclusão da categoria do Eixo I do cliente “Cliente estabelece relações entre eventos”.)*
+
+## SUMÁRIO
+
+**Eixo I. Categorias referentes ao comportamento verbal vocal e não vocal do terapeuta e do cliente**
+
+*   **Eixo I-1. Categorização do comportamento verbal vocal do terapeuta**
+    *   Terapeuta solicita relato (Solicitação de relato - SRE)
+    *   Terapeuta facilita o relato do cliente (Facilitação - FAC)
+    *   Terapeuta demonstra empatia (Empatia - EMP)
+    *   Terapeuta fornece informações (Informação - INF)
+    *   Terapeuta solicita reflexão (Solicitação de Reflexão - SRF)
+    *   Terapeuta recomenda ou solicita a execução de ações, tarefas ou técnicas (Recomendação - REC)
+    *   Terapeuta interpreta (Interpretação - INT)
+    *   Terapeuta aprova ou concorda com ações ou avaliações do cliente (Aprovação APR)
+    *   Terapeuta reprova ou discorda de ações ou avaliações do cliente (Reprovação REP)
+    *   Outras verbalizações do terapeuta (Outras vocal terapeuta - TOU)
+    *   Terapeuta permanece em silêncio (T Silêncio - TSL)
+*   **Eixo I-2. Categorização do comportamento verbal não vocal do terapeuta**
+    *   Respostas não vocais de concordância (Concordância terapeuta - GCT)
+    *   Respostas não vocais de discordância (Discordância terapeuta - CDT)
+    *   Respostas não vocais de pedido/ordem/comando/incentivo (Comando terapeuta - GMT)
+    *   Outras Respostas não vocais (Gesto outros terapeuta - GOT)
+    *   Registro Insuficiente (Insuficiente terapeuta - TIN)
+*   **Eixo I-3. Categorização do comportamento verbal vocal do cliente**
+    *   Cliente solicita informações, opiniões, asseguramento, recomendações ou procedimentos (Solicitação - SOL)
+    *   Cliente relata eventos (Relato - REL)
+    *   Cliente relata melhora ou progresso terapêutico (Melhora - MEL)
+    *   Cliente formula metas (Metas - MET)
+    *   Cliente estabelece relações entre eventos (Relações - CER)
+    *   Cliente relata concordância ou confiança (Concordância - CON)
+    *   Cliente se opõe, recusa ou reprova (Oposição - OPO)
+    *   Outras verbalizações do cliente (Outras vocal cliente - COU)
+    *   Ciente permanece em silêncio (C Silêncio - CSL)
+*   **Eixo I-4. Categorização do comportamento verbal não vocal do cliente**
+    *   Respostas não vocais de facilitação/concordância (Concordância cliente - CCN)
+    *   Respostas não vocais de discordância (Discordância cliente - DC)
+    *   Respostas não vocais de pedido/ordem/comando/incentivo (Comando cliente - COM)
+    *   Outras Respostas não vocais (Gestos outros cliente - GCO)
+    *   Registro Insuficiente (Insuficiente cliente - CIN)
+*   **Eixo I-5. Categorização do Qualificador 1: Tom emocional**
+*   **Eixo I-6. Categorização do Qualificador 2: Gestos ilustrativos**
+
+**Eixo II. Categorias referentes ao Tema da sessão**
+
+*   **Eixo II-1. Categorização do Tema da sessão**
+*   **Eixo II-2. Categorização do Qualificador 1: tempo em que o assunto é tratado**
+*   **Eixo II-3. Categorização do Qualificador 2: condução do tema da sessão**
+
+**Eixo III. Categorias de registro de respostas motoras do terapeuta e do cliente**
+
+## Introdução ao SiMCCIT
+
+O Sistema Multidimensional de Categorização de Comportamentos da Interação terapêutica (SiMCCIT) tem como elemento central para categorização os comportamentos verbais de terapeuta e cliente, que contemplam Respostas verbais vocais e Gestos comunicativos (respostas motoras cuja função é análoga a respostas verbais vocais), mediante os quais outras dimensões do comportamento são também categorizadas. É composto por três Eixos de categorização, cada um dos quais representa uma dimensão ou aspecto do comportamento dos participantes: Comportamento verbal, Temas e Respostas motoras. Além dos Eixos principais, os dois primeiros são compostos também por Qualificadores, que especificam algumas propriedades do comportamento categorizado. O Eixo de categorização referente ao Comportamento verbal tem como qualificadores o Tom emocional e a presença ou ausência de Gestos ilustrativos. O eixo Tema tem como qualificadores o Enfoque no tempo e a Condução do tema pelos participantes. Os Eixos e Qualificadores desenvolvidos foram organizados da seguinte forma:
+
+**Eixo I: Categorias referentes ao comportamento verbal do terapeuta e do cliente.**
+*   Qualificador 1: tom emocional da interação (envolve variáveis paralinguísticas e expressão facial)
+*   Qualificador 2: gestos ilustrativos (indica a presença ou ausência de gestos ilustrativos que acompanham uma Resposta verbal vocal)
+
+**Eixo II: Tema.** A categorização deste eixo não é realizada individualmente para cada participante; ele indica o tema corrente na interação, independentemente do falante.
+*   Qualificador 1: Enfoque no tempo (tempo em que o tema é tratado na interação terapêutica)
+*   Qualificador 2: Condução do tema (especifica o falante que deu início ao tema em questão)
+
+**Eixo III: Comportamentos motores** (postura corporal e movimentos motores) do terapeuta e do cliente.
+
+*(Nota 2: Vale lembrar que as categorias referentes aos Eixos II e III não foram submetidas a avaliação de concordância entre observadores e foram testadas apenas nas etapas iniciais do desenvolvimento do projeto, não tendo sido testada a categorização de sua versão final. Sua apresentação neste trabalho é inserida a cargo de sugestão para futuras pesquisas.)*
+
+Todos os Eixos e Qualificadores do Sistema são compostos por categorias mutuamente exclusivas. Cada categoria está organizada em torno dos seguintes elementos:
+a.  nome da categoria – um rótulo que descreve em poucas palavras o essencial da categoria;
+b.  sigla – duas ou três letras por meio das quais a categoria é identificada pelo software utilizado para categorização;
+c.  nome resumido da categoria;
+d.  especificação do tipo de categoria como evento ou estado;
+e.  definição – descrição detalhada das variáveis que devem controlar o pesquisador para a identificação do segmento da interação na referida categoria, com sugestões de subcategorias e exemplos de trechos de interações terapêuticas relacionadas;
+f.  caracterização geral da categoria – síntese dos elementos que a constituem com comentários ao observador sobre o contexto típico em que a classe de verbalizações ocorre;
+g.  critérios de inclusão ou exclusão – critérios por meio dos quais a categoria é diferenciada de outras categorias que descrevem fenômenos semelhantes (os critérios de inclusão/exclusão são apresentados gradualmente à medida que as categorias vão sendo apresentadas. Cada categoria só é comparada com relação a categorias previamente apresentadas no decorrer do manual). Para o Eixo Verbal, o Anexo 3 apresenta sugestões sobre forma (forma verbal ou gramatical da verbalização) e contexto típico em que cada categoria pode ocorrer (verbalizações tipicamente precedentes e subsequentes).
+
+## MÉTODO DE CATEGORIZAÇÃO ADOTADO
+
+A categorização de eventos do SiMCCIT no presente trabalho, ocorre mediante a função imediata que cada verbalização exerce na interação terapêutica. Essa função é presumida com base na forma gramatical (imperativa, interrogativa) e nos eventos imediatamente precedentes e subsequentes com os quais cada categoria tipicamente se relaciona. Esse método de categorização pode ser relacionado ao que Bardin (1977) denomina categorização semântica.
+
+A categorização semântica é uma estratégia situada entre a clássica e a pragmática, de acordo com a classificação de Russel e Stiles (1979). Consiste em dois momentos de condução da pesquisa: em um primeiro momento, são registradas as categorias por meio da observação direta em vídeo para que, em um momento posterior, seja conduzida a análise de padrões de interação e relações funcionais entre eventos. Um exemplo de condução dessas etapas pode ser visto no capítulo 4 deste livro.
+
+A unidade de registro do sistema é uma ação (segmento de verbalização ou resposta verbal não vocal) do terapeuta ou do cliente, classificável em uma das categorias definidas ao longo deste manual. O segmento de verbalização é delimitado por qualquer mudança em características específicas (classe, pausa, tema) da fala, apontadas na definição de cada categoria, ainda que dentro da mesma verbalização desse participante.
+
+O SiMCCIT é composto de dois tipos de categorias. Categorias do tipo evento e Categorias do tipo estado. As primeiras contemplam respostas que são tipicamente constituídas por movimentos ou verbalizações pontuais e rápidos. Sua ocorrência é considerada unicamente em termos de frequência e, no ato de sua categorização, não é necessária a inserção de uma categoria indicativa de término do evento. Categorias do tipo estado contemplam respostas que tipicamente apresentam maior duração. Sua ocorrência é considerada com relação à ocorrência e permanência no tempo, sendo necessário, portanto, sinalizar o instante de início e fim da ocorrência da referida categoria. No Eixo I (comportamento verbal), o fim de uma categoria do tipo estado deve ser delimitado pela categoria Silêncio ou pela inserção de uma nova categoria do falante, o mesmo ocorrendo no Eixo II (tema). Já no Eixo III (comportamentos motores), o fim de uma categoria do tipo estado deve ser delimitado pela inserção de uma nova categoria ou pela categoria Postura repouso. Uma vez que o sistema é composto por categorias mutuamente exclusivas, a inserção de uma nova categoria do tipo estado automaticamente anula a categoria anterior. Entretanto, a inserção de uma categoria do tipo evento não anula a categoria estado em curso.
+
+---
+
+## Eixo I – 1: Categorização do comportamento verbal vocal do terapeuta
+
+As categorias a seguir referem-se a verbalizações do terapeuta dirigidas ao cliente.
+
+**Tipos de evento a que as interações podem referir-se**
+As verbalizações do terapeuta podem referir-se a (a) ações do cliente e/ou de terceiros; (b) sentimentos, pensamentos ou tendências à ação do cliente ou do terapeuta; (c) aspectos da história de vida do cliente ou do terapeuta; (d) eventos ambientais relacionados ou não ao comportamento do cliente.
+
+**Origem na sessão dos eventos referidos**
+Os eventos referidos em sessão podem ser relatados pelo cliente ou observados pelo terapeuta.
+
+**Tempo em que os eventos referidos podem ter ocorrido**
+Com relação ao tempo em que os eventos ocorreram ou foram relatados, podem existir (a) eventos ocorridos/relatados imediatamente antes, (b) eventos ocorridos/relatados em outros momentos da mesma sessão ou (c) eventos ocorridos/relatados em um passado recente ou remoto ou em sessões anteriores.
+
+### **TERAPEUTA SOLICITA RELATO (SRE)**
+*   **Sigla:** SRE
+*   **Nome resumido:** Solicitação de relato
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Solicitação de informações sobre fatos:** terapeuta solicita que o cliente descreva fatos ocorridos, informações específicas, detalhes ou esclarecimentos a respeito de eventos e ações do cliente.
+        *   Exemplos:
+            > T: Me conta... Por que é que você está procurando terapia? [SRE]
+            > T: E quando é que isso começou? [SRE]
+            > T: Você consegue lembrar-se de um exemplo específico no qual isso aconteceu? [SRE]
+    2.  **Solicitação de relato de respostas encobertas do cliente:** terapeuta solicita que o cliente relate seus sentimentos, pensamentos, fantasias ou tendências à ação imediata.
+        *   Exemplos:
+            > T: Como você se sentiu quando ele te falou isso? [SRE]
+            > T: Em que momentos você tem se sentido assim? [SRE]
+            > T: O que você teve vontade de fazer nessa hora? [SRE]
+            > T: E o que você pensou antes de fazer o ritual? [SRE]
+*   **Caracterização geral da categoria:** Solicitação de relato contempla verbalizações do terapeuta nas quais ele solicita ao cliente descrições de ações, eventos, sentimentos ou pensamentos. Ocorre tipicamente em situações relacionadas à coleta de dados e ao levantamento de informações ao longo de qualquer etapa do processo terapêutico.
+
+### **TERAPEUTA FACILITA O RELATO DO CLIENTE (FAC)**
+*   **Sigla:** FAC
+*   **Nome resumido:** Facilitação
+*   **Categoria tipo:** evento
+*   **Estão inclusos nessa categoria:**
+    1.  **Verbalizações mínimas:** Verbalizações curtas que ocorrem durante a fala do cliente. (Ex: T: certo; T: sei...)
+    2.  **Expressões paralinguísticas:** Vocalizações curtas que ocorrem durante a fala do cliente. (Ex: T: Hum hum)
+*   **Caracterização geral da categoria:** Facilitação é caracterizada por verbalizações curtas ou expressões paralinguísticas que ocorrem durante a fala do cliente. Tipicamente, essas verbalizações indicam atenção ao relato do cliente e sugerem a sua continuidade.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Facilitação só é categorizada se ocorre enquanto o cliente tem a palavra. Não é categorizada quando ocorre ao longo de pausas de três segundos ou mais na conversação.
+    b.  Nunca devem ocorrer duas falas seguidas, categorizadas como Facilitação. Facilitação nunca é categorizada em dobro. (Ex: C: ...auto dialogo... T: Hum hum... Sei... [codificar apenas uma ocorrência de Facilitação])
+    c.  Uma verbalização curta que sugira um pedido de esclarecimento ou complementação sobre algum relato do cliente deve ser categorizada como Solicitação de relato (SOL), e não Facilitação. (Ex: C: ...indo bem... T: ...mas... [SOL] C: Mas aqueles pensamentos...)
+    d.  Na dúvida entre Solicitação de relato e Facilitação, categorize Facilitação.
+
+### **TERAPEUTA DEMONSTRA EMPATIA (EMP)**
+*   **Sigla:** EMP
+*   **Nome resumido:** Empatia
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Nomeação e inferência de sentimentos:** terapeuta nomeia ou infere sentimentos, valores e/ou a importância de eventos experimentados pelo cliente. (Ex: T: Imagino o quanto isso te deixa ansioso. [EMP]; T: Entendo que você fique muito irritado com isso. [EMP]; T: Essa tem sido uma parte crucial da sua vida, né... [EMP])
+    2.  **Normalizações e validação de sentimentos:** terapeuta afirma que as ações ou sentimentos do cliente são esperados ou apropriados à situação por ele vivida (apenas quando sugerirem validação, compreensão ou cuidado). (Ex: T: ...seria estranho que você ficasse tranquilo...? Acho natural que você tenha se sentido ansioso. [EMP])
+    3.  **Exclamações e expressões de interesse:** comentários em forma de exclamação, ou interrogação, após descrição de eventos (não ações do cliente), indicando interesse. (Ex: C: ...Conheci pessoalmente... T: sério? [EMP]; C: ...batendo perna!” (risos) T: Olha só! O Luciano já estabeleceu um contato bom com ele! [EMP])
+    4.  **Verbalizações de cuidado:** terapeuta demonstra preocupação pessoal com o cliente quando tal preocupação não acompanha crítica ou explicação. (Ex: T: Como é que você está? Na semana passada você estava super-resfriada. [EMP])
+    5.  **Autorrevelações sobre experiências similares:** terapeuta relata sua experiência em situações semelhantes quando tal relato sugere validação ou compreensão. (Ex: T: Você sabe... eu também já passei por isso... posso imaginar o quanto você está frustrada... [EMP])
+    6.  **Validação de discordâncias ou críticas do cliente:** terapeuta revê as próprias ações, corrigindo, admitindo erros ou pedindo desculpas. (Ex: C: ...você não foi capaz de me ajudar... T: Eu gostaria muito de tê-lo ajudado... eu também me sinto frustrado por isso. [EMP])
+    7.  **Humor:** verbalizações acompanhadas por risadas que tenham sido humorísticas (sem deboche ou ironia). (Ex: C: ...trânsito ridículo... T: Quanto mais trânsito melhor, que cê fica mais tempo com ele. (risos) [EMP])
+    8.  **Apoio:** terapeuta afirma sua disponibilidade para ajudar. (Ex: T: ...qualquer que ela seja, eu tô do seu lado. [EMP]; T: Conte comigo. [EMP])
+    9.  **Paráfrases:** terapeuta apresenta de forma resumida o que foi dito pelo cliente (sem mudar sentido ou acrescentar opiniões). (Ex: T: E você perde seu emprego e está muito difícil encontrar um outro. [EMP])
+    10. **Comentários de entendimento:** comentários breves após relato do cliente, com fragmentos do relato ou palavras que complementam. (Ex: C: ...cozinha com toalha bonita... T: Todo mundo ajudando. [EMP]; C: ...vou dar uma ligada. T: E ele no plano de sedução... [EMP])
+*   **Caracterização geral da categoria:** Empatia contempla ações ou verbalizações do terapeuta que sugerem acolhimento, aceitação, cuidado, entendimento, validação da experiência ou sentimento do cliente. Diferente de Aprovação, tem caráter inespecífico, informando que o cliente é aceito (“eu entendo você e aceito como você é”). Associada à criação de um ambiente terapêutico amistoso, seguro e não punitivo.
+
+### **TERAPEUTA FORNECE INFORMAÇÕES (INF)**
+*   **Sigla:** INF
+*   **Nome resumido:** Informação
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Informações factuais:** dados ou fatos relacionados a determinado assunto em discussão. (Ex: T: Biologia requer vários cursos adicionais de laboratório. [INF]; T: Não. Não conheço um médico com esse nome. [INF]; T: Sim, muitos. [INF])
+    2.  **Explicações de eventos:** descrição de relações explicativas ou causais entre eventos (tipo “se... então”), apenas quando não se referem a análise, descrição ou síntese do comportamento do cliente ou de terceiros. (Ex: T: Um ataque de pânico pode ocorrer independentemente... quando a gente entra em contato com alguma coisa da qual a gente tem muito medo, isso pode provocar um ataque de pânico. [INF] (* explicação não se refere a comportamento particular do cliente, mas a fatos da literatura))
+    3.  **Descrição de regularidades ou padrões recorrentes a respeito de eventos:** informações sobre padrões recorrentes de contiguidade temporal ou correlação, apenas quando não dizem respeito ao comportamento do cliente ou de terceiros. (Ex: T: Pessoas que têm problemas com álcool, geralmente têm uma má qualidade de sono. [INF]; T: É muito comum que a gente tenha um pouco de dor de cabeça... Mas depois de uns quinze dias tudo volta ao normal. [INF])
+    4.  **Explicações teóricas e experimentais sobre eventos:** descrição de proposições teóricas ou achados experimentais. (Ex: T: Não há a necessidade biológica de se dormir por oito horas... é também aprendida. [INF]; T: O desempenho em testes tende a ser melhor depois de uma noite bem dormida. [INF])
+    5.  **Informações sobre o contrato terapêutico:** descrições sobre funcionamento da terapia (contrato, regras, objetivos), acertos de horário/local (enquadre). (Ex: T: Nós nos encontraremos duas vezes por semana. [INF]; T: Vamos falar sobre a última semana primeiro... e vamos terminar com um exercício de relaxamento. [INF]; T: O valor da sessão é $$. [INF]; T: Não tem nada sistematizado... fica à vontade. A gente vai indo. [INF])
+    6.  **Descrição de estratégias, de procedimentos ou do programa terapêutico:** descrições ou regras sobre funcionamento de técnicas, estratégias, jogos, exercícios, programas ou andamento da sessão. (Ex: T: Durante a exposição nós vamos trazer... e você deverá permanecer em contato com ele sem fazer o ritual. [INF]; T: O exercício de relaxamento que eu vou te ensinar agora serve para você controlar a sua ansiedade... [INF])
+    7.  **Justificativas de intervenções:** terapeuta explica ou justifica suas intervenções. (Ex: T: Eu não gosto desse tipo de procedimento, mas é o único que vai te ajudar nesse momento. [INF])
+*   **Caracterização geral da categoria:** Informação contempla verbalizações em que o terapeuta relata eventos ou informa o cliente sobre eventos (que não o comportamento do cliente ou de terceiros), estabelecendo ou não relações causais ou explicativas. Tipicamente associada a intervenções “psicoeducacionais” e ao “enquadre” ou contrato terapêutico.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Se uma pergunta é feita como parte de Informação, ou como pedido de confirmação de Informação, não é considerada Solicitação de relato, registra-se unicamente Informação. (Ex: T: Essa Universidade também é excelente... sabe? [INF])
+    b.  Verbalizações curtas ou paralinguísticas, emitidas após pedido de confirmação do cliente sobre seu entendimento, são Informação.
+    c.  Facilitação precede Informação. Na dúvida entre Informação e Facilitação, categorize Facilitação.
+
+### **TERAPEUTA SOLICITA REFLEXÃO (SRF)**
+*   **Sigla:** SRF
+*   **Nome resumido:** Solicitação de reflexão
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Solicitação de análise:** terapeuta solicita que o cliente pense ou reflita a respeito de eventos, estabeleça ou relate relações entre eventos (imediatamente ou após término da sessão). (Ex: T: Gostaria que você pensasse nessa semana sobre... os benefícios que você obtém quando se queixa... [SRF]; T: E você tem alguma hipótese de por que isso aconteceu? [SRF]; T: ...seus namorados agem... semelhante ao seu pai. Você acha que isso é apenas uma coincidência? [SRF])
+    2.  **Solicitação de avaliação:** terapeuta solicita que o cliente relate sua opinião, julgamento ou avaliação a respeito de eventos. (Ex: T: O que você achou da reação dele? [SRF]; T: Você acha correta a forma com que ele agiu? [SRF])
+    3.  **Solicitação de previsão:** terapeuta solicita que o cliente estabeleça suposições sobre ocorrência futura de comportamentos seus ou de outros. (Ex: T: ...você pode imaginar como será a próxima tentativa dele? [SRF]; T: E agora, o que você acha que vai acontecer? [SRF])
+    4.  **Solicitação de observação:** terapeuta solicita que o cliente observe e/ou registre a ocorrência de eventos (como parte de técnica ou coleta de dados). (Ex: T: Eu gostaria que você registrasse as situações que te provocam ansiedade... [SRF]; T: ...quero que você anote em um caderninho o que você comeu... [SRF]; T: ...quero que você anote pra mim as situações... nas quais você faz o ritual... [SRF])
+*   **Caracterização geral da categoria:** Solicitação de reflexão contempla verbalizações em que o terapeuta solicita ao cliente qualificações, explicações, interpretações, análises ou previsões sobre qualquer tipo de evento. Diferente de Solicitação de relato (onde pede apenas relato), aqui o terapeuta solicita que o cliente analise ou estabeleça relações. Em terapia analítico-comportamental, ocorre tipicamente quando terapeuta busca facilitar estabelecimento de relações funcionais e formação de autorregras.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Quando pergunta “por que” solicita apenas esclarecimento sobre evento, sem pedir interpretação sobre hipóteses ou relações causais, não categorize Solicitação de reflexão, e sim Solicitação de relato.
+    b.  Solicitação de Relato precede Solicitação de Reflexão. Na dúvida, prefira Solicitação de relato.
+    c.  Quando Solicitação de observação é acompanhada de informação sobre razões para a observação, registre ambas as categorias (SRF e INF) nos segmentos apropriados. (Ex: T: Eu vou sugerir uma coisa... quero que você faça um tipo de anotação... [SRF]. Porque se você me descrever na hora... vou ter ideia do que está acontecendo... a gente tem uma base boa... [INF])
+
+### **TERAPEUTA RECOMENDA OU SOLICITA A EXECUÇÃO DE AÇÕES, TAREFAS OU TÉCNICAS (REC)**
+*   **Sigla:** REC
+*   **Nome resumido:** Recomendação
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Conselhos:** terapeuta especifica ações ou sequências de ações a serem executadas ou evitadas pelo cliente (abertas ou encobertas). (Ex: T: Tente conversar com seu pai... e lhe falar sobre o que você sente... [REC]; T: Faça a prova amanhã... [REC]; T: Você deveria cuidar de sua vida... [REC]; T: Agora me diga o mesmo... só que sem mexer as pernas. [REC]; T: Você não deve se sentir culpado... Lembre-se que nem tudo está sob seu controle. [REC]; T: Quando você for enfrentar a situação, lembre-se de todas as vezes que você teve sucesso. [REC]; T: ...fica combinado para essa semana, de você procurar enfrentar algumas daquelas situações... fique atento ao que você sente e pensa... [REC])
+    2.  **Modelo:** terapeuta declaradamente oferece seu comportamento como exemplo. (Ex: T: Agora tente fazer um pedido para mim da mesma forma com que acabei de falar. [REC]; T: Tente repetir a sequência do jogo assim como eu fiz. [REC]; T: Eu vou falar como eu acredito que você deveria conversar com o seu chefe. [REC]; T: Observe agora como eu estou fazendo, para depois você fazer o mesmo. [REC])
+    3.  **Incentivo:** terapeuta sugere que o cliente pode ser ou é capaz de agir de determinada maneira ou mudar comportamento. (Ex: T: Tenho certeza que você é capaz de fazer isso. [REC]; T: Faça dessa forma e muito em breve você estará livre disso. [REC])
+    4.  **Estruturação de atividade:** terapeuta solicita que o cliente se engaje em atividades, técnicas ou exercícios (no consultório ou fora). (Ex: T: Vamos experimentar praticar isso em uma representação? Dessa vez, tente dizer diretamente o que você sente. [REC]; T: Agora vamos fazer um exercício de exposição: experimente pegar na maçaneta... [REC]; T: Esse assunto é bastante importante. Vamos voltar a falar sobre ele na próxima sessão. [REC])
+    5.  **Permissão, proibição ou solicitação de parada:** ordens, autorizações ou pedidos de parada/mudança de comportamento do cliente dentro da sessão. (Ex: C: Eu posso anotar tudo à noite...? T: Faça como você achar melhor... [REC]; T: Por favor, preste atenção enquanto eu estou falando. [REC]; T: Eu gostaria que você não colocasse os pés no sofá. [REC]; T: Sente-se em sua cadeira enquanto conversamos... [REC])
+*   **Caracterização geral da categoria:** Recomendação contempla verbalizações em que o terapeuta sugere alternativas de ação ao cliente ou solicita seu engajamento em ações ou tarefas. Especifica a resposta a ser (ou não) emitida. Também chamado de aconselhamento, orientação, comando, ordem.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Confirmações em resposta a perguntas do cliente sobre como proceder são Recomendação.
+    b.  Qualquer permissão ou proibição sobre ações dentro ou fora da sessão é Recomendação.
+    c.  Verbalizações durante atividade/técnica são categorizadas por sua forma/função; Recomendação é apenas a solicitação para se engajar na técnica/exercício.
+    d.  Solicitações que requerem ação dentro da sessão são Recomendação, exceto perguntas que pedem descrição/confirmação de eventos (são Solicitação de relato).
+    e.  Perguntas ou falas imperativas que solicitam descrição de eventos, mesmo mudando tema/direção, não são Recomendação, e sim Solicitação de relato.
+    f.  Solicitação de Relato precede Recomendação. Na dúvida, prefira Solicitação de relato.
+    g.  Autorrevelação que sugere solução para problema/queixa supõe modelo, sendo Recomendação. Autorrevelação para sugerir compreensão/entendimento é Empatia.
+    h.  Empatia precede Recomendação. Na dúvida, categorize Empatia.
+    i.  Recomendação acompanhada de justificativas/indicação de melhora: registre Recomendação e Informação/Interpretação nos segmentos apropriados.
+    j.  Verbalizações durante role-playing/viagem de fantasia: categorizar de acordo com categorias correspondentes; Informação para instruções, Recomendação para solicitação de engajamento.
+    k.  Informação precede Recomendação. Na dúvida, categorize Informação.
+    l.  Orientações para respostas encobertas (pensar/refletir): são Recomendação se especificam topografia da resposta visando modificar desempenho final. São Solicitação de reflexão se não especificam topografia, focando em análise do tema via observação/descrição. (Ex SRF: T: Quero que você reflita sobre o que estava ocorrendo... [SRF] (* Foco em obter informação sobre tema*); Ex REC: T: Quando você estiver em uma situação semelhante... pense nas possíveis razões... [REC] (* Foco em especificar resposta para modificar desempenho*)).
+    m.  Solicitação de reflexão precede Recomendação. Na dúvida, categorize Solicitação de reflexão.
+
+### **TERAPEUTA INTERPRETA (INT)**
+*   **Sigla:** INT
+*   **Nome resumido:** Interpretação
+*   **Categoria tipo:** estado
+*   *(*) Esta categoria apresenta modificações com relação à versão original. Subcategorias Discordância e Indicação de contradição foram acrescentadas, Confrontação foi eliminada.*
+*   **Estão inclusos nessa categoria:**
+    1.  **Descrições de relações explicativas entre ações (do cliente e/ou de terceiros) e outros eventos:** relações explicativas ou causais (tipo “se... então”), apenas quando dizem respeito ao comportamento do cliente ou de terceiros. (Ex: T: Porque quando você faz isso... Você começa a perder contato com aquilo que você sente... [INT]; T: Talvez o seu problema não seja de motivação... Muito do que a gente faz... depende da consequência... Quando a consequência não é muito legal, a gente tende não fazer mais. [INT]; T: Você se cobra em melhorar o desempenho sexual... mas... ela não é satisfatória para você. Portanto, não existe nada que te motive a continuar procurando. [INT])
+    2.  **Descrição de regularidades ou padrões recorrentes entre ações (do cliente e/ou de terceiros) e outros eventos ou ações:** terapeuta explica ocorrência do comportamento quanto a padrões recorrentes, relações temporais/contiguidade ou aponta temas recorrentes. (Ex: T: A impressão que eu tenho é que sempre que ele te faz um elogio, ele é seguido por uma crítica... [INT]; T: Você já notou que, sempre que há alguma situação muito difícil pela frente, você fica doente? [INT]; T: Essa é uma dúvida que te persegue, né? Se é por você ou pela gravidez que ele está mudando... [INT]; T: Você se dá conta de que suas obsessões sempre são relacionadas a situações nas quais você age por impulso... e depois se arrepende? ...Aí você fica ruminando... [INT])
+    3.  **Diagnóstico:** apresentação de diagnóstico ou rótulo relativo a padrão de interação ou conjunto de sintomas. (Ex: C: Você acha que eu estou deprimido? T: Você parece mais ansioso que deprimido. [INT]; T: Isso que você acabou de descrever é conhecido pela psiquiatria como Transtorno Obsessivo-Compulsivo. [INT])
+    4.  **Devolutiva de avaliação padronizada:** apresentação de conclusão relativa a teste, escala ou instrumento de avaliação psicológica. (Ex: T: O teste indica que você tem maior interesse por profissões relacionadas ao cuidado... [INT])
+    5.  **Estabelecimento de sínteses:** terapeuta apresenta sínteses, conclusões ou reorganização do que foi dito sobre comportamento do cliente/terceiros. A síntese deve apresentar Interpretação diferente daquela do relato original ou acrescentar informações/opiniões do terapeuta. (Ex: T: Então, você está dependente de álcool... já deve estar começando a beber de manhã, eu suponho. [INT])
+    6.  **Metáforas ou analogias explicativas:** descrições sobre padrões de interação por meio de situações semelhantes, análogas ou simbólicas. (Ex: T: Quando você falou que tinha dor de cabeça, eu me lembrei daquelas mulheres que... dizem “ah, eu não posso, estou com dor de cabeça”. [INT]; C: De fato, ele é muito baixinho... T: É... as uvas estão verdes... [INT])
+    7.  **Inferências:** suposições sobre ocorrência de relações ou eventos não relatados/descritos, apenas quando não diz respeito a sentimentos/emoções do cliente (isso seria Empatia). (Ex: T: Imagino que ele tenha sido extremamente gentil nas primeiras semanas e depois... [INT])
+    8.  **Normalizações:** terapeuta sugere que algo que cliente/terceiros sentem/fazem é normal ou esperado (com foco na explicação do comportamento). (Ex: T: Isso é normal... adolescentes tendem a agir dessa forma. Daqui a pouco ele vai voltar a se aproximar... [INT])
+    9.  **Descrição de processo:** terapeuta descreve ao cliente sua análise sobre processo ocorrendo ou transformações percebidas. (Ex: C: Por que às vezes as coisas empacam entendeu? T: É eu sei, e não é de hoje, né? Não é de hoje a coisa vem e vai piorando... acho até que hoje você convive melhor. [INT])
+    10. **Previsões:** suposições sobre ocorrência futura de comportamentos do cliente ou de terceiros. (Ex: T: Acredito que a próxima coisa que ele vai fazer é te convidar para sair... [INT])
+    11. **Discordâncias:** terapeuta aponta julgamento diverso daquele apresentado pelo cliente, a respeito de ações ou verbalizações do cliente. (Ex: T: Eu não vejo dessa forma. Entendo que há outras explicações para o que aconteceu. [REP - *Nota: No manual original INT, mas a descrição encaixa em REP*]; T: Acredito que assim você poderia criar uma situação muito difícil. Não sei se eu faria desse jeito. [REP - *Nota: Idem*])
+    12. **Indicação de contradição:** terapeuta aponta discrepâncias ou contradições no discurso do cliente. (Ex: T: Você estava dizendo há pouco que seu marido não lhe dá a menor atenção, mas agora você está me dizendo uma série de cuidados que ele tem com você. [INT])
+*   **Caracterização geral da categoria:** Interpretação contempla verbalizações em que o terapeuta descreve, supõe ou infere relações causais e/ou explicativas (funcionais, correlacionais, contiguidade) sobre o comportamento do cliente ou de terceiros, ou identifica padrões de interação. (*) Diferencia-se de Informação (que contém explicações sobre outros eventos). Envolve análise de contingências/análise funcional.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Categorização independe da precisão/correção da análise ou concordância do cliente.
+    b.  Pergunta como parte de Interpretação ou pedido de confirmação de Interpretação não é Solicitação de relato; registra-se apenas Interpretação.
+    c.  Repetições/confirmações de Interpretação recém-apresentada são categorizadas como Interpretação.
+    d.  Segmento é Interpretação apenas se acrescenta informação nova ou muda significado do relato original. Resumo/síntese que não muda sentido é Empatia.
+    e.  Inferência sobre sentimentos/emoções do cliente é Empatia.
+    f.  Normalização com ênfase na validação de sentimento é Empatia; para explicar comportamento é Interpretação; sobre outros eventos é Informação.
+    g.  Preocupação pessoal acompanhada de explicação é Interpretação (sem explicação, geralmente Empatia). (Ex: T: O que me preocupa é a função que o álcool está exercendo... você o está usando para alívio da ansiedade... E essa função... é perigosa porque favorece a dependência. [INT])
+    h.  Empatia precede Interpretação. Na dúvida, categorize Empatia.
+    i.  Descrições de relações explicativas/causais (“se... então”) sobre eventos que *não* o comportamento do cliente/terceiros são Informação.
+    j.  Retomar assuntos/diálogos anteriores estabelecendo relação explicativa sobre comportamento é Interpretação (não Informação).
+    k.  Na dúvida entre Informação e Interpretação, categorize Informação.
+    l.  Verbalização “se... então” que sugere melhora caso cliente realize ações/tarefas: categorize ambas, Interpretação e Recomendação, nos segmentos apropriados.
+    m.  Recomendação acompanhada de justificativas: registre ambas, Recomendação e Informação ou Recomendação e Interpretação, nos segmentos apropriados.
+    n.  Na dúvida entre Recomendação e Interpretação, categorize Interpretação. Interpretação precede Recomendação.
+    o.  Discordância ou indicação de contradição emitida de forma crítica ou sarcástica é Reprovação.
+    p.  Na dúvida entre Reprovação e Interpretação, categorize Reprovação. Reprovação precede Interpretação.
+
+### **TERAPEUTA APROVA OU CONCORDA COM AÇÕES OU AVALIAÇÕES DO CLIENTE (APR)**
+*   **Sigla:** APR
+*   **Nome resumido:** Aprovação
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Elogios ou avaliações positivas sobre o cliente:** terapeuta expressa julgamento favorável a ações, características ou aparência do cliente. (Ex: T: Você tomou a decisão certa. Está lidando com isso muito bem! [APR]; T: Você está de parabéns! Sua condução foi perfeita! [APR]; T: Que lindo esse teu colarzinho! [APR])
+    2.  **Descrição de ganhos terapêuticos:** terapeuta descreve progressos ou sucessos do cliente. (Ex: T: Puxa, C., eu estava me lembrando da época... Como as coisas estão mudadas!... agora você está se virando sozinha... acho muito legal isso! [APR])
+    3.  **Verbalizações de concordância:** terapeuta confirma ou relata estar de acordo com afirmações do cliente. (Ex: T: Com certeza! Você tem toda a razão. [APR])
+    4.  **Pseudodiscordância:** terapeuta discorda, mas ressalta características/ações positivas do cliente. (Ex: C: Eu só melhorei por causa da medicação. T: De fato, a medicação pode te ajudar, mas se você não tivesse agido, tudo estaria igual. [APR])
+    5.  **Relato de sentimentos positivos:** terapeuta relata gostar do cliente, sentir-se bem, estar satisfeito com ação do cliente ou andamento da sessão. (Ex: T: Gostei muito da nossa sessão de hoje... [APR]; T: Você conversa super bem! É muito agradável conversar com você. [APR])
+    6.  **Exclamações e expressões de aprovação:** verbalizações exclamativas/interrogativas após descrição de ações do cliente, sugerindo aprovação. (Ex: C: Consegui recuperar a minha nota... T: Que máximo!!! [APR]; C: Consegui caminhar todos os dias... T: É mesmo? [APR]; C: ...o cachorro... ele não entra... T: Nossa, e você ensinou ele... [APR])
+    7.  **Agradecimentos:** terapeuta agradece cliente por ação ou após elogio. (Ex: C: ...você... tá sabendo me conduzir assim... T: Que bom, obrigada, fico muito contente. [APR])
+*   **Caracterização geral da categoria:** Aprovação contempla verbalizações que sugerem avaliação ou julgamento favoráveis a respeito de ações, pensamentos, características ou avaliações do cliente. Dirigem-se a aspectos específicos e pressupõem terapeuta como alguém que pode selecionar/fortalecer comportamentos. Difere de Empatia (caráter inespecífico, sem avaliação).
+*   **Critérios de inclusão ou exclusão:**
+    a.  Quando aprovação é acompanhada de descrição do comportamento aprovado, registre unicamente Aprovação. (Ex: C: ...fiquei com medo de tomar, não comprei... T: Porque você está ótima... você está conseguindo fazer muito mais coisas... [APR])
+    b.  Pergunta como parte de Aprovação ou pedido de confirmação de Aprovação não é Solicitação de relato; registra-se unicamente Aprovação.
+    c.  Verbalizações curtas/paralinguísticas de concordância após solicitação do cliente ou fim de fala: são Aprovação (após relato de ações do cliente) ou Empatia (após descrição de outros eventos). Facilitação só ocorre *durante* a fala do cliente.
+    d.  Facilitação precede Aprovação. Na dúvida, categorize Facilitação.
+    e.  Comentários exclamativos após descrição de outros eventos (não ações do cliente) são Empatia. Quando após ações do cliente, são Aprovação.
+    f.  Autorrevelação que sugere solução/modelo é Recomendação. Autorrevelação para sugerir compreensão/entendimento é Empatia. Autorrevelação para sugerir concordância é Aprovação.
+    g.  Empatia precede Aprovação. Na dúvida, categorize Empatia.
+    h.  Orientações encobertas (pensar/refletir): são Aprovação se recomendam explicitamente observar/tomar consciência de ganho/conquista/progresso. São Solicitação de reflexão se foco é análise/descrição sem especificar resposta. São Recomendação se especificam topografia para alterar desempenho futuro. (Ex SRF: T: Quero que você reflita sobre... sucesso no enfrentamento. [SRF]; Ex REC: T: ...antes de reagir atacando, pense nas possíveis razões... [REC]; Ex APR: T: Presta atenção em como as coisas têm sido diferentes... olha quantas vezes você tem conseguido... [APR])
+    i.  Solicitação de reflexão precede Aprovação. Na dúvida, categorize Solicitação de Reflexão.
+    j.  Aprovação precede Recomendação. Na dúvida, categorize Aprovação.
+    k.  Aprovação acompanhada de justificativas: registre Aprovação E Interpretação nos segmentos apropriados. (Ex: T: Ótimo... [APR] Você notou que... essa é a primeira em que você fica do lado dela? Você deu um apoio... O contrário do que sempre fez. [INT])
+    l.  Descrição de ganho/progresso analisada em relação a outro evento (causas, consequências): categorize apenas Interpretação. Se terapeuta parabeniza/elogia antes/depois da análise, categorize Aprovação e Interpretação separadamente.
+    m.  Interpretação precede Aprovação. Na dúvida, categorize a segunda (Interpretação).
+
+### **TERAPEUTA REPROVA OU CRITICA AÇÕES OU VERBALIZAÇÕES DO CLIENTE (REP)**
+*   **Sigla:** REP
+*   **Nome resumido:** Reprovação
+*   **Categoria tipo:** estado
+*   *(*) Esta categoria apresenta modificações. Subcategoria confronto acrescentada, discordância eliminada.*
+*   **Estão inclusos nessa categoria:**
+    1.  **Confronto:** terapeuta apresenta, de forma crítica ou sarcástica, julgamento desfavorável a respeito de ações, avaliações, afirmações ou características do cliente. (Ex: T: As coisas são muito mais simples do que você pinta. [REP])
+    2.  **Crítica:** terapeuta descreve falhas do cliente ou critica suas ações, características ou aparência. (Ex: T: Eu penso que você faz bem algumas coisas... [APR], entretanto às vezes você entra em uma escalada de castigo... [REP])
+    3.  **Ironia:** comentários de qualquer natureza feitos em tom sarcástico ou hostil com relação ao cliente. Sugerem incredulidade sobre relatos. (*) Categorize também Qualificador Tom Emocional (-2). (Ex: T: Você de fato pensa que sua mãe deveria deixá-lo vir para casa quando você quer? [REP]; T: Eu vou pegar uma xícara de café. Eu estou perdido. [REP]; T: Você tá fumando com essa tosse? (sorrindo). [REP])
+    4.  **Ameaça:** terapeuta prevê consequências negativas ou aversivas para uma ação (ou não ação) do cliente. (Ex: T: Você pode escolher fazer isto desse modo ou ser miserável o resto de sua vida. [REP]; T: Eu acho que a gente faz escolhas... você pode continuar fugindo... [REP])
+    5.  **Paráfrase crítica:** terapeuta apresenta de forma resumida o que foi dito, explicitando uma crítica ou apontando falta/erro. (Ex: T: Eles pegaram a recompensa mesmo quando eles não a tinham merecido? [REP]; T: Você quer dizer que você o deixa dormir em sua cama e ele a molha toda noite? (risada) [REP]; T: Você o deixou escolher seu próprio castigo? [REP])
+    6.  **Autorrevelações desafiadoras:** terapeuta relata sua experiência sobre evento que cliente se queixa, sugerindo que sua atuação foi melhor ou que cliente deveria conseguir também. (Ex: T: Quando eu resolvi sair da casa de meus pais eu tinha plena consciência... e não ficar esperando que meus pais me ajudassem. [REP])
+    7.  **Relato de sentimentos negativos:** terapeuta relata não gostar do cliente, de algo que ele faça ou estar insatisfeito com aspecto de seu comportamento. (Ex: T: Eu vou continuar a atendê-lo... mas eu não gostei de você. [REP]; T: Eu fico muito irritado quando você fala comigo dessa forma... a vontade que eu tenho é de te tratar da mesma forma. [REP])
+    8.  **Advertência:** terapeuta diz ao cliente que ele está impedindo o progresso terapêutico ou o andamento da sessão. (Ex: T: Eu quero ajudá-la, mas é impossível fazermos alguma coisa com tantos atrasos... [REP])
+*   **Caracterização geral da categoria:** Reprovação contempla verbalizações que sugerem avaliação ou julgamento desfavoráveis. Dirigem-se a ações/características específicas. Frequentemente associada a interações aversivas que podem ameaçar a relação terapêutica.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Pergunta como parte de Reprovação ou pedido de confirmação de reprovação não é Solicitação de relato; registra-se unicamente Reprovação.
+    b.  Pergunta em tom irônico/desafiador (sugerindo crítica/descrença/discordância) é Reprovação, não Solicitação de relato. (*) Registre também Tom Emocional (-2).
+    c.  Solicitação de relato precede Reprovação. Na dúvida, prefira Solicitação de relato.
+    d.  Verbalização “certo” dita sarcasticamente sugerindo discordância é Reprovação. (*) Registre Tom Emocional (-2).
+    e.  Facilitação precede Reprovação. Na dúvida, categorize Facilitação.
+    f.  Verbalizações “é mesmo?” ou “não acredito” que sugerem descrença/crítica são Reprovação (não Empatia).
+    g.  Terapeuta rir de ações do cliente sem sugerir ironia, mas interesse, é Empatia.
+    h.  Verbalizações exclamativas após ação do cliente, em tom sarcástico/hostil, são Reprovação (não Empatia/Aprovação). (*) Registre Tom Emocional (-2).
+    i.  Síntese ou paráfrase que consiste em crítica ou explícita falta/erro é Reprovação.
+    j.  Verbalização de preocupação pessoal acompanhada de crítica é Reprovação. (Ex: T: Fiquei preocupado... [EMP] como é que ficaram as coisas...? [SRE]; T: Não é possível que você continue bebendo essa quantidade. Fico preocupado com as consequências disso. [REP])
+    k.  Autorrevelação que sugere atuação melhor que a do cliente ou que ele deveria conseguir é Reprovação. Se sugere solução/modelo é Recomendação. Se sugere compreensão/entendimento é Empatia. Se sugere concordância é Aprovação.
+    l.  Na dúvida entre Reprovação e Empatia, categorize Outras vocal terapeuta (TOU). *(Nota: Manual original diz TOU, mas pode fazer mais sentido priorizar REP se há dúvida com EMP)*
+    m.  Reprovação acompanhada de descrição do evento alvo: registre unicamente Reprovação.
+    n.  Correção de engano do cliente, não feita em tom hostil, é Informação.
+    o.  Informação precede Reprovação. Na dúvida, categorize Informação.
+    p.  Sugestões apresentadas de modo sarcástico são Reprovação. (*) Registre Tom Emocional (-2).
+    q.  Recomendação precede Reprovação. Na dúvida, categorize Recomendação.
+    r.  Reprovação acompanhada de justificativas: registre ambas, Reprovação e Interpretação, nos segmentos apropriados.
+    s.  Verbalização “se... então” emitida em tom de ameaça (consequências negativas/aversivas) é Reprovação. (*) Registre Tom Emocional (-2).
+    t.  Descrição de retrocesso/recaída/insucesso é Reprovação apenas se apresentada em tom de crítica/ameaça/ironia. Caso contrário, é Interpretação ou Empatia. (*) Registre Tom Emocional se aplicável.
+    u.  Previsão de consequências negativas ou julgamento/avaliação contrários à ação do cliente, apresentados em tom gentil/neutro, é Interpretação.
+    v.  Em caso de síntese que muda sentido da descrição e explicita crítica/falta/erro, é Reprovação.
+    w.  Reprovação precede Interpretação. Na dúvida, categorize Reprovação.
+    x.  Terapeuta discorda mas ressalta características positivas (pseudodiscordância) é Aprovação.
+    y.  Simples “não” proferido enquanto cliente fala, se implica discordância, pode ser Reprovação (diferente de Aprovação, que ocorre fora do turno do cliente).
+    z.  Na dúvida entre Aprovação e Reprovação, categorize Outras vocal terapeuta (TOU).
+    aa. Opiniões/avaliações/julgamentos do terapeuta sobre ação/verbalização do cliente/sessão: selecionar Interpretação, Aprovação, Reprovação ou Empatia conforme teor/alvo. Se sobre outros eventos, é Outras vocal terapeuta (TOU).
+
+### **OUTRAS VERBALIZAÇÕES DO TERAPEUTA (TOU)**
+*   **Sigla:** TOU
+*   **Nome resumido:** Outras vocal terapeuta
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Verbalizações não classificáveis:** comentários ocasionais alheios ao tema, cumprimentos (chegada/partida), anúncios de interrupções não relacionadas. (Ex: T: Aceita uma balinha? [TOU]; T: Só um minutinho, que eu vou pedir uma água... [TOU]; T: Desculpe, eu me esqueci de desligar o celular. [TOU])
+    2.  **Acertos ocasionais:** acertos de horário/local da sessão. (Ex: T: Então, a gente, na semana que vem, faz a sessão na terça-feira... [TOU])
+    3.  **Recuperação de assunto:** descrição de diálogos/assuntos anteriores *apenas* se solicitada pelo cliente (por ter perdido o rumo) ou após interrupção. (Ex: C: Onde é que eu estava mesmo? T: Você estava falando sobre sua viagem de férias. [TOU]; T (após interrupção): Então, você estava me falando sobre o seu receio... [TOU])
+    4.  **Opiniões pessoais sobre eventos externos:** opiniões, avaliações, julgamentos sobre eventos que *não* dizem respeito a ação do cliente, ao cliente propriamente ou à sessão. (Ex: C: Eu fiquei realmente chocado com aquela cena. T: Eu acho que a televisão não deveria mostrar esse tipo de coisa... [TOU]; *Não Exemplo:* T: Eu penso que você poderia, sim, ter comprado o livro... [REC] (*refere-se a comportamento do cliente*))
+*   **Critérios de inclusão ou exclusão:**
+    a.  Em terapia individual com terceira pessoa (pais, cônjuge): falas do terapeuta dirigidas exclusivamente a essa terceira pessoa, ou sem saber a quem se dirige, são TOU. Falas claramente dirigidas a ambos (cliente e terceiro) são categorizadas na categoria correspondente.
+    b.  Afirmações/comentários são Solicitação de relato apenas se não classificáveis em outra categoria, exceto TOU. Solicitação de relato precede TOU.
+    c.  Opiniões/avaliações/julgamentos sobre ação/verbalização/avaliação do cliente ou sessão: selecionar Aprovação, Reprovação ou Empatia. Se sobre outros eventos, é TOU.
+    d.  Autorrevelação sobre evento discutido: se sugere solução/modelo é Recomendação; se sugere compreensão/entendimento é Empatia; se sugere concordância é Aprovação; se sugere atuação melhor/desafio é Reprovação; se não se encaixa (ex: apenas relato de experiência própria sem função clara para cliente) é TOU.
+    e.  Na dúvida entre Reprovação e Empatia, categorize TOU. *(Revisar: critério l de REP diz o mesmo, pode ser redundante ou um dos dois está incorreto na fonte)*
+    f.  Na dúvida entre Aprovação e Reprovação, categorize TOU.
+
+### **TERAPEUTA PERMANECE EM SILÊNCIO (TSL)**
+*   **Sigla:** TSL
+*   **Nome resumido:** T Silêncio
+*   **Categoria tipo:** estado
+*   **Caracterização geral da categoria:** Tal categoria deve ser selecionada quando uma resposta verbal do tipo *estado* do terapeuta é encerrada sem que uma nova resposta verbal do tipo *estado* do mesmo falante seja iniciada. Quando não há outra resposta verbal do terapeuta do tipo *estado*, a categoria T silêncio deve ser mantida ativada, mesmo se outra categoria verbal do tipo *evento* do terapeuta ocorrer.
+
+---
+
+## Eixo I – 2: CATEGORIZAÇÃO DO COMPORTAMENTO VERBAL NÃO VOCAL DO TERAPEUTA
+
+As categorias a seguir referem-se à comunicação não vocal (gestos comunicativos). Entende-se por comunicação não vocal as respostas motoras, gestos ou expressões faciais que são substitutas comuns de verbalizações, isto é, ações cujos significados são compartilhados entre emissor e receptor. Gestos comunicativos e expressões faciais são considerados como comunicação não vocal apenas quando ocorrem na ausência de qualquer verbalização, nitidamente como signos da interação terapeuta-cliente. São categorizados por meio das categorias a seguir, com função análoga à de seus correspondentes verbais.
+
+### **RESPOSTAS NÃO VOCAIS DE FACILITAÇÃO/CONCORDÂNCIA (GCT)**
+*   **Sigla:** GCT
+*   **Nome resumido:** Concordância terapeuta
+*   **Categoria tipo:** evento
+*   **Estão inclusos nessa categoria:**
+    1.  **Meneios com a cabeça:** fazer que “sim” com a cabeça, sugerindo concordância, interesse ou solicitando continuidade da fala.
+    2.  **Gestos de aprovação:** ex: levantar polegar (“joia”, “ok”).
+    3.  **Gestos ou expressões faciais de aprovação concordantes:** gestos/expressões que concordam com relato ou sugerem cuidado/acolhimento.
+    4.  **Gestos ou expressões faciais de negação ou preocupação:** gestos/expressões de negação/preocupação, mas que sugerem concordância com verbalização ou cuidado/acolhimento.
+*   **Caracterização geral da categoria:** Concordância Terapeuta contempla respostas motoras, gestos ou expressões faciais do terapeuta (na ausência de verbalização) cujo significado compartilhado é concordância, aprovação, compreensão com relação à fala do interlocutor, ocorrendo nitidamente como signos da interação.
+*   **Critérios de inclusão ou exclusão:** Quando ocorrem gestos/expressões faciais de negação/preocupação e há dúvida se significado é cuidado/acolhimento ou discordância, categorize Gesto outros (GOT).
+
+### **RESPOSTAS NÃO VOCAIS DE DISCORDÂNCIA (GDT)**
+*   **Sigla:** GDT
+*   **Nome resumido:** Discordância terapeuta
+*   **Categoria tipo:** evento
+*   **Estão inclusos nessa categoria:**
+    1.  **Balançar a cabeça lateralmente:** fazer “não” com a cabeça, sugerindo discordância, descrença, reprovação.
+    2.  **Gestos com as mãos:** gestos que indicam reprovação, discordância ou descrença.
+    3.  **Gestos ou expressões faciais de reprovação, negação ou preocupação:** gestos/expressões que sugerem discordância, descrença, reprovação.
+*   **Caracterização geral da categoria:** Discordância terapeuta contempla respostas motoras, gestos ou expressões faciais do terapeuta (na ausência de verbalização) com significado cultural de oposição, discordância, descrença ou reprovação. Deve ser direcionada a verbalização/ação do cliente e ocorrer como signo da interação.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Quando ocorrem gestos/expressões faciais de negação/preocupação e há dúvida se significado é reprovação/negação/discordância ou cuidado/acolhimento, categorize Gesto outros (GOT).
+    b.  Comando (GMT) precede Discordância (GDT). Na dúvida, categorize Comando.
+
+### **RESPOSTAS NÃO VOCAIS DE PEDIDO/ORDEM/COMANDO/INCENTIVO (GMT)**
+*   **Sigla:** GMT
+*   **Nome resumido:** Comando terapeuta
+*   **Categoria tipo:** evento
+*   **Estão inclusos nessa categoria:**
+    1.  **Qualquer gesto com as mãos ou a cabeça:** gestos apontando/indicando objeto/evento, sugerindo que cliente olhe, pegue ou se dirija ao ponto.
+    2.  **Gestos com as mãos espalmadas:** palma dirigida ao interlocutor, sugerindo ordem de parada/interrupção.
+    3.  **Gestos ou expressões de pedido, ordem, comando ou incentivo:** gestos/expressões faciais que sugerem pedido/ordem/comando/incentivo sobre ação/verbalização do cliente.
+*   **Caracterização geral da categoria:** Comando terapeuta compreende respostas motoras, gestos ou expressões faciais (na ausência de verbalização) com significado cultural de pedido, ordem, incentivo, ou que sugerem contenção, ordenação ou organização do ambiente da sessão. Devem ocorrer como signos da interação.
+*   **Critérios de inclusão ou exclusão:** Comando (GMT) precede Discordância (GDT). Na dúvida, categorize Comando.
+
+### **OUTRAS RESPOSTAS NÃO VOCAIS (GOT)**
+*   **Sigla:** GOT
+*   **Nome resumido:** Gesto outros Terapeuta
+*   **Categoria tipo:** evento
+*   **Estão inclusos nessa categoria:** Respostas motoras, gestos ou expressões faciais do terapeuta (na ausência de verbalização) cujo significado não é contemplado nas categorias anteriores. Devem ocorrer como signos da interação.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Gesto outros só deve ser categorizado quando ocorrem gestos claramente comunicativos e relevantes. Mudanças sutis na expressão facial não devem ser consideradas.
+    b.  Quando ocorrem gestos/expressões faciais de negação/preocupação e há dúvida se significado é reprovação/negação/discordância ou cuidado/acolhimento, categorize Gesto outros.
+
+### **REGISTRO INSUFICIENTE (TIN)**
+*   **Sigla:** TIN
+*   **Nome resumido:** Insuficiente terapeuta
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:** Qualquer ação do terapeuta cuja identificação está impossibilitada devido a qualquer problema no áudio/vídeo do filme.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Verbalizações são categorizadas como Insuficiente terapeuta apenas quando não podem ser identificadas mesmo depois de observadas por três vezes.
+    b.  Falas interrompidas do terapeuta, cujo conteúdo identificável não é suficiente para categorização anterior, são classificadas como Insuficiente terapeuta.
+
+---
+
+## Eixo I – 3: CATEGORIZAÇÃO DO COMPORTAMENTO VERBAL VOCAL DO CLIENTE
+
+As categorias a seguir referem-se a verbalizações do cliente dirigidas ao terapeuta.
+
+**Tipo de evento aos quais as ações do cliente podem se referir**
+Os eventos podem incluir ações do cliente e/ou de terceiros, sentimentos, emoções, pensamentos, ações públicas, interações com terceiros e fatos diversos, comportamento do cliente, do terapeuta ou de terceiros.
+
+**Origem do evento na sessão**
+Os eventos a que as ações do cliente se referem podem ter sido relatados ou observados pelo terapeuta ou pelo cliente.
+
+**Tempo em que o evento em questão foi observado/relatado pelo cliente**
+A ação ou verbalização do cliente pode se referir a (a) eventos ocorridos/relatados imediatamente antes na sessão; (b) eventos ocorridos/relatados em outros momentos da mesma sessão; (c) eventos ocorridos/relatados em sessões anteriores; (d) eventos ocorridos no passado ou (e) especulações sobre eventos futuros.
+
+### **CLIENTE SOLICITA INFORMAÇÕES, OPINIÕES, ASSEGURAMENTO, RECOMENDAÇÕES OU PROCEDIMENTOS (SOL)**
+*   **Sigla:** SOL
+*   **Nome resumido:** Solicitação
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Solicitação de informações ou esclarecimentos:** cliente solicita ao terapeuta informações, confirmações ou esclarecimentos sobre eventos, racional da terapia ou andamento da sessão. (Ex: C: Quanto tempo você acha que a terapia vai durar? [SOL]; C: Só que eu não entendi muito bem, como é que é? [SOL]; C: ...Mas porque que a gente falou dessa história toda? [SOL])
+    2.  **Solicitação de avaliação:** cliente solicita que terapeuta avalie seu comportamento/terceiros, emita diagnóstico, analise seu problema/terceiros. (Ex: C: Aí tinha uns versinhos que eu escrevi... pra você pra ver se eu não estou exagerando... [SOL]; C: Você acha que isso é possível para mim? [SOL])
+    3.  **Solicitação de recomendações:** cliente solicita que terapeuta sugira alternativas de resposta ou cursos de ação. (Ex: C: O que eu poderia fazer se ela começar com isso novamente? [SOL])
+    4.  **Solicitação de procedimentos:** cliente solicita que terapeuta utilize procedimentos/técnicas, maneje questão/tema ou sugere o que terapeuta deve fazer no tratamento. (Ex: C: O Z. falou que tem que ser trabalhado isso, viu?... [SOL]; C: Eu quero que você me ensine a aplicar a exposição para pânico. [SOL]; C: Eu vim aqui porque meu psiquiatra me disse que eu preciso de uma terapia de exposição para o TOC. [SOL])
+    5.  **Solicitação de asseguramento:** cliente solicita asseguramento sobre ocorrência (ou não) de eventos, fatos ou correção de sua avaliação/opinião. (Ex: C: ...isso é por causa de algum trauma de infância. [REL] Você não acha que pode ser isso? [SOL]; C: Eu não estou ficando louco, estou? [SOL])
+    6.  **Apresentação da demanda:** cliente descreve comportamentos, estados ou situações que gostaria de atingir com ajuda do terapeuta. (Ex: C: Eu quero aprender como eu posso melhorar a minha relação com meu filho. [SOL])
+*   **Caracterização geral da categoria:** Solicitação é caracterizada por verbalizações em que o cliente apresenta pedidos ou questões ao terapeuta.
+*   **Critérios de inclusão ou exclusão:** Perguntas do cliente sobre a experiência ou vida pessoal do terapeuta são categorizadas como Solicitação.
+
+### **CLIENTE RELATA EVENTOS (REL)**
+*   **Sigla:** REL
+*   **Nome resumido:** RELATO
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Relato de informações sobre eventos:** cliente descreve fatos ocorridos, informações específicas, detalhes ou esclarecimentos. (Ex: C: Ele falou “é, mas pra sair com a F. você sai, né?”... [REL]; C: Na verdade assim: Eu fazia um... acompanhamento de hepatite... [REL]; C: Ficou 8 x 3,5... daí eu suava frio... fui ao cardiologista... [REL])
+    2.  **Relato de eventos anteriormente registrados:** cliente relata registros sobre ocorrência de eventos (como parte de técnica ou coleta de dados). (Ex: C: Eu marquei aquelas coisas que você me pediu... na segunda-feira, eu tive uma crise pequena... [REL])
+    3.  **Relato de sentimentos e emoções:** cliente relata ter vivenciado, estar vivenciando ou prevê vivenciar resposta emocional. (Ex: C: ...a cabeça vai a milhão... Fico mal pra cacete... [REL]; C: ...eu não sei exatamente o porque eu estou aqui... ando sem muito ânimo... [REL]; C: É sempre que eu me dou conta da quantidade de coisas... dói muito saber que eu perdi tanta coisa... [REL]; C: Nossa... eu já tô imaginando a minha alegria na hora em que ele chegar! [REL]; C: Estou triste, T. To mal... [REL]; C: ...eu já vi que eu não gosto de fazer o que eu faço... Não gosto de estudar... [REL]; C: Aí a gente acabou discutindo feio... Me dá uma tristeza... [REL])
+    4.  **Relato de estados motivacionais ou tendências a ação:** verbalizações que sugerem “força” ou probabilidade de ocorrência de resposta relacionada a emoção. (Ex: C: Naquela hora eu só queria gritar e sair correndo dali... [REL]; C: Eu tenho uma vontade de pegar ele no colo e encher de palmadas... [REL]; C: É inútil. Eu me pergunto por que eu vim aqui hoje... [REL]; C: ...Eu até tive vontade de matá-lo... [REL]; C: ...Às vezes tenho vontade de sumir... [REL])
+    5.  **Julgamento ou avaliação:** cliente relata sua opinião, julgamento ou avaliação a respeito de eventos. (Ex: C: É... foi até engraçado... Achei aquilo o absurdo do absurdo. [REL]; C: O M. é mesmo uma pessoa risível... É incrível como ele consegue enganar todo mundo... [REL])
+*   **Caracterização geral da categoria:** Relato contempla verbalizações em que o cliente descreve ou informa o terapeuta sobre ocorrência de eventos, aspectos relativos a eventos, respostas emocionais, estados motivacionais/tendências a ações, sem estabelecer relações causais/funcionais.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Relato inclui respostas para perguntas do terapeuta ou informações factuais sobre eventos passados/presentes.
+    b.  Relato pode ser categorizado tanto em resposta a solicitações do terapeuta quanto em conversa/“bate-papo”.
+    c.  Para análise de emoções, considerar subcategorias de Relato de estados motivacionais/tendências a ação e classes do qualificador Tom emocional.
+
+### **CLIENTE RELATA MELHORA OU PROGRESSO TERAPÊUTICO (MEL)**
+*   **Sigla:** MEL
+*   **Nome resumido:** Melhora
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Relatos de ganhos terapêuticos:** cliente relata ganhos em metas importantes/positivas, ou diminuição de problemas (queixas médicas/terapêuticas). (Ex: C: Eu fiquei muito orgulhoso quando eu vi que eu dei conta de fazer aquilo. [MEL]; C: Estou me sentindo muito bem. Depois da internação... todos os meus problemas acabaram... [MEL])
+    2.  **Relatos de mudanças positivas no comportamento de terceiros:** cliente relata melhoras no comportamento de terceiros relacionados à queixa. (Ex: C: As coisas estão bem mais tranquilas... O P. está mais atencioso... [MEL])
+    3.  **Relatos de autocontrole:** relato de medidas de autocontrole ou medidas tomadas por conta própria para mudar comportamentos/situações. (Ex: C: então eu comecei a caminhar toda noite... [MEL]; C: Você vê que eu estou bem mais controlada. [MEL]; C: Ao contrário do que eu vinha fazendo, ontem eu imaginei cenas calmas... [MEL]; C: ...Eu tô me impondo mais pra sair, pra conhecer gente... [MEL])
+    4.  **Relatos de autoconsciência:** cliente relata ter descoberto, tomado consciência, passado a aceitar/compreender eventos antes não percebidos (insight), sugerindo ganho terapêutico. (Ex: C: Depois da sessão passada eu fiquei pensando... e vi que, de fato, o casamento acabou há muito tempo... acho que eu estou com medo de assumir isso... [MEL])
+*   **Caracterização geral da categoria:** Melhora é caracterizada por verbalizações em que o cliente relata mudanças satisfatórias (queixa clínica, problemas médicos, comportamentos indesejáveis/inadequados), independentemente da concordância sobre a melhora.
+*   **Critérios de inclusão ou exclusão:** Quando cliente descreve fatos ocorridos que exemplificam a situação descrita como Melhora, categorize Melhora.
+
+### **CLIENTE FORMULA METAS (MET)**
+*   **Sigla:** MET
+*   **Nome resumido:** Metas
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Planejamento de estratégia:** cliente contribui com planos para mudar sua estratégia de ação por conta própria. (Ex: C: Eu acho que um primeiro passo deve ser eu ir com uma amiga a um restaurante. [MET])
+    2.  **Proposta de ações futuras:** cliente propõe ações futuras (solicitadas ou não) para solução de problemas específicos. (Ex: T: E o que você pretende fazer...? [SRE] C: Vou ligar para ela e conversar sobre o que aconteceu. [MET]; C: Tomei uma decisão... eu vou pedir a dissolução da sociedade com meus irmãos [MET])
+*   **Caracterização geral da categoria:** Metas contempla verbalizações do cliente descrevendo seus projetos, planos ou estratégias para solução de problemas trazidos como queixas.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Verbalizações “eu acho que...”, “penso que o melhor a fazer é...”, quando referem-se a projetos/ações futuras do cliente, são Metas (não Relato).
+    b.  Relatos de desejos/vontades são descrição de estados motivacionais/tendências (Relato) apenas se referem a tendências imediatas. Se referem a projetos futuros ou propostas de ações fora da terapia, são Metas. (Ex: C: Tenho uma vontade de falar umas poucas e boas...[REL]. C: Um dia ainda vou conseguir fazer isso [MET].)
+    c.  Na dúvida entre Relato e Metas, categorize Relato.
+    d.  Metas diferencia-se de Melhora: Melhora é relato de eventos/medidas já ocorridos; Metas inclui descrição de planos/ações a serem executados.
+
+### **CLIENTE ESTABELECE RELAÇÕES ENTRE EVENTOS (CER)**
+*   **Sigla:** CER
+*   **Nome resumido:** Relações
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Estabelecimento de relações explicativas:** cliente fornece razões para seu comportamento/terceiros ou estabelece relações explicativas/causais (“se... então”). (Ex: C: Eu acho que eu trabalho tanto porque assim eu evito discussões em casa. [CER]; C: É um bloqueio, estou lutando contra isso. [CER])
+    2.  **Identificação de regularidades, relações de contiguidade ou de correlação entre eventos:** cliente descreve observação sobre padrões recorrentes (seus/terceiros) ou identifica eventos correlacionados/temporalmente próximos sem explicitar causa. (Ex: C: É engraçado... todas as vezes que eu quero as coisas de verdade, elas acabam não dando certo. [CER]; C: É sempre assim... todas as vezes que ele chega em casa tarde, ele arruma algum motivo pra brigar... [CER])
+    3.  **Atribuição de diagnóstico:** cliente atribui diagnóstico/rótulo a padrão de interação/sintomas (seus/terceiros/terapeuta). (Ex: C: Eu acho que estou deprimindo... [CER]; C: Essa história de ficar desviando a atenção... me parece muito com o Déficit de Atenção... [CER]; C: Hoje eu acho até que ela tá com Síndrome do Pânico... [CER])
+    4.  **Estabelecimento de síntese:** sínteses/conclusões formuladas sobre seu comportamento/outros eventos (independentemente da concordância do terapeuta), desde que sugira razão/explicação. (Ex: C: Aí eu fico pensando... Quem mais me deixa tão irritada...? Só pode ser a minha mãe... eu estou agindo com ele da mesma forma... [CER])
+    5.  **Inferências:** suposições sobre ocorrência de sentimentos de terceiros não relatados/descritos. (Ex: C: Eu fiquei com dó... fiquei preocupada com ele... um sentimento que eu acho que ele não tem por mim... [CER]; C: Ele tá fazendo aquilo obrigado, pra não me chatear... [CER])
+    6.  **Previsão sobre eventos futuros:** cliente supõe ocorrência futura de eventos ou comportamentos (seus/terceiros). (Ex: C: Meu único receio é quer isso mascare uma situação... Que a gente possa sentir depois de um ano ou dois... [CER])
+    7.  **Reflexões que conduzem a razões, a explicações ou a análises de consequências:** cliente discorre sobre pensamentos/reflexões sobre tema, elaborando relação explicativa/causal/regularidade, ou levantando alternativas de ação e consequências. (Ex: C: Eu fico pensando... pra que serve tudo isso?... que sentido tem? [CER]; C: Eu até tava lendo uma reportagem... dizendo o porquê que mulher chora tanto... eu pensei... será que é uma coisa de mulher então? [CER]; C: Aí a gente acabou discutindo feio... [REL] aí quando acontece isso eu fico pensando... de que adiantou tanto investimento...? Me dá uma tristeza isso... [CER])
+*   **Caracterização geral da categoria:** Relações é caracterizada por verbalizações em que o cliente estabelece relações causais/explicativas (funcionais, correlacionais, contiguidade) entre eventos, descrevendo-as explicitamente ou sugerindo-as via metáforas/analogias.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Quando Relações inclui descrição de eventos que dão elementos para relação, registre ambas (Relações e Relato) nos segmentos apropriados.
+    b.  Relações inclui raciocínio (premissas, hipóteses, argumentos) apresentado antes da conclusão/explicação, dentro da mesma verbalização.
+    c.  Início de Relações é marcado tipicamente por “porque”, “então”, “assim”, “é que”, “eu acho que”, “eu fico pensando”. Simples uso desses termos não garante; verbalização só é Relações se refere a padrões recorrentes, relações de contiguidade ou explicações.
+    d.  Verbalizações imediatamente após Solicitação de reflexão são tipicamente Relações (a menos que cliente desvie assunto ou solicite mais informações).
+    e.  Cliente afirmar que não consegue/tem dificuldade em entender porquê de evento, mesmo sem estabelecer relação, indica tentativa/sugestão de evento irregular, sendo categorizado como Relações.
+    f.  Pergunta feita como parte de relação estabelecida, ou como pedido de confirmação, não é Solicitação; registre apenas Relações.
+    g.  Na dúvida entre Relações e Solicitação, categoriza Solicitação.
+    h.  Reflexões que apenas discorrem sobre pensamentos/sentimentos sem estabelecer relação causal/explicativa/correlativa/contiguidade são Relato.
+    i.  Em verbalização que estabelece contiguidade, deve estar explícito que cliente estabelece relação. Mera descrição de eventos em sequência temporal não caracteriza Relações. Na dúvida, categorize Relato.
+    j.  Na dúvida entre Relações e Relato, categorize Relato.
+
+### **CLIENTE RELATA CONCORDÂNCIA OU CONFIANÇA (CON)**
+*   **Sigla:** CON
+*   **Nome resumido:** Concordância
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Avaliações favoráveis sobre o terapeuta:** cliente expressa julgamento/avaliação favorável sobre sugestões, análises, afirmações do terapeuta. (Ex: C: É. Você tem razão... [CON]; C: Legal... boa ideia... [CON] Ainda hoje vou ligar... [REL])
+    2.  **Relatos de esperança:** cliente relata estar esperançoso que trabalho terapêutico ajudará. (Ex: C: sabe... eu não sou muito de acreditar em terapia... mas dessa vez estou achando que eu vou conseguir resolver meus medos [CON])
+    3.  **Relatos de satisfação:** cliente relata satisfação/contentamento com resultados alcançados com ajuda do terapeuta. (Ex: C: Você é uma das responsáveis... tá sabendo me conduzir assim... [CON], porque eu to tendo mais discernimento... [REL])
+    4.  **Relatos de seguimento de solicitação de reflexão:** cliente relata ter refletido sobre interpretações/recomendações do terapeuta. (Ex: C: Essa semana eu pensei bastante naquilo que a gente conversou... [CON]... de fato, a melhor coisa a fazer é eu ficar em casa... [MET]... você tinha mesmo razão. [CON])
+    5.  **Indicações de atenção:** comentários breves/expressões vocais curtas sugerindo que cliente está prestando atenção e terapeuta deveria continuar. Inferem continuidade da descrição, interesse, atenção. (Ex: C: claro... [CON]; C: certo... [CON]; T: é importante que você procure se concentrar... C: nos prazos de inscrição... [CON])
+    6.  **Indicações de entendimento:** verbalizações sugerindo compreensão/entendimento de informação/interpretação/recomendação, seguidas ou não de descrição de eventos corroboradores. (Ex: C: é... faz sentido... sou eu quem devo escolher... [CON])
+    7.  **Exclamações de concordância:** comentários exclamativos após descrição de eventos pelo terapeuta, consistentes com assunto, indicando interesse. (Ex: C: É mesmo? [CON]; C: Não acredito! [CON]; C: Nossa! [CON])
+*   **Caracterização geral da categoria:** Concordância é caracterizada por verbalizações onde cliente expressa julgamento/avaliação favoráveis sobre afirmações/sugestões/análises/comportamentos do terapeuta ou relata satisfação, esperança ou confiança no terapeuta/processo. Inclui complementar/resumir fala do terapeuta ou sorrir em concordância.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Imediatamente após análise/recomendação, se cliente descreve eventos corroboradores ou concorda, categorize Concordância (não Relato).
+    b.  Concordância acompanhada de descrição do evento alvo: registre unicamente Concordância.
+    c.  Na dúvida entre Concordância e Relato, categorize Relato.
+    d.  Cliente relata Melhora e na mesma sentença atribui mérito ao terapeuta: categorize cada trecho na categoria apropriada (MEL e CON).
+    e.  Na dúvida entre Melhora E Concordância, categorize Melhora.
+    f.  Cliente relata concordância e em seguida relata projeto de mudança/ação (Meta): categorize cada trecho na categoria apropriada (CON e MET).
+    g.  Na dúvida entre Meta E Concordância, categorize Meta.
+
+### **CLIENTE SE OPÕE, RECUSA OU REPROVA (OPO)**
+*   **Sigla:** OPO
+*   **Nome resumido:** Oposição
+*   **Categoria tipo:** estado
+*   **Estão incluídos nessa categoria:**
+    1.  **Queixas ou reclamações sobre a terapia:** cliente queixa-se do terapeuta/tratamento, descreve falhas, critica ações/características/aparência. (Ex: C: Esta técnica de time-out não está funcionando com meu filho. [OPO])
+    2.  **Relatos de descontentamento:** cliente relata descontentamento com terapeuta/terapia/pontos da terapia ou diz que terapeuta não está ajudando. (Ex: C: Eu acho que você e seu programa de tratamento não atingem os meus padrões... [OPO])
+    3.  **Indicações de contradição:** cliente aponta discrepâncias/contradições no discurso do terapeuta. (*) Categorize Tom emocional. (Ex: C: Até a semana passada, você disse que eu deveria respeitar o meu ritmo e agora você vem me cobrar... [OPO])
+    4.  **Relatos de sentimentos negativos:** relato de não gostar do terapeuta/algo que ele faça ou não se sentir bem com aspecto do comportamento do terapeuta. (Ex: C: Eu não gosto do jeito que você me olha... [OPO])
+    5.  **Ironia dirigida ao terapeuta:** comentários sarcásticos/hostis sobre terapeuta. Cliente ri de algo que terapeuta disse/fez. (*) Categorize Tom emocional. (Ex: C: Se você pensa que isto vai funcionar, você está louco. [OPO])
+    6.  **Relatos de incredulidade:** comentários sugerindo incredulidade sobre verbalização/ação do terapeuta ou que terapeuta não tem conhecimento/experiência suficiente. (Ex: C: Que idade você tem? [SOL] Você parece tão novinha... [OPO]; C: ...Você tem experiência mesmo ou é daqueles acadêmicos...? [OPO])
+    7.  **Pedidos de interrupção:** ordens/pedidos de parada/mudança do comportamento do terapeuta. (Ex: C: Pare de perguntar sobre isso... [OPO])
+    8.  **Ameaças:** cliente apresenta qualquer tipo de ameaça ao terapeuta. (Ex: C: Acho que você não tá entendendo... sabe porque eu parei a minha última terapia? Porque eu arrebentei todo o consultório dele... [OPO])
+    9.  **Recusas:** cliente nega-se a falar sobre tema solicitado ou a engajar-se em exercício. (Ex: C: Eu não estou interessado em ensaio comportamental... [OPO])
+    10. **Desvios do assunto:** verbalizações imediatamente após solicitação de relato que fogem completamente do assunto (explícita ou implicitamente). (Ex: T: Você já se deu conta que o seu único critério...? [INT] C: Minha cabeça está doendo... [OPO])
+    11. **Recusas de elogios:** cliente discorda ou opõe-se a elogio do terapeuta. (Ex: T: Você está muito bonita hoje. [APR] C: Não to bonita... [OPO])
+    12. **Relatos de não seguimento:** cliente relata não seguimento de recomendação ou que fez algo desaconselhado (em tom hostil/desafiador ou com crítica à tarefa). (*) Categorize Tom emocional. (Ex: C: Eu falei pra você que eu não ia fazer o que você me pediu. [OPO]; C: Não consegui fazer aquele exercício. Aliás, eu o achei muito idiota. [OPO])
+*   **Caracterização geral da categoria:** Oposição é caracterizada por verbalizações onde cliente expressa discordância, julgamento/avaliação desfavoráveis sobre afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta.
+*   **Critérios de inclusão ou exclusão:**
+    a.  Simples correção de fatos não é Oposição. (Ex: T: Você mora na Rua Cardoso...? [SRE] C: Não, é na Rua Tupi. [REL])
+    b.  Oposição refere-se apenas a afirmações/sugestões/análises/comportamentos do terapeuta. Reclamações/observações negativas sobre outros assuntos/pessoas/fora da sessão entram em outras categorias.
+    c.  Oposição também codificada para comportamentos não verbais de não seguimento após recomendação/comando de parada. (Ex: T: Vamos ver se a gente se concentra...? [REC] C: Levanta para pegar uma bala. [OPO])
+    d.  Pedido apresentado em tom hostil/sarcástico/desafiador/ordem não é Solicitação, e sim Oposição. (*) Categorize Tom emocional.
+    e.  Na dúvida entre Oposição e Solicitação, categorize Solicitação.
+    f.  Cliente culpa terapeuta por problema: não é Relato, é Oposição.
+    g.  Oposição acompanhada de descrição do evento alvo: registre unicamente Oposição. Inclui declarações explicando porquê da discordância.
+    h.  Relato de não fazer tarefa/fazer algo desaconselhado: só é Oposição se em tom hostil/desafiador ou com crítica à tarefa/recomendação. Senão, é Relato. (*) Categorize Tom emocional se aplicável.
+    i.  Na dúvida entre Oposição e Relato, categorize Oposição.
+    j.  Imediatamente após análise/recomendação, cliente verbaliza concordância mas sugere que não consegue mudar/fazer ou que é culpa sua: categorize Oposição (inclui “Sim, mas...”). (Ex: T: Você pode imaginar...? [SRE] C: Sim, mas eu a conheço melhor... e acho que não foi nada demais. [OPO])
+    k.  Resposta que preenche critérios de Oposição é considerada Oposição, mesmo se solicitada pelo terapeuta.
+    l.  Verbalizações “certo”, “hum hum”, “ok” ditas sarcasticamente/hostilmente (sugerindo que terapeuta seja mais rápido/conclua logo) não são Concordância, e sim Oposição. (*) Categorize Tom emocional.
+    m.  Cliente retoma análise anterior como justificativa para fracasso/não engajamento: classifique Oposição.
+    n.  Na dúvida entre Oposição e Concordância, categorize Outras (COU).
+
+### **OUTRAS VERBALIZAÇÕES DO CLIENTE (COU)**
+*   **Sigla:** COU
+*   **Nome resumido:** Outras vocal cliente
+*   **Categoria tipo:** estado
+*   **Estão inclusos nessa categoria:**
+    1.  **Acertos ocasionais:** Acertos ocasionais de horário/local da sessão. (Ex: C: Então fica as quatro na semana que vem? [COU])
+    2.  **Recuperações de assunto:** descrição de diálogos/assuntos anteriores, *somente* se descrição foi solicitada pelo terapeuta (por este ter perdido rumo ou após interrupção). (Ex: T: Do que mesmo que a gente tava falando? [TOU] C: Sobre a minha mãe. [COU]; C: (após interrupção): Então, você estava me falando sobre a medicação... [COU])
+    3.  **Outras respostas verbais do cliente:** verbalizações ocasionais alheias ao tema que não cabem em categoria anterior. Inclui cumprimentar terapeuta, anúncios de interrupções, comentários ocasionais. (Ex: C: Posso fumar? [COU]; C: Nossa, que calor. [COU]; C: Acho melhor marcar o endereço aqui. [COU])
+*   **Caracterização geral da categoria:** Contempla verbalizações do cliente não classificáveis nas categorias anteriores.
+*   **Critérios de inclusão ou exclusão:** São considerados Outras vocal cliente comentários ocasionais, ou seja, verbalizações que não acarretam continuidade do assunto. Devem ser seguidos por continuidade do assunto anterior. (Ex: C: Esse quadro é novo? Eu nunca havia notado ele aqui.)
+
+### **CLIENTE PERMANECE EM SILÊNCIO (CSL)**
+*   **Sigla:** CSL
+*   **Nome resumido:** C Silêncio
+*   **Categoria tipo:** estado
+*   **Caracterização geral da categoria:** Essa categoria deve ser selecionada quando uma resposta verbal do tipo *estado* do cliente é encerrada sem que uma nova resposta verbal do tipo *estado* do mesmo falante seja iniciada. Quando não há outra resposta verbal do cliente do tipo *estado*, a categoria C silêncio deve ser mantida ativada, mesmo se outra categoria verbal do tipo *evento* do terapeuta ocorrer.
+
+---
+
+*Nota: As seções Eixo I-4 (Cliente Não Vocal), Eixo I-5 (Tom Emocional), Eixo I-6 (Gestos Ilustrativos), Eixo II (Tema e Qualificadores) e Eixo III (Motor) foram omitidas aqui, pois o prompt inicial pedia foco no Eixo I-1 e I-3, mas o texto completo foi preparado conforme solicitado.*
