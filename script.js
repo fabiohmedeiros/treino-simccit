@@ -1,692 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treino de Observadores - SiMCCIT</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <script>
-        // --- FUNÇÃO DE FALLBACK DA LOGO ---
-        // Movida para o <head> para garantir que esteja definida antes do body ser renderizado.
-        function handleLogoError(image, text) {
-            const fallback = document.createElement('div');
-            fallback.className = 'logo-fallback';
-            fallback.textContent = text;
-            if (image.parentNode) {
-                image.parentNode.replaceChild(fallback, image);
-            }
-        }
-    </script>
-    <style>
-        /* CSS Incorporado para funcionamento Offline */
-        :root {
-            --color-primary: #4f46e5; /* indigo-600 */
-            --color-secondary: #7c3aed; /* purple-600 */
-            --color-correct: #10b981; /* emerald-500 */
-            --color-correct-border: #059669; /* emerald-600 */
-            --color-incorrect: #f43f5e; /* rose-500 */
-            --color-incorrect-border: #e11d48; /* rose-600 */
-            --color-text-dark: #334155; /* slate-700 */
-            --color-text-light: #64748b; /* slate-500 */
-            --color-bg-light: #f1f5f9; /* slate-100 */
-            --color-border: #cbd5e1; /* slate-300 */
-        }
 
-        *, *::before, *::after { box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #e0f2fe, #e0e7ff);
-            color: #1e293b; /* slate-800 */
-            padding: 1rem;
-        }
-
-        #app-container {
-            width: 100%;
-            max-width: 64rem; /* max-w-4xl */
-            margin: 0 auto;
-        }
-
-        .hidden { display: none !important; }
-
-        .main-card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 1rem; /* rounded-2xl */
-            padding: 2rem 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            text-align: center;
-        }
-
-        .primary-button {
-            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-            color: white;
-            font-weight: bold;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-        }
-        .primary-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-        }
-
-        .secondary-button {
-            background-color: #e2e8f0; /* slate-200 */
-            color: var(--color-text-dark);
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .secondary-button:hover { background-color: #cbd5e1; }
-        
-        select, input[type="text"] {
-            width: 100%;
-            max-width: 28rem; /* max-w-md */
-            margin: 0 auto;
-            padding: 0.75rem;
-            border: 1px solid var(--color-border);
-            border-radius: 0.5rem;
-            background-color: white;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-            font-size: 1rem;
-        }
-
-        .option-button {
-            width: 100%;
-            text-align: left;
-            padding: 1rem;
-            border: 1px solid var(--color-border);
-            border-radius: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            min-height: 3.5rem;
-        }
-        .option-button:hover:not(:disabled) {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            border-color: var(--color-primary);
-        }
-        .option-button:disabled { cursor: not-allowed; }
-
-        .correct {
-            background-color: var(--color-correct) !important;
-            color: white !important;
-            border-color: var(--color-correct-border) !important;
-        }
-        .incorrect {
-            background-color: var(--color-incorrect) !important;
-            color: white !important;
-            border-color: var(--color-incorrect-border) !important;
-        }
-
-        .feedback-message-container {
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 1.125rem;
-            font-weight: 600;
-            height: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .feedback-icon {
-            display: inline-block;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
-        
-        .highlight-p1 { background-color: rgba(96, 165, 250, 0.3); padding: 2px 4px; border-radius: 4px; }
-        .highlight-p2 { background-color: rgba(52, 211, 153, 0.3); padding: 2px 4px; border-radius: 4px; }
-
-        .authors-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--color-border);
-        }
-        .authors-title {
-            font-size: 0.875rem;
-            color: var(--color-text-light);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .author-name {
-            font-size: 0.875rem;
-            color: var(--color-text-dark);
-            margin: 0.25rem 0;
-        }
-        
-        /* Styles for Instruction Examples */
-        .instruction-example-box { margin-top: 1rem; padding: 1rem; font-size: 1rem; background-color: var(--color-bg-light); border-radius: 0.5rem; border: 1px solid #e2e8f0; }
-        .instruction-example-box .prompt { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.05); text-align: left; }
-        .instruction-example-box .prompt .dialog-box { white-space: pre-wrap; text-align: left; background-color: rgba(255,255,255,0.6); padding: 0.75rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; }
-        .instruction-example-box .prompt .prompt-title { margin-top: 0.75rem; text-align: center; font-weight: 600; }
-        .instruction-example-box .options-grid { display: grid; gap: 0.5rem; font-size: 0.875rem; text-align: left; }
-        .instruction-example-box .grid-cols-2 { grid-template-columns: 1fr 1fr; }
-        .instruction-example-box .grid-cols-1 { grid-template-columns: 1fr; }
-
-        .example-button, .example-correct {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--color-border);
-            border-radius: 0.5rem;
-            background-color: white;
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 3.5rem;
-        }
-        .example-correct {
-            background-color: var(--color-correct) !important;
-            color: white !important;
-            border-color: var(--color-correct-border) !important;
-        }
-
-        .logo-fallback {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--color-text-dark);
-            height: 4.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 1rem;
-            background-color: var(--color-bg-light);
-            border-radius: 0.5rem;
-            border: 1px solid var(--color-border);
-        }
-
-        .reference-section {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--color-border);
-            font-size: 0.75rem;
-            color: var(--color-text-light);
-            text-align: left;
-        }
-
-        /* --- Estilos do Guia de Categorias --- */
-        .guide-fab {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 4rem;
-            height: 4rem;
-            border-radius: 50%;
-            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            transition: transform 0.2s ease;
-        }
-        .guide-fab:hover {
-            transform: scale(1.1);
-        }
-        .guide-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            padding: 1rem;
-        }
-        .guide-container {
-            background-color: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            width: 100%;
-            max-width: 50rem;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            text-align: left;
-        }
-        .guide-close-btn {
-            position: sticky;
-            top: -1rem;
-            float: right;
-            background: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: -1rem;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--color-text-light);
-            line-height: 1;
-            z-index: 2;
-        }
-        .guide-tabs {
-            display: flex;
-            gap: 0.5rem;
-            border-bottom: 1px solid var(--color-border);
-            margin-bottom: 1.5rem;
-        }
-        .guide-tab-btn {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--color-text-light);
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-        }
-        .guide-tab-btn.active {
-            color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
-        }
-        .guide-category {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--color-bg-light);
-        }
-        .guide-category:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-        .guide-category h3 {
-            font-size: 1.25rem;
-            color: var(--color-text-dark);
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-        }
-        .guide-category p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--color-text-light);
-            margin: 0;
-        }
-        .guide-examples {
-            margin-top: 1rem;
-            padding-left: 1rem;
-            border-left: 3px solid #e2e8f0; /* slate-200 */
-        }
-        .guide-examples-title {
-            font-weight: 600;
-            color: var(--color-text-dark);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        .guide-example {
-            background-color: var(--color-bg-light);
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            margin-bottom: 0.5rem !important;
-            font-style: italic;
-            color: var(--color-text-dark) !important;
-        }
-        .guide-example:last-child {
-            margin-bottom: 0 !important;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="app-container">
-        
-        <div id="instructions-screen" class="main-card">
-            
-            <h1 style="font-family: 'Poppins', sans-serif; font-size: 2.5rem; line-height: 1.2; font-weight: 700; color: #1e3a8a; margin-bottom: 1.5rem;">Treino de observadores - SiMCCIT<sup style="font-size: 50%;">1</sup></h1>
-            <p style="color: var(--color-text-light); font-size: 1.125rem; text-align: center; margin-bottom: 2rem;">
-                Este treino tem como objetivo desenvolver sua habilidade de reconhecer, nomear e compreender as categorias de interação verbal entre terapeuta e cliente.
-            </p>
-            
-            <div style="background-color: rgba(241, 245, 249, 0.7); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
-                <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--color-text-dark); margin-bottom: 1rem;">O treino é composto por 4 etapas:</h2>
-                <ul style="list-style: none; padding: 0; margin: 0; text-align: left; color: var(--color-text-dark);">
-                    <li style="display: flex; align-items: flex-start; margin-bottom: 0.75rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem; margin-top: 0.25rem; color: var(--color-correct); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Reconhecer as categorias e suas definições.</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; margin-bottom: 0.75rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem; margin-top: 0.25rem; color: var(--color-correct); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Identificar exemplos de cada categoria.</span>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; margin-bottom: 0.75rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem; margin-top: 0.25rem; color: var(--color-correct); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Praticar a diferenciação entre categorias semelhantes.</span>
-                    </li>
-                     <li style="display: flex; align-items: flex-start;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem; margin-top: 0.25rem; color: var(--color-correct); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Analisar trechos que envolvem múltiplas categorias.</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <p style="color: var(--color-text-light); text-align: center; margin-top: 2rem;">O aprendizado é progressivo e com feedback imediato. O treino é dividido entre as categorias do <strong>terapeuta</strong> e do <strong>cliente</strong>.</p>
-            
-            <div style="margin-top: 2rem; padding: 1rem; background-color: rgba(224, 231, 255, 0.5); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; text-align: left;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); flex-shrink: 0;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                <p style="color: var(--color-text-dark); margin: 0;">A qualquer momento, você pode consultar as definições e exemplos de todas as categorias clicando no botão do <strong>Guia de Categorias</strong> no canto inferior direito da tela.</p>
-            </div>
-
-            <div style="text-align: center;">
-                <button id="start-app-btn" class="primary-button" style="margin-top: 2.5rem; width: 100%; max-width: 24rem; margin-left:auto; margin-right:auto;">
-                    Vamos começar!
-                </button>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
-                <div class="authors-section" style="border-top: none; margin-top: 0; padding-top: 0; text-align: left;">
-                    <h3 class="authors-title">Desenvolvido por:</h3>
-                    <p class="author-name">Dr. Fabio Hernandez de Medeiros</p>
-                    <p class="author-name">Ana Beatriz Maurmann Ximenes</p>
-                    <p class="author-name">Pedro Canônico Müller Maestrelli</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 1.5rem;">
-                    <img 
-                        id="fapdf-logo"
-                        src="https://blogger.googleusercontent.com/img/a/AVvXsEhBsTXfo70QElYIzqpWuQVpRZqcWzNhVyhtoOhS60g_pYjy2ftBdSxo_wk3-UAlxV_Prn028-nzRATDjEGN21JkNJ8r2DH1gUo5CwI8MTtRKSoXF5WRztvT1AkpG9kcc3Qv7MZa5saMCgbVdTuYU3LhTlit1fxPslYrBxG_i-w7CxycxjPZDcdAh-F_Cg=s320" 
-                        alt="Logo da FAPDF" 
-                        style="height: 5rem;" 
-                        onerror="handleLogoError(this, 'FAPDF')">
-                    <img 
-                        id="ceub-logo"
-                        src="https://institucional.uniceub.br/hubfs/BrandCenter/img/logo-ceub-versao-condensada.png" 
-                        alt="Logo do Ceub" 
-                        style="height: 4.5rem;" 
-                        onerror="handleLogoError(this, 'CEUB')">
-                </div>
-            </div>
-
-            <div class="reference-section" style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
-                <p><sup>1</sup> Zamignani, D. R. (2007). <em>O desenvolvimento de um sistema multidimensional para a categorização de comportamentos na interação terapêutica</em> [Tese de doutorado, Universidade de São Paulo]. Repositório da Produção USP.</p>
-            </div>
-        </div>
-        
-        <div id="selection-screen" class="main-card hidden">
-            <h1 style="font-size: 1.875rem; font-weight: bold; color: var(--color-text-dark); margin-bottom: 1rem;">Sistema Multidimensional para a Categorização de Comportamentos na Interação Terapêutica</h1>
-            <p style="color: var(--color-text-light); margin-bottom: 2.5rem; font-size: 1.25rem;">Treino de observadores</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 2rem;">
-                <!-- Etapa removida. O fluxo agora é sequencial (1 a 4) -->
-                <div>
-                    <label for="focus-select" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-text-dark); display: block;">Selecione o Foco do Treino</label>
-                    <select id="focus-select">
-                        <option value="terapeuta">Categorias do Terapeuta</option>
-                        <option value="cliente">Categorias do Cliente</option>
-                    </select>
-                </div>
-            </div>
-
-            <button id="start-training-btn" class="primary-button" style="margin-top: 3rem; width: 100%; max-width: 28rem;">
-                Iniciar Treino
-            </button>
-        </div>
-
-        <div id="stage-instructions-screen" class="main-card hidden">
-                <h1 id="stage-instructions-title" style="font-size: 1.875rem; font-weight: bold; text-decoration: underline; margin-bottom: 1.5rem;">Instruções</h1>
-                <div id="stage-instructions-text" style="color: var(--color-text-dark); font-size: 1.125rem; line-height: 1.75; text-align: left;"></div>
-            <div style="margin-top: 2.5rem; display: flex; flex-direction: column-reverse; gap: 1rem; justify-content: center; align-items: center;" class="instruction-buttons-container">
-                    <button id="confirm-start-training-btn" class="primary-button" style="width: 100%; max-width: 20rem;">
-                        Começar Exercício
-                    </button>
-                <button id="back-to-selection-from-instructions-btn" class="secondary-button" style="width: 100%; max-width: 20rem;">
-                    Voltar
-                </button>
-            </div>
-        </div>
-
-        <div id="training-screen" class="main-card hidden" style="text-align: left; padding: 1.5rem 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <div>
-                    <span id="progress-indicator" style="color: var(--color-text-dark); font-weight: 500;"></span>
-                    <span id="mode-indicator" class="hidden" style="margin-left: 0.5rem; color: var(--color-primary); font-weight: 600; background-color: #e0e7ff; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;"></span>
-                </div>
-                <button id="back-to-menu-btn" class="secondary-button" style="padding: 0.5rem 1rem;">Menu</button>
-            </div>
-
-            <h2 id="stage-subtitle" style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-dark); text-align: center; margin-bottom: 1.5rem;"></h2>
-
-            <div style="background-color: var(--color-bg-light); border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.05);">
-                <p id="prompt" style="font-size: 1.125rem; line-height: 1.75;"></p>
-            </div>
-
-            <div id="options-container" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-                <!-- Botões de opção serão gerados pelo JS aqui -->
-            </div>
-
-            <div id="feedback-message" class="feedback-message-container"></div>
-
-            <div style="margin-top: 1.5rem; text-align: center;">
-                <button id="next-question-btn" class="primary-button" style="display: inline-flex; align-items: center;">
-                    Próximo
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-            </div>
-        </div>
-
-        <div id="completion-screen" class="main-card hidden">
-            <h1 style="font-size: 2.25rem; font-weight: bold; color: var(--color-correct); margin-bottom: 1rem;">Parabéns!</h1>
-            <p id="completion-message" style="color: var(--color-text-dark); font-size: 1.25rem; margin-bottom: 2rem;"></p>
-            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-                <button id="download-csv-btn" class="secondary-button">Baixar Relatório (.csv)</button>
-                <button id="restart-btn" class="primary-button">Voltar ao Menu</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Botão Flutuante (FAB) para o Guia -->
-    <button id="open-guide-btn" class="guide-fab" aria-label="Abrir Guia de Categorias">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-    </button>
-    
-    <!-- Modal do Guia -->
-    <div id="guide-modal" class="guide-modal-overlay hidden">
-        <div class="guide-container">
-            <button id="close-guide-btn" class="guide-close-btn" aria-label="Fechar Guia">&times;</button>
-            <div class="guide-tabs">
-                <button id="guide-tab-terapeuta" class="guide-tab-btn active">Terapeuta</button>
-                <button id="guide-tab-cliente" class="guide-tab-btn">Cliente</button>
-            </div>
-
-            <!-- Conteúdo do Guia: Terapeuta -->
-            <div id="guide-content-terapeuta" class="guide-section">
-                <div class="guide-category">
-                    <h3>Solicitação de Relato (SRE)</h3>
-                    <p>Contempla verbalizações do terapeuta nas quais ele solicita ao cliente descrições de ações, eventos, sentimentos ou pensamentos. Ocorre tipicamente em situações relacionadas à coleta de dados e ao levantamento de informações.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Me conta... Por que é que você está procurando terapia?"</p>
-                        <p class="guide-example">T: "Como você se sentiu quando ele te falou isso?"</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Facilitação (FAC)</h3>
-                    <p>É caracterizada por verbalizações curtas ou expressões paralinguísticas que ocorrem durante a fala do cliente, indicando atenção ao relato e sugerindo sua continuidade.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Certo..."</p>
-                        <p class="guide-example">T: "Hum hum..."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Empatia (EMP)</h3>
-                    <p>Contempla ações ou verbalizações do terapeuta que sugerem acolhimento, aceitação, cuidado, entendimento, validação da experiência ou sentimento do cliente.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Imagino o quanto isso te deixa ansioso."</p>
-                        <p class="guide-example">T: "Entendo que você fique muito irritado com isso."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Informação (INF)</h3>
-                    <p>Contempla verbalizações em que o terapeuta relata eventos ou informa o cliente sobre eventos (que não o comportamento do cliente ou de terceiros), estabelecendo ou não relações causais ou explicativas entre eles.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Nós nos encontraremos duas vezes por semana."</p>
-                        <p class="guide-example">T: "É muito comum que a gente tenha um pouco de dor de cabeça ou enjoo logo que começa a tomar o antidepressivo."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Solicitação de Reflexão (SRF)</h3>
-                    <p>Contempla verbalizações em que o terapeuta solicita ao cliente qualificações, explicações, interpretações, análises ou previsões a respeito de qualquer tipo de evento.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "E você tem alguma hipótese de por que isso aconteceu?"</p>
-                        <p class="guide-example">T: "O que você achou da reação dele?"</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Recomendação (REC)</h3>
-                    <p>Contempla verbalizações em que o terapeuta sugere alternativas de ação ao cliente ou solicita o seu engajamento em ações ou tarefas.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Tente conversar com seu pai durante a semana e lhe falar sobre o que você sente nessas situações."</p>
-                        <p class="guide-example">T: "Faça a prova amanhã, antes que você esqueça a matéria."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Interpretação (INT)</h3>
-                    <p>Contempla verbalizações em que o terapeuta descreve, supõe ou infere relações causais e/ou explicativas (funcionais, correlacionais, ou de contiguidade) a respeito do comportamento do cliente ou de terceiros.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Você já notou que, sempre que há alguma situação muito difícil pela frente, você fica doente?"</p>
-                        <p class="guide-example">T: "A impressão que eu tenho é que sempre que ele te faz um elogio, ele é seguido por uma crítica..."</p>
-                    </div>
-                </div>
-                 <div class="guide-category">
-                    <h3>Aprovação (APR)</h3>
-                    <p>Contempla verbalizações do terapeuta que sugerem avaliação ou julgamento favoráveis a respeito de ações, pensamentos, características ou avaliações do cliente.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Você tomou a decisão certa. Está lidando com isso muito bem!"</p>
-                        <p class="guide-example">C: "Consegui recuperar a minha nota de matemática."<br>T: "Que máximo!!!"</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Reprovação (REP)</h3>
-                    <p>Contempla verbalizações do terapeuta que sugerem avaliação ou julgamento desfavoráveis a respeito de ações, pensamentos, características ou avaliações do cliente.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "As coisas são muito mais simples do que você pinta."</p>
-                        <p class="guide-example">T: "Eu fico muito irritado quando você fala comigo dessa forma."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Outras verbalizações do terapeuta (TOU)</h3>
-                    <p>Contempla verbalizações do terapeuta não classificáveis nas categorias anteriores, como comentários ocasionais alheios ao tema em discussão ou acertos de horário.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">T: "Aceita uma balinha?"</p>
-                        <p class="guide-example">T: "Desculpe, eu me esqueci de desligar o celular."</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Conteúdo do Guia: Cliente -->
-            <div id="guide-content-cliente" class="guide-section hidden">
-                <div class="guide-category">
-                    <h3>Solicitação (SOL)</h3>
-                    <p>É caracterizada por verbalizações em que o cliente apresenta pedidos ou questões ao terapeuta.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Quanto tempo você acha que a terapia vai durar?"</p>
-                        <p class="guide-example">C: "O que eu poderia fazer se ela começar com isso novamente?"</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Relato (REL)</h3>
-                    <p>Contempla verbalizações em que o cliente descreve ou informa o terapeuta sobre a ocorrência de eventos, respostas emocionais, estados motivacionais e/ou tendências a ações, sem estabelecer relações causais ou funcionais entre eles.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Estou triste, T. To mal... To perdidinha de novo..."</p>
-                        <p class="guide-example">C: "Naquela hora eu só queria gritar e sair correndo dali..."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Melhora (MEL)</h3>
-                    <p>É caracterizada por verbalizações em que o cliente relata mudanças satisfatórias com relação a sua queixa clínica, problemas médicos ou comportamentos considerados indesejáveis.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Eu fiquei muito orgulhoso quando eu vi que eu dei conta de fazer aquilo."</p>
-                        <p class="guide-example">C: "Você vê que eu estou bem mais controlada."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Metas (MET)</h3>
-                    <p>Contempla verbalizações do cliente nas quais ele descreve seus projetos, planos ou estratégias para a solução de problemas trazidos como queixas para a terapia.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Eu acho que um primeiro passo deve ser eu ir com uma amiga a um restaurante."</p>
-                        <p class="guide-example">C: "Vou ligar para ela e conversar sobre o que aconteceu."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Relações (CER)</h3>
-                    <p>É caracterizada por verbalizações em que o cliente estabelece relações causais e/ou explicativas (funcionais, correlacionais ou de contiguidade) entre eventos.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Eu acho que eu trabalho tanto porque assim eu evito discussões em casa."</p>
-                        <p class="guide-example">C: "É engraçado... todas as vezes que eu quero as coisas de verdade, elas acabam não dando certo."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Concordância (CON)</h3>
-                    <p>É caracterizada por verbalizações nas quais o cliente expressa julgamento ou avaliação favoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta ou relata satisfação, esperança ou confiança no processo terapêutico.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "É. Você tem razão. Eu ando evitando muito certas coisas."</p>
-                        <p class="guide-example">C: "Legal... boa ideia..."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Oposição (OPO)</h3>
-                    <p>É caracterizada por verbalizações em que o cliente expressa discordância, julgamento ou avaliação desfavoráveis a respeito de afirmações, sugestões ou análises do terapeuta.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Esta técnica de time-out não está funcionando com meu filho."</p>
-                        <p class="guide-example">C: "Pare de perguntar sobre isso. Eu não quero mais falar sobre esse assunto."</p>
-                    </div>
-                </div>
-                <div class="guide-category">
-                    <h3>Outras vocal cliente (COU)</h3>
-                    <p>Contempla verbalizações do cliente não classificáveis nas categorias anteriores, como cumprimentos ou comentários ocasionais alheios ao tema.</p>
-                    <div class="guide-examples">
-                        <h4 class="guide-examples-title">Exemplos:</h4>
-                        <p class="guide-example">C: "Posso fumar?"</p>
-                        <p class="guide-example">C: "Nossa, que calor."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
     // --- BANCO DE DADOS DAS INSTRUÇÕES ---
     const instructionsData = {
         terapeuta: {
@@ -752,66 +65,60 @@ Cada questão apresentará um diálogo onde a fala do terapeuta está dividida e
 Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
         },
         cliente: {
-             etapa1: `Nesta etapa, o objetivo é associar a <strong>definição</strong> de uma categoria ao seu nome correto.<br>
-Para cada questão, você verá uma definição no topo da tela, seguida por <strong>quatro alternativas</strong> de resposta. Sua tarefa é ler a definição e clicar na alternativa que contém o nome da categoria correspondente.
-<div class='instruction-example-box'>
-    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
-    <div class="prompt">
-        <p>Verbalizações em que o cliente descreve ou informa o terapeuta sobre a ocorrência de eventos.</p>
-    </div>
-    <div class="options-grid grid-cols-2">
-        <div class="example-button"><div>Solicitação (SOL)</div></div>
-        <div class="example-correct"><div>Relato (REL)</div></div>
-        <div class="example-button"><div>Relações (CER)</div></div>
-        <div class="example-button"><div>Oposição (OPO)</div></div>
-    </div>
-</div>
-Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
-            etapa2: `Nesta etapa, o objetivo é identificar qual <strong>trecho de sessão</strong> representa melhor um determinado conceito.<br>
-Em cada questão, um nome de categoria será apresentado, seguido por <strong>dois trechos</strong> de diálogo como alternativas. Sua tarefa é ler os dois trechos e clicar naquele em que a fala do cliente melhor exemplifica o conceito apresentado.
-<div class='instruction-example-box'>
-    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
-    <div class="prompt">
-        <p>O segmento que caracteriza <strong>METAS (MET)</strong> é:</p>
-    </div>
-    <div class="options-grid grid-cols-1">
-        <div class="example-correct"><div><strong>C: "Vou ligar para ela e conversar sobre o que aconteceu."</strong></div></div>
-        <div class="example-button"><div><strong>C: "Eu liguei para ela e conversei sobre o que aconteceu."</strong></div></div>
-    </div>
-</div>
-Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
-            etapa3: `Nesta etapa, o objetivo é categorizar um <strong>trecho de sessão</strong>.<br>
-Em cada questão, será exibido um diálogo entre terapeuta e cliente. Abaixo dele, haverá <strong>quatro alternativas</strong> com nomes de categorias. Sua tarefa é analisar a fala do cliente (em negrito) e clicar na alternativa que nomeia corretamente aquela categoria.
-<div class='instruction-example-box'>
-    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
-    <div class="prompt">
-        <div class="dialog-box">T: E o que você fez?<br><strong>C: Eu fiquei em casa o dia todo, não queria ver ninguém.</strong></div>
-        <p class="prompt-title">A categoria que corresponde ao segmento é:</p>
-    </div>
-    <div class="options-grid grid-cols-2">
-        <div class="example-button"><div>Relações (CER)</div></div>
-        <div class="example-correct"><div>Relato (REL)</div></div>
-        <div class="example-button"><div>Concordância (CON)</div></div>
-        <div class="example-button"><div>Oposição (OPO)</div></div>
-    </div>
-</div>
-Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
-            etapa4: `Nesta etapa, o objetivo é identificar <strong>duas categorias</strong> diferentes dentro da mesma fala do cliente.<br>
-Cada questão apresentará um diálogo onde a fala do cliente está dividida em duas partes, destacadas em <span class="highlight-p1">azul</span> e <span class="highlight-p2">verde</span>. Haverá <strong>quatro alternativas</strong> de resposta. Sua tarefa é selecionar a alternativa que descreve corretamente as duas partes da fala, na ordem em que aparecem.
-<div class='instruction-example-box'>
-    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
-    <div class="prompt">
-        <div class="dialog-box">T: O que aconteceu depois?<br><strong>C: <span class="highlight-p1">Eu me senti muito ansioso</span> <span class="highlight-p2">e decidi que não vou mais a essas reuniões.</span></strong></div>
-        <p class="prompt-title">As categorias que correspondem aos segmentos são:</p>
-    </div>
-     <div class="options-grid grid-cols-2">
-        <div class="example-button"><div>Relato (REL) / Relações (CER)</div></div>
-        <div class="example-button"><div>Metas (MET) / Relato (REL)</div></div>
-        <div class="example-correct"><div>Relato (REL) / Metas (MET)</div></div>
-        <div class="example-button"><div>Relações (CER) / Metas (MET)</div></div>
-    </div>
-</div>
-Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
+            etapa1: [
+                { id: "CLIENTE_E1_Q1", definition: "Contempla verbalizações nas quais o cliente descreve ou informa ao terapeuta a ocorrência de eventos, ou aspectos relativos a eventos, respostas emocionais suas ou de terceiros, seus estados motivacionais e/ou tendências a ações, sem estabelecer relações causais ou funcionais entre eles.", options: ["Relações (CER)", "Relato (REL)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E1_Q2", definition: "Contempla verbalizações nas quais o cliente estabelece relações causais e/ou explicativas (funcionais, correlacionais ou de contiguidade) entre eventos, descrevendo-as de forma explícita ou sugerindo-as por meio de metáforas ou analogias.", options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Concordância (CON)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E1_Q3", definition: "Contempla verbalizações nas quais o cliente expressa julgamento ou avaliação favoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta ou relata satisfação, esperança ou confiança no terapeuta e/ou no processo terapêutico. Inclui também verbalizações nas quais o cliente complementa ou resume a fala do terapeuta ou episódios nos quais o cliente sorri em concordância com o terapeuta.", options: ["Concordância (CON)", "Melhora (MEL)", "Relato (REL)", "Relações (CER)"], answer: "Concordância (CON)" },
+                { id: "CLIENTE_E1_Q4", definition: "Contempla verbalizações nas quais o cliente expressa discordância, julgamento ou avaliação desfavoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta.", options: ["Solicitação (SOL)", "Oposição (OPO)", "Melhora (MEL)", "Meta (MET)"], answer: "Oposição (OPO)" },
+                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Solicitação (SOL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E1_Q6", definition: "Contempla verbalizações do cliente nas quais ele descreve seus projetos, planos ou estratégias para a solução de problemas trazidos como queixas para a terapia.", options: ["Meta (MET)", "Solicitação (SOL)", "Oposição (OPO)", "Relato (REL)"], answer: "Meta (MET)" },
+                { id: "CLIENTE_E1_Q7", definition: "Contempla verbalizações nas quais o cliente apresenta pedidos ou questões ao terapeuta.", options: ["Concordância (CON)", "Relações (CER)", "Melhora (MEL)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
+                { id: "CLIENTE_E1_Q8", definition: "Esta categoria contempla verbalizações do cliente não classificáveis nas categorias anteriores. Inclui também verbalizações do cliente ao cumprimentar o terapeuta em sua chegada ou partida, anúncios de interrupções ou comentários ocasionais alheios ao tema em discussão.", options: ["Outras Vocal Cliente (COU)", "Relações (CER)", "Meta (MET)", "Solicitação (SOL)"], answer: "Outras Vocal Cliente (COU)" }
+            ],
+            etapa2: [
+                { id: "CLIENTE_E2_Q1", concept: "RELATO (REL)", distractor_category: "Relações (CER)", options: [`T: E como você reagiu quando ele disse isso?<br><strong>C: Ah, eu fiquei bem chateada. Fui para o meu quarto, bati a porta e não quis conversar com mais ninguém o resto da noite. Só pensava que ele não devia ter falado daquele jeito comigo na frente de todo mundo.</strong>`, `T: Parece que você fica muito ansioso quando precisa falar em público.<br><strong>C: Exatamente! Eu acho que isso acontece porque uma vez, na escola, eu fui apresentar um trabalho e gaguejei muito. Todo mundo riu de mim. Desde então, eu travo só de pensar em ter que falar para um grupo.</strong>`], answer: `T: E como você reagiu quando ele disse isso?<br><strong>C: Ah, eu fiquei bem chateada. Fui para o meu quarto, bati a porta e não quis conversar com mais ninguém o resto da noite. Só pensava que ele não devia ter falado daquele jeito comigo na frente de todo mundo.</strong>` },
+                { id: "CLIENTE_E2_Q2", concept: "RELAÇÕES (CER)", distractor_category: "Relato (REL)", options: [`T: E o que você fez no último fim de semana?<br><strong>C: Ah, no sábado eu até pensei em sair, mas choveu o dia todo. Acabei ficando em casa vendo série. No domingo, almocei na casa da minha mãe e voltei cedo. Foi bem tranquilo, na verdade.</strong>`, `T: Você mencionou que tem evitado seus amigos.<br><strong>C: Sim... Eu percebi que sempre que eu começo a me sentir mais cobrado ou pressionado no trabalho, eu me afasto de todo mundo. É como se eu não desse conta de lidar com as duas coisas ao mesmo tempo, aí eu me isolo para tentar "poupar energia".</strong>`], answer: `T: Você mencionou que tem evitado seus amigos.<br><strong>C: Sim... Eu percebi que sempre que eu começo a me sentir mais cobrado ou pressionado no trabalho, eu me afasto de todo mundo. É como se eu não desse conta de lidar com as duas coisas ao mesmo tempo, aí eu me isolo para tentar "poupar energia".</strong>` },
+                { id: "CLIENTE_E2_Q3", concept: "CONCORDÂNCIA (CON)", distractor_category: "Oposição (OPO)", options: [`T: Então, talvez essa sua raiva seja uma forma de se proteger, de colocar um limite para que as pessoas não te machuquem de novo.<br><strong>C: Nossa, é exatamente isso. Faz todo sentido. Eu nunca tinha parado para pensar dessa forma, mas é isso mesmo. Quando eu vejo, já levantei um muro.</strong>`, `T: Você acha que consegue tentar fazer aquele exercício de respiração que conversamos na próxima vez que se sentir assim?<br><strong>C: Ah, não sei... Sinceramente, eu acho essas coisas de respiração meio bobas. Não vejo como isso pode me ajudar na hora que eu estiver no auge do estresse.</strong>`], answer: `T: Então, talvez essa sua raiva seja uma forma de se proteger, de colocar um limite para que as pessoas não te machuquem de novo.<br><strong>C: Nossa, é exatamente isso. Faz todo sentido. Eu nunca tinha parado para pensar dessa forma, mas é isso mesmo. Quando eu vejo, já levantei um muro.</strong>` },
+                { id: "CLIENTE_E2_Q4", concept: "OPOSIÇÃO (OPO)", distractor_category: "Relato (REL)", options: [`T: Na última sessão, combinamos que você tentaria anotar seus pensamentos antes de dormir. Você conseguiu fazer isso?<br><strong>C: Olha, eu até tentei no primeiro dia, mas achei inútil. Não vou ficar perdendo meu tempo escrevendo em caderninho. Isso não vai resolver meu problema de insônia.</strong>`, `T: Como você se sentiu com essa mudança no trabalho?<br><strong>C: Foi difícil. Eu fiquei bem ansioso nos primeiros dias, sem saber direito o que esperar. Mas agora estou começando a me acostumar com a nova rotina.</strong>`], answer: `T: Na última sessão, combinamos que você tentaria anotar seus pensamentos antes de dormir. Você conseguiu fazer isso?<br><strong>C: Olha, eu até tentei no primeiro dia, mas achei inútil. Não vou ficar perdendo meu tempo escrevendo em caderninho. Isso não vai resolver meu problema de insônia.</strong>` },
+                { id: "CLIENTE_E2_Q5", concept: "MELHORA (MEL)", distractor_category: "Metas (MET)", options: [`T: Como você está se sentindo hoje?<br><strong>C: Sabe, eu reparei que esta semana eu não tive nenhuma daquelas crises de pânico. Eu até consegui ir ao mercado sozinho, coisa que eu não fazia há meses. Estou me sentindo bem mais calmo, parece que as coisas estão funcionando.</strong>`, `T: O que você espera alcançar com a terapia?<br><strong>C: Eu queria conseguir ser uma pessoa menos ansiosa. Meu objetivo principal é conseguir viajar de avião sem sentir que vou morrer. Quero poder visitar minha família em outro estado.</strong>`], answer: `T: Como você está se sentindo hoje?<br><strong>C: Sabe, eu reparei que esta semana eu não tive nenhuma daquelas crises de pânico. Eu até consegui ir ao mercado sozinho, coisa que eu não fazia há meses. Estou me sentindo bem mais calmo, parece que as coisas estão funcionando.</strong>` },
+                { id: "CLIENTE_E2_Q6", concept: "META (MET)", distractor_category: "Relações (CER)", options: [`T: E o que você gostaria de fazer sobre isso?<br><strong>C: Eu decidi que vou voltar a estudar. Já vi um curso que me interessa e meu plano é fazer a matrícula no mês que vem. Quero focar em conseguir um emprego melhor no próximo ano.</strong>`, `T: Você acha que isso tem a ver com algo do seu passado?<br><strong>C: Talvez... Eu lembro que meu pai era muito crítico. Acho que é por isso que hoje eu tenho tanto medo de errar e de ser julgado pelas outras pessoas.</strong>`], answer: `T: E o que você gostaria de fazer sobre isso?<br><strong>C: Eu decidi que vou voltar a estudar. Já vi um curso que me interessa e meu plano é fazer a matrícula no mês que vem. Quero focar em conseguir um emprego melhor no próximo ano.</strong>` },
+                { id: "CLIENTE_E2_Q7", concept: "SOLICITAÇÃO (SOL)", distractor_category: "Relato (REL)", options: [`T: Você trouxe o registro de pensamentos que combinamos?<br><strong>C: Sim, está aqui. Eu anotei tudo, mas agora eu não sei o que fazer com essa informação. Você pode me ajudar a entender o que tudo isso significa?</strong>`, `T: E como você se sentiu com isso?<br><strong>C: Péssimo. Foi mais uma vez que eu deixei ela decidir por mim. Eu me senti fraco.</strong>`], answer: `T: Você trouxe o registro de pensamentos que combinamos?<br><strong>C: Sim, está aqui. Eu anotei tudo, mas agora eu não sei o que fazer com essa informação. Você pode me ajudar a entender o que tudo isso significa?</strong>` },
+                { id: "CLIENTE_E2_Q8", concept: "OUTRAS VOCAL CLIENTE (COU)", distractor_category: "Relações (CER)", options: [`T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>`, `T: O que você acha que é ridículo?<br><strong>C: Eu acho ridículo que eu ainda me importe com a opinião dele depois de tudo que ele me fez.</strong>`], answer: `T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>` }
+            ],
+            etapa3: [
+                { id: "CLIENTE_E3_Q1", excerpt: `T: O que você fez neste fim de semana?<br><strong>C: Fui ao parque no sábado de manhã. Estava sol. Depois, à tarde, encontrei minha irmã e fomos ao cinema. Comi pipoca e voltei para casa.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E3_Q2", excerpt: `T: Você notou algum padrão?<br><strong>C: Sim. Eu acho que eu sempre brigo com ela nas sextas-feiras porque é o dia que eu estou mais cansado do trabalho. Minha paciência fica zero. A culpa é do cansaço.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E3_Q3", excerpt: `T: Então, parece que você evita essas situações para não sentir aquela ansiedade que conversamos.<br><strong>C: É isso mesmo. Você acertou em cheio. Eu fujo antes mesmo de tentar, só para não ter que sentir aquilo.</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Relato (REL)", "Outras Vocal Cliente (COU)"], answer: "Concordância (CON)" },
+                { id: "CLIENTE_E3_Q4", excerpt: `T: Pelo que você me conta, parece que seu pai foi uma figura muito autoritária.<br><strong>C: Não, eu não acho. Ele era rígido, sim, mas não autoritário. Você está confundindo as coisas. Ele só queria o meu bem.</strong>`, options: ["Relações (CER)", "Concordância (CON)", "Oposição (OPO)", "Relato (REL)"], answer: "Oposição (OPO)" },
+                { id: "CLIENTE_E3_Q5", excerpt: `T: E como foi essa semana?<br><strong>C: Foi diferente. Eu... eu consegui, de fato, sair para caminhar três vezes, como eu tinha dito que ia tentar. Eu me senti bem.</strong>`, options: ["Melhora (MEL)", "Outras Vocal Cliente (COU)", "Relato (REL)", "Meta (MET)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E3_Q6", excerpt: `T: O que é importante para você agora?<br><strong>C: Meu foco é conseguir aquele estágio. Eu vou me preparar para a entrevista na semana que vem e quero muito passar. É o meu objetivo número um.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Meta (MET)" },
+                { id: "CLIENTE_E3_Q7", excerpt: `T: Isso parece ser um dilema difícil.<br><strong>C: E é! Eu não sei se eu peço demissão ou se eu continuo nesse emprego. O que você acha que eu deveria fazer?</strong>`, options: ["Relações (CER)", "Solicitação (SOL)", "Meta (MET)", "Relato (REL)"], answer: "Solicitação (SOL)" },
+                { id: "CLIENTE_E3_Q8", excerpt: `T: Como você está se sentindo agora, falando sobre isso?<br><strong>C: Eu me sinto um pouco tenso. Meu ombro está doendo e estou com um nó no estômago. É uma sensação estranha, de aperto.</strong>`, options: ["Melhora (MEL)", "Oposição (OPO)", "Relato (REL)", "Relações (CER)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E3_Q9", excerpt: `T: O que você acha que está por trás desse medo?<br><strong>C: Deve ser por causa daquele assalto que sofri no ano passado. Desde aquele dia, eu não consigo andar na rua à noite sem achar que alguém está me seguindo. Ligou um alerta.</strong>`, options: ["Oposição (OPO)", "Melhora (MEL)", "Relações (CER)", "Relato (REL)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E3_Q10", excerpt: `T: Talvez essa sua dificuldade de dizer "não" esteja ligada a um medo de ser rejeitado.<br><strong>C: Com certeza. Eu nunca tinha ligado uma coisa na outra, mas faz total sentido. Eu sempre quero agradar todo mundo.</strong>`, options: ["Solicitação (SOL)", "Relações (CER)", "Concordância (CON)", "Melhora (MEL)"], answer: "Concordância (CON)" },
+                { id: "CLIENTE_E3_Q11", excerpt: `T: Sugiro que você tente conversar com seu chefe sobre isso.<br><strong>C: De jeito nenhum. Isso é impossível. Você não entende, ele não é o tipo de pessoa com quem se conversa.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Oposição (OPO)" },
+                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Meta (MET)", "Relato (REL)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E3_Q13", excerpt: `T: E o que você espera para o próximo ano?<br><strong>C: Eu decidi que vou morar sozinho. Já comecei a guardar dinheiro e meu plano é encontrar um apartamento perto do trabalho até o meio do ano que vem.</strong>`, options: ["Melhora (MEL)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Meta (MET)" },
+                { id: "CLIENTE_E3_Q14", excerpt: `T: Você mencionou que seu filho está agindo de forma diferente.<br><strong>C: Sim, ele está muito rebelde. Eu não sei mais o que fazer. Você tem algum livro para me indicar sobre adolescência? O que a psicologia diz sobre isso?</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Solicitação (SOL)" },
+                { id: "CLIENTE_E3_Q15", excerpt: `T: O que aconteceu na reunião?<br><strong>C: Meu chefe apresentou os novos projetos. Ele falou por quase uma hora. Depois, ele abriu para perguntas, mas ninguém falou nada. Eu só fiquei quieto no meu canto.</strong>`, options: ["Relato (REL)", "Solicitação (SOL)", "Concordância (CON)", "Oposição (OPO)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E3_Q16", excerpt: `T: Por que você acha que ele agiu daquela forma?<br><strong>C: Ele deve estar inseguro. Sempre que ele se sente ameaçado no emprego, ele começa a tratar mal as pessoas em casa. É o jeito dele de... sei lá, tentar ter algum controle.</strong>`, options: ["Concordância (CON)", "Solicitação (SOL)", "Meta (MET)", "Relações (CER)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E3_Q17", excerpt: `T: Você acha que repetir esse padrão está te trazendo mais prejuízo do que benefícios?<br><strong>C: Sim, sim. É exatamente o que eu estava pensando essa semana. Eu vi que continuar fazendo isso só está me afundando.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Concordância (CON)" },
+                { id: "CLIENTE_E3_Q18", excerpt: `T: Você se lembra daquela tarefa de casa que combinamos, de escrever sobre seus sentimentos?<br><strong>C: Lembro, e não fiz. Eu já disse que não gosto de escrever, achei uma perda de tempo e não vou fazer.</strong>`, options: ["Relato (REL)", "Concordância (CON)", "Oposição (OPO)", "Relações (CER)"], answer: "Oposição (OPO)" },
+                { id: "CLIENTE_E3_Q19", excerpt: `T: Você mencionou que brigava muito com sua mãe.<br><strong>C: Sim, mas na última quarta-feira, quando ela começou a gritar, eu fiz diferente. Em vez de gritar de volta, eu respirei fundo e disse que conversaria com ela quando ela estivesse mais calma. E funcionou.</strong>`, options: ["Meta (MET)", "Solicitação (SOL)", "Melhora (MEL)", "Oposição (OPO)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E3_Q20", excerpt: `T: O que você gostaria de alcançar aqui na terapia?<br><strong>C: Eu quero aprender a dizer "não" sem me sentir culpado. Minha meta é conseguir colocar limites nas pessoas, especialmente na minha família.</strong>`, options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Solicitação (SOL)"], answer: "Meta (MET)" },
+                { id: "CLIENTE_E3_Q21", excerpt: `T: Você pode tentar aplicar essa técnica de comunicação.<br><strong>C: Certo. Mas você pode me dar um exemplo de como eu começo essa conversa? Eu não sei qual é a melhor forma de abordar minha esposa sem que ela fique brava.</strong>`, options: ["Relato (REL)", "Melhora (MEL)", "Meta (MET)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
+                { id: "CLIENTE_E3_Q22", excerpt: `T: Vamos continuar falando sobre sua mãe.<br><strong>C: (Suspira audivelmente) ... Ai, ai... tudo bem, vamos lá. De novo.</strong>`, options: ["Oposição (OPO)", "Relato (REL)", "Outras Vocal Cliente (COU)", "Concordância (CON)"], answer: "Outras Vocal Cliente (COU)" }
+            ],
+            etapa4: [
+                 { id: "CLIENTE_E4_Q1", full_excerpt: `T: E como foi o encontro com sua família?<br><strong>C: Ah, foi o de sempre. <span class="highlight-p1">Minha mãe começou a me criticar na frente de todo mundo.</span> <span class="highlight-p2">Eu acho que ela faz isso para se sentir superior, para mostrar que ela ainda tem controle sobre mim.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relato (REL) e Relações (CER)", "Relações (CER) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Relato (REL) e Relações (CER)" },
+                 { id: "CLIENTE_E4_Q2", full_excerpt: `T: Então, você acha que a estratégia que discutimos, de respirar antes de responder, pode funcionar?<br><strong>C: <span class="highlight-p1">Sim, eu acho que sim, faz sentido.</span> <span class="highlight-p2">Eu vou tentar aplicar isso na próxima vez que eu discutir com meu chefe.</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Relato (REL) e Outras Vocal Cliente (COU)", "Concordância (CON) e Outras Vocal Cliente (COU)", "Concordância (CON) e Relato (REL)"], answer: "Concordância (CON) e Meta (MET)" },
+                 { id: "CLIENTE_E4_Q3", full_excerpt: `T: Como você se sentiu essa semana?<br><strong>C: <span class="highlight-p1">Sabe, eu me senti muito melhor. Acho que não tive nenhuma crise de ansiedade.</span> <span class="highlight-p2">Meu próximo passo agora é tentar ir àquela festa de aniversário no sábado.</span></strong>`, options: ["Melhora (MEL) e Meta (MET)", "Relato (REL) e Meta (MET)", "Melhora (MEL) e Meta (MET)", "Melhora (MEL) e Melhora (MEL)"], answer: "Melhora (MEL) e Meta (MET)" },
+                 { id: "CLIENTE_E4_Q4", full_excerpt: `T: Parece que você ficou chateado com o que ele disse.<br><strong>C: <span class="highlight-p1">Não, chateado não.</span> <span class="highlight-p2">Eu fiquei surpreso, porque eu não esperava aquela reação dele de jeito nenhum.</span></strong>`, options: ["Oposição (OPO) e Relações (CER)", "Oposição (OPO) e Oposição (OPO)", "Oposição (OPO) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Oposição (OPO) e Relato (REL)" },
+                 { id: "CLIENTE_E4_Q5", full_excerpt: `T: O que aconteceu na entrevista?<br><strong>C: <span class="highlight-p1">Foi bem difícil. O recrutador fez perguntas que eu não sabia responder e eu travei.</span> <span class="highlight-p2">Eu preciso conseguir um emprego novo até o fim do ano, é minha prioridade.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relações (CER) e Meta (MET)", "Relato (REL) e Melhora (MEL)", "Melhora (MEL) e Meta (MET)"], answer: "Relato (REL) e Meta (MET)" },
+                 { id: "CLIENTE_E4_Q6", full_excerpt: `T: E como foi usar a técnica de comunicação que praticamos?<br><strong>C: <span class="highlight-p1">Eu consegui! Eu disse para minha irmã que eu não podia ajudar ela no sábado.</span> <span class="highlight-p2">Acho que eu só consegui porque eu percebi que, se eu não me priorizar, eu vou acabar ficando doente.</span></strong>`, options: ["Outras Vocal Cliente (COU) e Relato (REL)", "Relato (REL) e Relações (CER)", "Outras Vocal Cliente (COU) e Relações (CER)", "Melhora (MEL) e Relações (CER)"], answer: "Melhora (MEL) e Relações (CER)" },
+                 { id: "CLIENTE_E4_Q7", full_excerpt: `T: Você parece bem hoje.<br><strong>C: <span class="highlight-p1">E eu estou! Consegui entregar o projeto sem surtar, estou dormindo melhor.</span> <span class="highlight-p2">Mas agora eu estou com um problema novo no trabalho. O que eu devo fazer?</span></strong>`, options: ["Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Relato (REL)", "Relato (REL) e Solicitação (SOL)"], answer: "Melhora (MEL) e Solicitação (SOL)" },
+                 { id: "CLIENTE_E4_Q8", full_excerpt: `T: Tente focar em organizar sua rotina primeiro.<br><strong>C: <span class="highlight-p1">Certo, eu concordo que isso é o principal.</span> <span class="highlight-p2">Mas você acha que é melhor eu começar organizando os horários de casa ou os do trabalho? Qual sua sugestão?</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Concordância (CON) e Solicitação (SOL)", "Relato (REL) e Solicitação (SOL)", "Concordância (CON) e Relações (CER)"], answer: "Concordância (CON) e Solicitação (SOL)" }
+            ]
         }
     };
 
@@ -987,7 +294,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "TERAPEUTA_E3_Q2", excerpt: `<strong>T: Me conta... Por que é que você está procurando terapia?</strong><br>C: Então... eu tenho me sentido muito sobrecarregada no trabalho e, ao mesmo tempo, em casa também. Parece que nunca consigo descansar de verdade.`, options: ["Recomendação (REC)", "Facilitação (FAC)", "Informação (INF)", "Solicitação de Relato (SRE)"], answer: "Solicitação de Relato (SRE)" },
                 { id: "TERAPEUTA_E3_Q3", excerpt: `C: Ontem, quando ele começou a gritar comigo na frente de todo mundo, eu fiquei paralisada... parecia que não tinha reação nenhuma.<br><strong>T: O que você teve vontade de fazer nessa hora?</strong><br>C: Acho que queria ter ido embora, mas também tive vontade de responder na hora. Fiquei dividida.`, options: ["Solicitação de reflexão (SRF)", "Empatia (EMP)", "Solicitação de Relato (SRE)", "Recomendação (REC)"], answer: "Solicitação de Relato (SRE)" },
                 { id: "TERAPEUTA_E3_Q4", excerpt: `C: É muito difícil pra mim falar dessas coisas, parece que eu nunca falei em voz alta antes.<br><strong>T: Sei…</strong><br>C: (faz uma pausa) Mas eu acho que é importante contar, porque isso me sufoca.`, options: ["Recomendação (REC)", "Facilitação (FAC)", "Aprovação (APR)", "Interpretação (INT)"], answer: "Facilitação (FAC)" },
-                { id: "TERAPEUTA_E3_Q5", excerpt: `C: Então eu fiquei calada, mas por dentro estava com muita raiva, sabe?<br><strong>T: Hum hum</strong><br>C: E depois ainda passei o resto do dia remoendo aquilo.`, options: ["Interpretação (INT)", "Reprovação (REP)", "Solicitação de Relato (SRE)", "Facilitação (FAC)"], answer: "Facilitação (FAC)" },
+                { id: "TERAPEUTA_E3_Q5", excerpt: `Então eu fiquei calada, mas por dentro estava com muita raiva, sabe?<br><strong>T: Hum hum</strong><br>C: E depois ainda passei o resto do dia remoendo aquilo.`, options: ["Interpretação (INT)", "Reprovação (REP)", "Solicitação de Relato (SRE)", "Facilitação (FAC)"], answer: "Facilitação (FAC)" },
                 { id: "TERAPEUTA_E3_Q6", excerpt: `C: Acho que tenho medo de me expor e ser julgada...<br><strong>T: Certo</strong><br>C: Por isso acabo evitando várias situações sociais.`, options: ["Facilitação (FAC)", "Aprovação (APR)", "Empatia (EMP)", "Interpretação (INT)"], answer: "Facilitação (FAC)" },
                 { id: "TERAPEUTA_E3_Q7", excerpt: `C: Meu irmão sempre me trata como se eu fosse irresponsável, e eu acabo me sentindo diminuído.<br><strong>T: Entendo que você fique muito irritado com isso.</strong><br>C: Sim, porque parece que ele não reconhece nada do que eu já conquistei.`, options: ["Recomendação (REC)", "Empatia (EMP)", "Aprovação (APR)", "Interpretação (INT)"], answer: "Empatia (EMP)" },
                 { id: "TERAPEUTA_E3_Q8", excerpt: `C: Na quarta feira ele me ligou e não me encontrou... um monte de vezes... o Luciano quando atende fala “minha mãe, como sempre, batendo perna!”(risos)<br><strong>T: Olha só! O Luciano já estabeleceu um contato bom com ele!</strong>`, options: ["Informação (INF)", "Facilitação (FAC)", "Empatia (EMP)", "Interpretação (INT)"], answer: "Empatia (EMP)" },
@@ -1006,7 +313,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     options: ["Empatia (EMP)", "Informação (INF)", "Outras verbalizações do terapeuta (TOU)", "Reprovação (REP)"], 
                     answer: "Outras verbalizações do terapeuta (TOU)" 
                 },
-                { id: "TERAPEUTA_E3_Q19", excerpt: `C: ...não estou conseguindo... tudo aquilo que eu me propus a fazer eu fico enrolando... acho que eu to muito desmotivado...<br><strong>T: Talvez o seu problema não seja de motivação, mas que até agora as coisas ainda não deram certo. Muito do que a gente faz, pra que a gente se mantenha fazendo depende da consequência daquilo que a gente faz. Quando a gente faz uma coisa que tem uma consequência boa imediata, legal, a tendência é que a gente continue fazendo. Quando a consequência não é muito legal, a gente tende não fazer mais.</strong>`, options: ["Empatia (EMP)", "Informação (INF)", "Interpretação (INT)", "Aprovação (APR)"], answer: "Interpretação (INT)" },
+                { id: "TERAPEUTA_E3_Q19", excerpt: `...não estou conseguindo... tudo aquilo que eu me propus a fazer eu fico enrolando... acho que eu to muito desmotivado...<br><strong>T: Talvez o seu problema não seja de motivação, mas que até agora as coisas ainda não deram certo. Muito do que a gente faz, pra que a gente se mantenha fazendo depende da consequência daquilo que a gente faz. Quando a gente faz uma coisa que tem uma consequência boa imediata, legal, a tendência é que a gente continue fazendo. Quando a consequência não é muito legal, a gente tende não fazer mais.</strong>`, options: ["Empatia (EMP)", "Informação (INF)", "Interpretação (INT)", "Aprovação (APR)"], answer: "Interpretação (INT)" },
                 { id: "TERAPEUTA_E3_Q20", excerpt: `C: Você acha que eu estou deprimido?<br><strong>T: Você parece mais ansioso que deprimido</strong>`, options: ["Empatia (EMP)", "Informação (INF)", "Reprovação (REP)", "Interpretação (INT)"], answer: "Interpretação (INT)" },
                 { id: "TERAPEUTA_E3_Q21", excerpt: `C: É engraçado… sempre que eu tenho uma prova importante ou uma reunião difícil no trabalho, eu acabo ficando doente, com dor de estômago ou gripe.<br><strong>T: Você já notou que, sempre que há alguma situação muito difícil pela frente, você fica doente?</strong>`, options: ["Reprovação (REP)", "Solicitação de Reflexão (SRF)", "Interpretação (INT)", "Solicitação de Relato (SRE)"], answer: "Interpretação (INT)" },
                 { id: "TERAPEUTA_E3_Q22", excerpt: `C: Consegui dizer “não” pro meu chefe ontem, mesmo morrendo de medo de como ele ia reagir.<br><strong>T: Você tomou a decisão certa. Está lidando com isso muito bem!</strong>`, options: ["Empatia (EMP)", "Aprovação (APR)", "Interpretação (INT)", "Facilitação (FAC)"], answer: "Aprovação (APR)" },
@@ -1035,7 +342,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     options: ["Solicitação de relato / Solicitação de reflexão", "Solicitação de reflexão / Solicitação de relato", "Facilitação / Solicitação de reflexão", "Solicitação de relato / Interpretação"], 
                     answer: "Solicitação de relato / Solicitação de reflexão" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q4",
                     full_excerpt: `C: Fiquei muito nervosa e acabei gritando com ele de novo.<br><strong>T: <span class="highlight-p1">Eu entendo, é difícil controlar na hora...</span> <span class="highlight-p2">mas seria importante tentar se afastar um pouco antes de reagir dessa forma.</span></strong>`, 
                     options: ["Empatia / Recomendação", "Facilitação / Recomendação", "Empatia / Solicitação de reflexão", "Interpretação / Recomendação"], 
@@ -1085,7 +392,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "CLIENTE_E1_Q2", definition: "Contempla verbalizações nas quais o cliente estabelece relações causais e/ou explicativas (funcionais, correlacionais ou de contiguidade) entre eventos, descrevendo-as de forma explícita ou sugerindo-as por meio de metáforas ou analogias.", options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Concordância (CON)"], answer: "Relações (CER)" },
                 { id: "CLIENTE_E1_Q3", definition: "Contempla verbalizações nas quais o cliente expressa julgamento ou avaliação favoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta ou relata satisfação, esperança ou confiança no terapeuta e/ou no processo terapêutico. Inclui também verbalizações nas quais o cliente complementa ou resume a fala do terapeuta ou episódios nos quais o cliente sorri em concordância com o terapeuta.", options: ["Concordância (CON)", "Melhora (MEL)", "Relato (REL)", "Relações (CER)"], answer: "Concordância (CON)" },
                 { id: "CLIENTE_E1_Q4", definition: "Contempla verbalizações nas quais o cliente expressa discordância, julgamento ou avaliação desfavoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta.", options: ["Solicitação (SOL)", "Oposição (OPO)", "Melhora (MEL)", "Meta (MET)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Mudança (CMU)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Melhora (MEL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
                 { id: "CLIENTE_E1_Q6", definition: "Contempla verbalizações do cliente nas quais ele descreve seus projetos, planos ou estratégias para a solução de problemas trazidos como queixas para a terapia.", options: ["Meta (MET)", "Solicitação (SOL)", "Oposição (OPO)", "Relato (REL)"], answer: "Meta (MET)" },
                 { id: "CLIENTE_E1_Q7", definition: "Contempla verbalizações nas quais o cliente apresenta pedidos ou questões ao terapeuta.", options: ["Concordância (CON)", "Relações (CER)", "Melhora (MEL)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
                 { id: "CLIENTE_E1_Q8", definition: "Esta categoria contempla verbalizações do cliente não classificáveis nas categorias anteriores. Inclui também verbalizações do cliente ao cumprimentar o terapeuta em sua chegada ou partida, anúncios de interrupções ou comentários ocasionais alheios ao tema em discussão.", options: ["Outras Vocal Cliente (COU)", "Relações (CER)", "Meta (MET)", "Solicitação (SOL)"], answer: "Outras Vocal Cliente (COU)" }
@@ -1101,18 +408,18 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "CLIENTE_E2_Q8", concept: "OUTRAS VOCAL CLIENTE (COU)", distractor_category: "Relações (CER)", options: [`T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>`, `T: O que você acha que é ridículo?<br><strong>C: Eu acho ridículo que eu ainda me importe com a opinião dele depois de tudo que ele me fez.</strong>`], answer: `T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>` }
             ],
             etapa3: [
-                { id: "CLIENTE_E3_Q1", excerpt: `T: O que você fez neste fim de semana?<br><strong>C: Fui ao parque no sábado de manhã. Estava sol. Depois, à tarde, encontrei minha irmã e fomos ao cinema. Comi pipoca e voltei para casa.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Mudança (CMU)", "Meta (MET)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E3_Q1", excerpt: `T: O que você fez neste fim de semana?<br><strong>C: Fui ao parque no sábado de manhã. Estava sol. Depois, à tarde, encontrei minha irmã e fomos ao cinema. Comi pipoca e voltei para casa.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Relato (REL)" },
                 { id: "CLIENTE_E3_Q2", excerpt: `T: Você notou algum padrão?<br><strong>C: Sim. Eu acho que eu sempre brigo com ela nas sextas-feiras porque é o dia que eu estou mais cansado do trabalho. Minha paciência fica zero. A culpa é do cansaço.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Relações (CER)" },
                 { id: "CLIENTE_E3_Q3", excerpt: `T: Então, parece que você evita essas situações para não sentir aquela ansiedade que conversamos.<br><strong>C: É isso mesmo. Você acertou em cheio. Eu fujo antes mesmo de tentar, só para não ter que sentir aquilo.</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Relato (REL)", "Outras Vocal Cliente (COU)"], answer: "Concordância (CON)" },
                 { id: "CLIENTE_E3_Q4", excerpt: `T: Pelo que você me conta, parece que seu pai foi uma figura muito autoritária.<br><strong>C: Não, eu não acho. Ele era rígido, sim, mas não autoritário. Você está confundindo as coisas. Ele só queria o meu bem.</strong>`, options: ["Relações (CER)", "Concordância (CON)", "Oposição (OPO)", "Relato (REL)"], answer: "Oposição (OPO)" },
                 { id: "CLIENTE_E3_Q5", excerpt: `T: E como foi essa semana?<br><strong>C: Foi diferente. Eu... eu consegui, de fato, sair para caminhar três vezes, como eu tinha dito que ia tentar. Eu me senti bem.</strong>`, options: ["Melhora (MEL)", "Outras Vocal Cliente (COU)", "Relato (REL)", "Meta (MET)"], answer: "Melhora (MEL)" },
-                { id: "CLIENTE_E3_Q6", excerpt: `T: O que é importante para você agora?<br><strong>C: Meu foco é conseguir aquele estágio. Eu vou me preparar para a entrevista na semana que vem e quero muito passar. É o meu objetivo número um.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Mudança (CMU)"], answer: "Meta (MET)" },
+                { id: "CLIENTE_E3_Q6", excerpt: `T: O que é importante para você agora?<br><strong>C: Meu foco é conseguir aquele estágio. Eu vou me preparar para a entrevista na semana que vem e quero muito passar. É o meu objetivo número um.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Meta (MET)" },
                 { id: "CLIENTE_E3_Q7", excerpt: `T: Isso parece ser um dilema difícil.<br><strong>C: E é! Eu não sei se eu peço demissão ou se eu continuo nesse emprego. O que você acha que eu deveria fazer?</strong>`, options: ["Relações (CER)", "Solicitação (SOL)", "Meta (MET)", "Relato (REL)"], answer: "Solicitação (SOL)" },
                 { id: "CLIENTE_E3_Q8", excerpt: `T: Como você está se sentindo agora, falando sobre isso?<br><strong>C: Eu me sinto um pouco tenso. Meu ombro está doendo e estou com um nó no estômago. É uma sensação estranha, de aperto.</strong>`, options: ["Melhora (MEL)", "Oposição (OPO)", "Relato (REL)", "Relações (CER)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E3_Q9", excerpt: `T: O que você acha que está por trás desse medo?<br><strong>C: Deve ser por causa daquele assalto que sofri no ano passado. Desde aquele dia, eu não consigo andar na rua à noite sem achar que alguém está me seguindo. Ligou um alerta.</strong>`, options: ["Oposição (OPO)", "Mudança (CMU)", "Relações (CER)", "Relato (REL)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E3_Q9", excerpt: `T: O que você acha que está por trás desse medo?<br><strong>C: Deve ser por causa daquele assalto que sofri no ano passado. Desde aquele dia, eu não consigo andar na rua à noite sem achar que alguém está me seguindo. Ligou um alerta.</strong>`, options: ["Oposição (OPO)", "Melhora (MEL)", "Relações (CER)", "Relato (REL)"], answer: "Relações (CER)" },
                 { id: "CLIENTE_E3_Q10", excerpt: `T: Talvez essa sua dificuldade de dizer "não" esteja ligada a um medo de ser rejeitado.<br><strong>C: Com certeza. Eu nunca tinha ligado uma coisa na outra, mas faz total sentido. Eu sempre quero agradar todo mundo.</strong>`, options: ["Solicitação (SOL)", "Relações (CER)", "Concordância (CON)", "Melhora (MEL)"], answer: "Concordância (CON)" },
                 { id: "CLIENTE_E3_Q11", excerpt: `T: Sugiro que você tente conversar com seu chefe sobre isso.<br><strong>C: De jeito nenhum. Isso é impossível. Você não entende, ele não é o tipo de pessoa com quem se conversa.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Mudança (CMU)", "Relato (REL)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Melhora (MEL)", "Relato (REL)"], answer: "Melhora (MEL)" },
                 { id: "CLIENTE_E3_Q13", excerpt: `T: E o que você espera para o próximo ano?<br><strong>C: Eu decidi que vou morar sozinho. Já comecei a guardar dinheiro e meu plano é encontrar um apartamento perto do trabalho até o meio do ano que vem.</strong>`, options: ["Melhora (MEL)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Meta (MET)" },
                 { id: "CLIENTE_E3_Q14", excerpt: `T: Você mencionou que seu filho está agindo de forma diferente.<br><strong>C: Sim, ele está muito rebelde. Eu não sei mais o que fazer. Você tem algum livro para me indicar sobre adolescência? O que a psicologia diz sobre isso?</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Solicitação (SOL)" },
                 { id: "CLIENTE_E3_Q15", excerpt: `T: O que aconteceu na reunião?<br><strong>C: Meu chefe apresentou os novos projetos. Ele falou por quase uma hora. Depois, ele abriu para perguntas, mas ninguém falou nada. Eu só fiquei quieto no meu canto.</strong>`, options: ["Relato (REL)", "Solicitação (SOL)", "Concordância (CON)", "Oposição (OPO)"], answer: "Relato (REL)" },
@@ -1127,11 +434,11 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
             etapa4: [
                  { id: "CLIENTE_E4_Q1", full_excerpt: `T: E como foi o encontro com sua família?<br><strong>C: Ah, foi o de sempre. <span class="highlight-p1">Minha mãe começou a me criticar na frente de todo mundo.</span> <span class="highlight-p2">Eu acho que ela faz isso para se sentir superior, para mostrar que ela ainda tem controle sobre mim.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relato (REL) e Relações (CER)", "Relações (CER) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Relato (REL) e Relações (CER)" },
                  { id: "CLIENTE_E4_Q2", full_excerpt: `T: Então, você acha que a estratégia que discutimos, de respirar antes de responder, pode funcionar?<br><strong>C: <span class="highlight-p1">Sim, eu acho que sim, faz sentido.</span> <span class="highlight-p2">Eu vou tentar aplicar isso na próxima vez que eu discutir com meu chefe.</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Relato (REL) e Outras Vocal Cliente (COU)", "Concordância (CON) e Outras Vocal Cliente (COU)", "Concordância (CON) e Relato (REL)"], answer: "Concordância (CON) e Meta (MET)" },
-                 { id: "CLIENTE_E4_Q3", full_excerpt: `T: Como você se sentiu essa semana?<br><strong>C: <span class="highlight-p1">Sabe, eu me senti muito melhor. Acho que não tive nenhuma crise de ansiedade.</span> <span class="highlight-p2">Meu próximo passo agora é tentar ir àquela festa de aniversário no sábado.</span></strong>`, options: ["Mudança (CMU) e Meta (MET)", "Relato (REL) e Meta (MET)", "Melhora (MEL) e Meta (MET)", "Melhora (MEL) e Mudança (CMU)"], answer: "Melhora (MEL) e Meta (MET)" },
+                 { id: "CLIENTE_E4_Q3", full_excerpt: `T: Como você se sentiu essa semana?<br><strong>C: <span class="highlight-p1">Sabe, eu me senti muito melhor. Acho que não tive nenhuma crise de ansiedade.</span> <span class="highlight-p2">Meu próximo passo agora é tentar ir àquela festa de aniversário no sábado.</span></strong>`, options: ["Melhora (MEL) e Meta (MET)", "Relato (REL) e Meta (MET)", "Melhora (MEL) e Meta (MET)", "Melhora (MEL) e Melhora (MEL)"], answer: "Melhora (MEL) e Meta (MET)" },
                  { id: "CLIENTE_E4_Q4", full_excerpt: `T: Parece que você ficou chateado com o que ele disse.<br><strong>C: <span class="highlight-p1">Não, chateado não.</span> <span class="highlight-p2">Eu fiquei surpreso, porque eu não esperava aquela reação dele de jeito nenhum.</span></strong>`, options: ["Oposição (OPO) e Relações (CER)", "Oposição (OPO) e Oposição (OPO)", "Oposição (OPO) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Oposição (OPO) e Relato (REL)" },
-                 { id: "CLIENTE_E4_Q5", full_excerpt: `T: O que aconteceu na entrevista?<br><strong>C: <span class="highlight-p1">Foi bem difícil. O recrutador fez perguntas que eu não sabia responder e eu travei.</span> <span class="highlight-p2">Eu preciso conseguir um emprego novo até o fim do ano, é minha prioridade.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relações (CER) e Meta (MET)", "Relato (REL) e Mudança (CMU)", "Mudança (CMU) e Meta (MET)"], answer: "Relato (REL) e Meta (MET)" },
+                 { id: "CLIENTE_E4_Q5", full_excerpt: `T: O que aconteceu na entrevista?<br><strong>C: <span class="highlight-p1">Foi bem difícil. O recrutador fez perguntas que eu não sabia responder e eu travei.</span> <span class="highlight-p2">Eu preciso conseguir um emprego novo até o fim do ano, é minha prioridade.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relações (CER) e Meta (MET)", "Relato (REL) e Melhora (MEL)", "Melhora (MEL) e Meta (MET)"], answer: "Relato (REL) e Meta (MET)" },
                  { id: "CLIENTE_E4_Q6", full_excerpt: `T: E como foi usar a técnica de comunicação que praticamos?<br><strong>C: <span class="highlight-p1">Eu consegui! Eu disse para minha irmã que eu não podia ajudar ela no sábado.</span> <span class="highlight-p2">Acho que eu só consegui porque eu percebi que, se eu não me priorizar, eu vou acabar ficando doente.</span></strong>`, options: ["Outras Vocal Cliente (COU) e Relato (REL)", "Relato (REL) e Relações (CER)", "Outras Vocal Cliente (COU) e Relações (CER)", "Melhora (MEL) e Relações (CER)"], answer: "Melhora (MEL) e Relações (CER)" },
-                 { id: "CLIENTE_E4_Q7", full_excerpt: `T: Você parece bem hoje.<br><strong>C: <span class="highlight-p1">E eu estou! Consegui entregar o projeto sem surtar, estou dormindo melhor.</span> <span class="highlight-p2">Mas agora eu estou com um problema novo no trabalho. O que eu devo fazer?</span></strong>`, options: ["Melhora (MEL) e Solicitação (SOL)", "Mudança (CMU) e Solicitação (SOL)", "Melhora (MEL) e Relato (REL)", "Relato (REL) e Solicitação (SOL)"], answer: "Melhora (MEL) e Solicitação (SOL)" },
+                 { id: "CLIENTE_E4_Q7", full_excerpt: `T: Você parece bem hoje.<br><strong>C: <span class="highlight-p1">E eu estou! Consegui entregar o projeto sem surtar, estou dormindo melhor.</span> <span class="highlight-p2">Mas agora eu estou com um problema novo no trabalho. O que eu devo fazer?</span></strong>`, options: ["Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Relato (REL)", "Relato (REL) e Solicitação (SOL)"], answer: "Melhora (MEL) e Solicitação (SOL)" },
                  { id: "CLIENTE_E4_Q8", full_excerpt: `T: Tente focar em organizar sua rotina primeiro.<br><strong>C: <span class="highlight-p1">Certo, eu concordo que isso é o principal.</span> <span class="highlight-p2">Mas você acha que é melhor eu começar organizando os horários de casa ou os do trabalho? Qual sua sugestão?</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Concordância (CON) e Solicitação (SOL)", "Relato (REL) e Solicitação (SOL)", "Concordância (CON) e Relações (CER)"], answer: "Concordância (CON) e Solicitação (SOL)" }
             ]
         }
@@ -1585,14 +892,4 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
         // Configura o modal do guia
         setupGuideModal();
     });
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
+    
