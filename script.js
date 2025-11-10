@@ -1,6 +1,4 @@
-
-
-    // --- BANCO DE DADOS DAS INSTRUÇÕES ---
+// --- BANCO DE DADOS DAS INSTRUÇÕES ---
     const instructionsData = {
         terapeuta: {
             etapa1: `Nesta etapa, o objetivo é associar a <strong>definição</strong> de uma categoria ao seu nome correto.<br>
@@ -65,60 +63,66 @@ Cada questão apresentará um diálogo onde a fala do terapeuta está dividida e
 Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
         },
         cliente: {
-            etapa1: [
-                { id: "CLIENTE_E1_Q1", definition: "Contempla verbalizações nas quais o cliente descreve ou informa ao terapeuta a ocorrência de eventos, ou aspectos relativos a eventos, respostas emocionais suas ou de terceiros, seus estados motivacionais e/ou tendências a ações, sem estabelecer relações causais ou funcionais entre eles.", options: ["Relações (CER)", "Relato (REL)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E1_Q2", definition: "Contempla verbalizações nas quais o cliente estabelece relações causais e/ou explicativas (funcionais, correlacionais ou de contiguidade) entre eventos, descrevendo-as de forma explícita ou sugerindo-as por meio de metáforas ou analogias.", options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Concordância (CON)"], answer: "Relações (CER)" },
-                { id: "CLIENTE_E1_Q3", definition: "Contempla verbalizações nas quais o cliente expressa julgamento ou avaliação favoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta ou relata satisfação, esperança ou confiança no terapeuta e/ou no processo terapêutico. Inclui também verbalizações nas quais o cliente complementa ou resume a fala do terapeuta ou episódios nos quais o cliente sorri em concordância com o terapeuta.", options: ["Concordância (CON)", "Melhora (MEL)", "Relato (REL)", "Relações (CER)"], answer: "Concordância (CON)" },
-                { id: "CLIENTE_E1_Q4", definition: "Contempla verbalizações nas quais o cliente expressa discordância, julgamento ou avaliação desfavoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta.", options: ["Solicitação (SOL)", "Oposição (OPO)", "Melhora (MEL)", "Meta (MET)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Solicitação (SOL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
-                { id: "CLIENTE_E1_Q6", definition: "Contempla verbalizações do cliente nas quais ele descreve seus projetos, planos ou estratégias para a solução de problemas trazidos como queixas para a terapia.", options: ["Meta (MET)", "Solicitação (SOL)", "Oposição (OPO)", "Relato (REL)"], answer: "Meta (MET)" },
-                { id: "CLIENTE_E1_Q7", definition: "Contempla verbalizações nas quais o cliente apresenta pedidos ou questões ao terapeuta.", options: ["Concordância (CON)", "Relações (CER)", "Melhora (MEL)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
-                { id: "CLIENTE_E1_Q8", definition: "Esta categoria contempla verbalizações do cliente não classificáveis nas categorias anteriores. Inclui também verbalizações do cliente ao cumprimentar o terapeuta em sua chegada ou partida, anúncios de interrupções ou comentários ocasionais alheios ao tema em discussão.", options: ["Outras Vocal Cliente (COU)", "Relações (CER)", "Meta (MET)", "Solicitação (SOL)"], answer: "Outras Vocal Cliente (COU)" }
-            ],
-            etapa2: [
-                { id: "CLIENTE_E2_Q1", concept: "RELATO (REL)", distractor_category: "Relações (CER)", options: [`T: E como você reagiu quando ele disse isso?<br><strong>C: Ah, eu fiquei bem chateada. Fui para o meu quarto, bati a porta e não quis conversar com mais ninguém o resto da noite. Só pensava que ele não devia ter falado daquele jeito comigo na frente de todo mundo.</strong>`, `T: Parece que você fica muito ansioso quando precisa falar em público.<br><strong>C: Exatamente! Eu acho que isso acontece porque uma vez, na escola, eu fui apresentar um trabalho e gaguejei muito. Todo mundo riu de mim. Desde então, eu travo só de pensar em ter que falar para um grupo.</strong>`], answer: `T: E como você reagiu quando ele disse isso?<br><strong>C: Ah, eu fiquei bem chateada. Fui para o meu quarto, bati a porta e não quis conversar com mais ninguém o resto da noite. Só pensava que ele não devia ter falado daquele jeito comigo na frente de todo mundo.</strong>` },
-                { id: "CLIENTE_E2_Q2", concept: "RELAÇÕES (CER)", distractor_category: "Relato (REL)", options: [`T: E o que você fez no último fim de semana?<br><strong>C: Ah, no sábado eu até pensei em sair, mas choveu o dia todo. Acabei ficando em casa vendo série. No domingo, almocei na casa da minha mãe e voltei cedo. Foi bem tranquilo, na verdade.</strong>`, `T: Você mencionou que tem evitado seus amigos.<br><strong>C: Sim... Eu percebi que sempre que eu começo a me sentir mais cobrado ou pressionado no trabalho, eu me afasto de todo mundo. É como se eu não desse conta de lidar com as duas coisas ao mesmo tempo, aí eu me isolo para tentar "poupar energia".</strong>`], answer: `T: Você mencionou que tem evitado seus amigos.<br><strong>C: Sim... Eu percebi que sempre que eu começo a me sentir mais cobrado ou pressionado no trabalho, eu me afasto de todo mundo. É como se eu não desse conta de lidar com as duas coisas ao mesmo tempo, aí eu me isolo para tentar "poupar energia".</strong>` },
-                { id: "CLIENTE_E2_Q3", concept: "CONCORDÂNCIA (CON)", distractor_category: "Oposição (OPO)", options: [`T: Então, talvez essa sua raiva seja uma forma de se proteger, de colocar um limite para que as pessoas não te machuquem de novo.<br><strong>C: Nossa, é exatamente isso. Faz todo sentido. Eu nunca tinha parado para pensar dessa forma, mas é isso mesmo. Quando eu vejo, já levantei um muro.</strong>`, `T: Você acha que consegue tentar fazer aquele exercício de respiração que conversamos na próxima vez que se sentir assim?<br><strong>C: Ah, não sei... Sinceramente, eu acho essas coisas de respiração meio bobas. Não vejo como isso pode me ajudar na hora que eu estiver no auge do estresse.</strong>`], answer: `T: Então, talvez essa sua raiva seja uma forma de se proteger, de colocar um limite para que as pessoas não te machuquem de novo.<br><strong>C: Nossa, é exatamente isso. Faz todo sentido. Eu nunca tinha parado para pensar dessa forma, mas é isso mesmo. Quando eu vejo, já levantei um muro.</strong>` },
-                { id: "CLIENTE_E2_Q4", concept: "OPOSIÇÃO (OPO)", distractor_category: "Relato (REL)", options: [`T: Na última sessão, combinamos que você tentaria anotar seus pensamentos antes de dormir. Você conseguiu fazer isso?<br><strong>C: Olha, eu até tentei no primeiro dia, mas achei inútil. Não vou ficar perdendo meu tempo escrevendo em caderninho. Isso não vai resolver meu problema de insônia.</strong>`, `T: Como você se sentiu com essa mudança no trabalho?<br><strong>C: Foi difícil. Eu fiquei bem ansioso nos primeiros dias, sem saber direito o que esperar. Mas agora estou começando a me acostumar com a nova rotina.</strong>`], answer: `T: Na última sessão, combinamos que você tentaria anotar seus pensamentos antes de dormir. Você conseguiu fazer isso?<br><strong>C: Olha, eu até tentei no primeiro dia, mas achei inútil. Não vou ficar perdendo meu tempo escrevendo em caderninho. Isso não vai resolver meu problema de insônia.</strong>` },
-                { id: "CLIENTE_E2_Q5", concept: "MELHORA (MEL)", distractor_category: "Metas (MET)", options: [`T: Como você está se sentindo hoje?<br><strong>C: Sabe, eu reparei que esta semana eu não tive nenhuma daquelas crises de pânico. Eu até consegui ir ao mercado sozinho, coisa que eu não fazia há meses. Estou me sentindo bem mais calmo, parece que as coisas estão funcionando.</strong>`, `T: O que você espera alcançar com a terapia?<br><strong>C: Eu queria conseguir ser uma pessoa menos ansiosa. Meu objetivo principal é conseguir viajar de avião sem sentir que vou morrer. Quero poder visitar minha família em outro estado.</strong>`], answer: `T: Como você está se sentindo hoje?<br><strong>C: Sabe, eu reparei que esta semana eu não tive nenhuma daquelas crises de pânico. Eu até consegui ir ao mercado sozinho, coisa que eu não fazia há meses. Estou me sentindo bem mais calmo, parece que as coisas estão funcionando.</strong>` },
-                { id: "CLIENTE_E2_Q6", concept: "META (MET)", distractor_category: "Relações (CER)", options: [`T: E o que você gostaria de fazer sobre isso?<br><strong>C: Eu decidi que vou voltar a estudar. Já vi um curso que me interessa e meu plano é fazer a matrícula no mês que vem. Quero focar em conseguir um emprego melhor no próximo ano.</strong>`, `T: Você acha que isso tem a ver com algo do seu passado?<br><strong>C: Talvez... Eu lembro que meu pai era muito crítico. Acho que é por isso que hoje eu tenho tanto medo de errar e de ser julgado pelas outras pessoas.</strong>`], answer: `T: E o que você gostaria de fazer sobre isso?<br><strong>C: Eu decidi que vou voltar a estudar. Já vi um curso que me interessa e meu plano é fazer a matrícula no mês que vem. Quero focar em conseguir um emprego melhor no próximo ano.</strong>` },
-                { id: "CLIENTE_E2_Q7", concept: "SOLICITAÇÃO (SOL)", distractor_category: "Relato (REL)", options: [`T: Você trouxe o registro de pensamentos que combinamos?<br><strong>C: Sim, está aqui. Eu anotei tudo, mas agora eu não sei o que fazer com essa informação. Você pode me ajudar a entender o que tudo isso significa?</strong>`, `T: E como você se sentiu com isso?<br><strong>C: Péssimo. Foi mais uma vez que eu deixei ela decidir por mim. Eu me senti fraco.</strong>`], answer: `T: Você trouxe o registro de pensamentos que combinamos?<br><strong>C: Sim, está aqui. Eu anotei tudo, mas agora eu não sei o que fazer com essa informação. Você pode me ajudar a entender o que tudo isso significa?</strong>` },
-                { id: "CLIENTE_E2_Q8", concept: "OUTRAS VOCAL CLIENTE (COU)", distractor_category: "Relações (CER)", options: [`T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>`, `T: O que você acha que é ridículo?<br><strong>C: Eu acho ridículo que eu ainda me importe com a opinião dele depois de tudo que ele me fez.</strong>`], answer: `T: (Silêncio por 5 segundos)<br><strong>C: (Dá uma risada curta) ... Desculpe, é que essa situação toda é meio ridícula.</strong>` }
-            ],
-            etapa3: [
-                { id: "CLIENTE_E3_Q1", excerpt: `T: O que você fez neste fim de semana?<br><strong>C: Fui ao parque no sábado de manhã. Estava sol. Depois, à tarde, encontrei minha irmã e fomos ao cinema. Comi pipoca e voltei para casa.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E3_Q2", excerpt: `T: Você notou algum padrão?<br><strong>C: Sim. Eu acho que eu sempre brigo com ela nas sextas-feiras porque é o dia que eu estou mais cansado do trabalho. Minha paciência fica zero. A culpa é do cansaço.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Relações (CER)" },
-                { id: "CLIENTE_E3_Q3", excerpt: `T: Então, parece que você evita essas situações para não sentir aquela ansiedade que conversamos.<br><strong>C: É isso mesmo. Você acertou em cheio. Eu fujo antes mesmo de tentar, só para não ter que sentir aquilo.</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Relato (REL)", "Outras Vocal Cliente (COU)"], answer: "Concordância (CON)" },
-                { id: "CLIENTE_E3_Q4", excerpt: `T: Pelo que você me conta, parece que seu pai foi uma figura muito autoritária.<br><strong>C: Não, eu não acho. Ele era rígido, sim, mas não autoritário. Você está confundindo as coisas. Ele só queria o meu bem.</strong>`, options: ["Relações (CER)", "Concordância (CON)", "Oposição (OPO)", "Relato (REL)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E3_Q5", excerpt: `T: E como foi essa semana?<br><strong>C: Foi diferente. Eu... eu consegui, de fato, sair para caminhar três vezes, como eu tinha dito que ia tentar. Eu me senti bem.</strong>`, options: ["Melhora (MEL)", "Outras Vocal Cliente (COU)", "Relato (REL)", "Meta (MET)"], answer: "Melhora (MEL)" },
-                { id: "CLIENTE_E3_Q6", excerpt: `T: O que é importante para você agora?<br><strong>C: Meu foco é conseguir aquele estágio. Eu vou me preparar para a entrevista na semana que vem e quero muito passar. É o meu objetivo número um.</strong>`, options: ["Relato (REL)", "Relações (CER)", "Meta (MET)", "Melhora (MEL)"], answer: "Meta (MET)" },
-                { id: "CLIENTE_E3_Q7", excerpt: `T: Isso parece ser um dilema difícil.<br><strong>C: E é! Eu não sei se eu peço demissão ou se eu continuo nesse emprego. O que você acha que eu deveria fazer?</strong>`, options: ["Relações (CER)", "Solicitação (SOL)", "Meta (MET)", "Relato (REL)"], answer: "Solicitação (SOL)" },
-                { id: "CLIENTE_E3_Q8", excerpt: `T: Como você está se sentindo agora, falando sobre isso?<br><strong>C: Eu me sinto um pouco tenso. Meu ombro está doendo e estou com um nó no estômago. É uma sensação estranha, de aperto.</strong>`, options: ["Melhora (MEL)", "Oposição (OPO)", "Relato (REL)", "Relações (CER)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E3_Q9", excerpt: `T: O que você acha que está por trás desse medo?<br><strong>C: Deve ser por causa daquele assalto que sofri no ano passado. Desde aquele dia, eu não consigo andar na rua à noite sem achar que alguém está me seguindo. Ligou um alerta.</strong>`, options: ["Oposição (OPO)", "Melhora (MEL)", "Relações (CER)", "Relato (REL)"], answer: "Relações (CER)" },
-                { id: "CLIENTE_E3_Q10", excerpt: `T: Talvez essa sua dificuldade de dizer "não" esteja ligada a um medo de ser rejeitado.<br><strong>C: Com certeza. Eu nunca tinha ligado uma coisa na outra, mas faz total sentido. Eu sempre quero agradar todo mundo.</strong>`, options: ["Solicitação (SOL)", "Relações (CER)", "Concordância (CON)", "Melhora (MEL)"], answer: "Concordância (CON)" },
-                { id: "CLIENTE_E3_Q11", excerpt: `T: Sugiro que você tente conversar com seu chefe sobre isso.<br><strong>C: De jeito nenhum. Isso é impossível. Você não entende, ele não é o tipo de pessoa com quem se conversa.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Meta (MET)", "Relato (REL)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E3_Q13", excerpt: `T: E o que você espera para o próximo ano?<br><strong>C: Eu decidi que vou morar sozinho. Já comecei a guardar dinheiro e meu plano é encontrar um apartamento perto do trabalho até o meio do ano que vem.</strong>`, options: ["Melhora (MEL)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Meta (MET)" },
-                { id: "CLIENTE_E3_Q14", excerpt: `T: Você mencionou que seu filho está agindo de forma diferente.<br><strong>C: Sim, ele está muito rebelde. Eu não sei mais o que fazer. Você tem algum livro para me indicar sobre adolescência? O que a psicologia diz sobre isso?</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Solicitação (SOL)" },
-                { id: "CLIENTE_E3_Q15", excerpt: `T: O que aconteceu na reunião?<br><strong>C: Meu chefe apresentou os novos projetos. Ele falou por quase uma hora. Depois, ele abriu para perguntas, mas ninguém falou nada. Eu só fiquei quieto no meu canto.</strong>`, options: ["Relato (REL)", "Solicitação (SOL)", "Concordância (CON)", "Oposição (OPO)"], answer: "Relato (REL)" },
-                { id: "CLIENTE_E3_Q16", excerpt: `T: Por que você acha que ele agiu daquela forma?<br><strong>C: Ele deve estar inseguro. Sempre que ele se sente ameaçado no emprego, ele começa a tratar mal as pessoas em casa. É o jeito dele de... sei lá, tentar ter algum controle.</strong>`, options: ["Concordância (CON)", "Solicitação (SOL)", "Meta (MET)", "Relações (CER)"], answer: "Relações (CER)" },
-                { id: "CLIENTE_E3_Q17", excerpt: `T: Você acha que repetir esse padrão está te trazendo mais prejuízo do que benefícios?<br><strong>C: Sim, sim. É exatamente o que eu estava pensando essa semana. Eu vi que continuar fazendo isso só está me afundando.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Concordância (CON)" },
-                { id: "CLIENTE_E3_Q18", excerpt: `T: Você se lembra daquela tarefa de casa que combinamos, de escrever sobre seus sentimentos?<br><strong>C: Lembro, e não fiz. Eu já disse que não gosto de escrever, achei uma perda de tempo e não vou fazer.</strong>`, options: ["Relato (REL)", "Concordância (CON)", "Oposição (OPO)", "Relações (CER)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E3_Q19", excerpt: `T: Você mencionou que brigava muito com sua mãe.<br><strong>C: Sim, mas na última quarta-feira, quando ela começou a gritar, eu fiz diferente. Em vez de gritar de volta, eu respirei fundo e disse que conversaria com ela quando ela estivesse mais calma. E funcionou.</strong>`, options: ["Meta (MET)", "Solicitação (SOL)", "Melhora (MEL)", "Oposição (OPO)"], answer: "Melhora (MEL)" },
-                { id: "CLIENTE_E3_Q20", excerpt: `T: O que você gostaria de alcançar aqui na terapia?<br><strong>C: Eu quero aprender a dizer "não" sem me sentir culpado. Minha meta é conseguir colocar limites nas pessoas, especialmente na minha família.</strong>`, options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Solicitação (SOL)"], answer: "Meta (MET)" },
-                { id: "CLIENTE_E3_Q21", excerpt: `T: Você pode tentar aplicar essa técnica de comunicação.<br><strong>C: Certo. Mas você pode me dar um exemplo de como eu começo essa conversa? Eu não sei qual é a melhor forma de abordar minha esposa sem que ela fique brava.</strong>`, options: ["Relato (REL)", "Melhora (MEL)", "Meta (MET)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
-                { id: "CLIENTE_E3_Q22", excerpt: `T: Vamos continuar falando sobre sua mãe.<br><strong>C: (Suspira audivelmente) ... Ai, ai... tudo bem, vamos lá. De novo.</strong>`, options: ["Oposição (OPO)", "Relato (REL)", "Outras Vocal Cliente (COU)", "Concordância (CON)"], answer: "Outras Vocal Cliente (COU)" }
-            ],
-            etapa4: [
-                 { id: "CLIENTE_E4_Q1", full_excerpt: `T: E como foi o encontro com sua família?<br><strong>C: Ah, foi o de sempre. <span class="highlight-p1">Minha mãe começou a me criticar na frente de todo mundo.</span> <span class="highlight-p2">Eu acho que ela faz isso para se sentir superior, para mostrar que ela ainda tem controle sobre mim.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relato (REL) e Relações (CER)", "Relações (CER) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Relato (REL) e Relações (CER)" },
-                 { id: "CLIENTE_E4_Q2", full_excerpt: `T: Então, você acha que a estratégia que discutimos, de respirar antes de responder, pode funcionar?<br><strong>C: <span class="highlight-p1">Sim, eu acho que sim, faz sentido.</span> <span class="highlight-p2">Eu vou tentar aplicar isso na próxima vez que eu discutir com meu chefe.</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Relato (REL) e Outras Vocal Cliente (COU)", "Concordância (CON) e Outras Vocal Cliente (COU)", "Concordância (CON) e Relato (REL)"], answer: "Concordância (CON) e Meta (MET)" },
-                 { id: "CLIENTE_E4_Q3", full_excerpt: `T: Como você se sentiu essa semana?<br><strong>C: <span class="highlight-p1">Sabe, eu me senti muito melhor. Acho que não tive nenhuma crise de ansiedade.</span> <span class="highlight-p2">Meu próximo passo agora é tentar ir àquela festa de aniversário no sábado.</span></strong>`, options: ["Melhora (MEL) e Meta (MET)", "Relato (REL) e Meta (MET)", "Melhora (MEL) e Meta (MET)", "Melhora (MEL) e Melhora (MEL)"], answer: "Melhora (MEL) e Meta (MET)" },
-                 { id: "CLIENTE_E4_Q4", full_excerpt: `T: Parece que você ficou chateado com o que ele disse.<br><strong>C: <span class="highlight-p1">Não, chateado não.</span> <span class="highlight-p2">Eu fiquei surpreso, porque eu não esperava aquela reação dele de jeito nenhum.</span></strong>`, options: ["Oposição (OPO) e Relações (CER)", "Oposição (OPO) e Oposição (OPO)", "Oposição (OPO) e Relato (REL)", "Relato (REL) e Oposição (OPO)"], answer: "Oposição (OPO) e Relato (REL)" },
-                 { id: "CLIENTE_E4_Q5", full_excerpt: `T: O que aconteceu na entrevista?<br><strong>C: <span class="highlight-p1">Foi bem difícil. O recrutador fez perguntas que eu não sabia responder e eu travei.</span> <span class="highlight-p2">Eu preciso conseguir um emprego novo até o fim do ano, é minha prioridade.</span></strong>`, options: ["Relato (REL) e Meta (MET)", "Relações (CER) e Meta (MET)", "Relato (REL) e Melhora (MEL)", "Melhora (MEL) e Meta (MET)"], answer: "Relato (REL) e Meta (MET)" },
-                 { id: "CLIENTE_E4_Q6", full_excerpt: `T: E como foi usar a técnica de comunicação que praticamos?<br><strong>C: <span class="highlight-p1">Eu consegui! Eu disse para minha irmã que eu não podia ajudar ela no sábado.</span> <span class="highlight-p2">Acho que eu só consegui porque eu percebi que, se eu não me priorizar, eu vou acabar ficando doente.</span></strong>`, options: ["Outras Vocal Cliente (COU) e Relato (REL)", "Relato (REL) e Relações (CER)", "Outras Vocal Cliente (COU) e Relações (CER)", "Melhora (MEL) e Relações (CER)"], answer: "Melhora (MEL) e Relações (CER)" },
-                 { id: "CLIENTE_E4_Q7", full_excerpt: `T: Você parece bem hoje.<br><strong>C: <span class="highlight-p1">E eu estou! Consegui entregar o projeto sem surtar, estou dormindo melhor.</span> <span class="highlight-p2">Mas agora eu estou com um problema novo no trabalho. O que eu devo fazer?</span></strong>`, options: ["Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Relato (REL)", "Relato (REL) e Solicitação (SOL)"], answer: "Melhora (MEL) e Solicitação (SOL)" },
-                 { id: "CLIENTE_E4_Q8", full_excerpt: `T: Tente focar em organizar sua rotina primeiro.<br><strong>C: <span class="highlight-p1">Certo, eu concordo que isso é o principal.</span> <span class="highlight-p2">Mas você acha que é melhor eu começar organizando os horários de casa ou os do trabalho? Qual sua sugestão?</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Concordância (CON) e Solicitação (SOL)", "Relato (REL) e Solicitação (SOL)", "Concordância (CON) e Relações (CER)"], answer: "Concordância (CON) e Solicitação (SOL)" }
-            ]
+             etapa1: `Nesta etapa, o objetivo é associar a <strong>definição</strong> de uma categoria ao seu nome correto.<br>
+Para cada questão, você verá uma definição no topo da tela, seguida por <strong>quatro alternativas</strong> de resposta. Sua tarefa é ler a definição e clicar na alternativa que contém o nome da categoria correspondente.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <p>Verbalizações em que o cliente descreve ou informa o terapeuta sobre a ocorrência de eventos.</p>
+    </div>
+    <div class="options-grid grid-cols-2">
+        <div class="example-button"><div>Solicitação (SOL)</div></div>
+        <div class="example-correct"><div>Relato (REL)</div></div>
+        <div class="example-button"><div>Relações (CER)</div></div>
+        <div class="example-button"><div>Oposição (OPO)</div></div>
+    </div>
+</div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
+            etapa2: `Nesta etapa, o objetivo é identificar qual <strong>trecho de sessão</strong> representa melhor um determinado conceito.<br>
+Em cada questão, um nome de categoria será apresentado, seguido por <strong>dois trechos</strong> de diálogo como alternativas. Sua tarefa é ler os dois trechos e clicar naquele em que a fala do cliente melhor exemplifica o conceito apresentado.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <p>O segmento que caracteriza <strong>METAS (MET)</strong> é:</p>
+    </div>
+    <div class="options-grid grid-cols-1">
+        <div class="example-correct"><div><strong>C: "Vou ligar para ela e conversar sobre o que aconteceu."</strong></div></div>
+        <div class="example-button"><div><strong>C: "Eu liguei para ela e conversei sobre o que aconteceu."</strong></div></div>
+    </div>
+</div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
+            etapa3: `Nesta etapa, o objetivo é categorizar um <strong>trecho de sessão</strong>.<br>
+Em cada questão, será exibido um diálogo entre terapeuta e cliente. Abaixo dele, haverá <strong>quatro alternativas</strong> com nomes de categorias. Sua tarefa é analisar a fala do cliente (em negrito) e clicar na alternativa que nomeia corretamente aquela categoria.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <div class="dialog-box">T: E o que você fez?<br><strong>C: Eu fiquei em casa o dia todo, não queria ver ninguém.</strong></div>
+        <p class="prompt-title">A categoria que corresponde ao segmento é:</p>
+    </div>
+    <div class="options-grid grid-cols-2">
+        <div class="example-button"><div>Relações (CER)</div></div>
+        <div class="example-correct"><div>Relato (REL)</div></div>
+        <div class="example-button"><div>Concordância (CON)</div></div>
+        <div class="example-button"><div>Oposição (OPO)</div></div>
+    </div>
+</div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
+            etapa4: `Nesta etapa, o objetivo é identificar <strong>duas categorias</strong> diferentes dentro da mesma fala do cliente.<br>
+Cada questão apresentará um diálogo onde a fala do cliente está dividida em duas partes, destacadas em <span class="highlight-p1">azul</span> e <span class="highlight-p2">verde</span>. Haverá <strong>quatro alternativas</strong> de resposta. Sua tarefa é selecionar a alternativa que descreve corretamente as duas partes da fala, na ordem em que aparecem.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <div class="dialog-box">T: O que aconteceu depois?<br><strong>C: <span class="highlight-p1">Eu me senti muito ansioso</span> <span class="highlight-p2">e decidi que não vou mais a essas reuniões.</span></strong></div>
+        <p class="prompt-title">As categorias que correspondem aos segmentos são:</p>
+    </div>
+     <div class="options-grid grid-cols-2">
+        <div class="example-button"><div>Relato (REL) / Relações (CER)</div></div>
+        <div class="example-button"><div>Metas (MET) / Relato (REL)</div></div>
+        <div class="example-correct"><div>Relato (REL) / Metas (MET)</div></div>
+        <div class="example-button"><div>Relações (CER) / Metas (MET)</div></div>
+    </div>
+</div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
         }
     };
 
@@ -309,7 +313,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "TERAPEUTA_E3_Q17", excerpt: `C: Só de pensar em encostar na porta já sinto vontade de lavar as mãos na hora.<br><strong>T: Agora vamos fazer um exercício de exposição: experimente pegar na maçaneta dessa porta e ficar por quinze minutos sem lavar as mãos.</strong>`, options: ["Recomendação (REC)", "Informação (INF)", "Solicitação de Reflexão (SRF)", "Facilitação (FAC)"], answer: "Recomendação (REC)" },
                 { 
                     id: "TERAPEUTA_E3_Q18", 
-                    excerpt: `(O celular do terapeuta toca no meio da fala do cliente)<br><strong>T: Desculpe, eu me esqueci de desligar o celular. Só um instante.</strong><br>C: Tudo bem.`, 
+                    excerpt: `(O celular do terapeuta toca no meio da fala do cliente)<br><strong>T: Desculpe, eu me esqueci de desligar o celular. Só um instante.</strong><br>C: Tudo bem.`,
                     options: ["Empatia (EMP)", "Informação (INF)", "Outras verbalizações do terapeuta (TOU)", "Reprovação (REP)"], 
                     answer: "Outras verbalizações do terapeuta (TOU)" 
                 },
@@ -336,7 +340,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     options: ["Solicitação de relato / Aprovação", "Solicitação de reflexão / Interpretação", "Solicitação de reflexão / Informação", "Empatia / Interpretação"], 
                     answer: "Solicitação de reflexão / Interpretação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q3",
                     full_excerpt: `C: Eu queria parar de brigar com minha mãe, mas parece impossível.<br><strong>T: <span class="highlight-p1">Você poderia me contar como foi a última discussão?</span> <span class="highlight-p2">Assim a gente tenta entender o que desperta essa raiva em você.</span></strong>`, 
                     options: ["Solicitação de relato / Solicitação de reflexão", "Solicitação de reflexão / Solicitação de relato", "Facilitação / Solicitação de reflexão", "Solicitação de relato / Interpretação"], 
@@ -348,37 +352,37 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     options: ["Empatia / Recomendação", "Facilitação / Recomendação", "Empatia / Solicitação de reflexão", "Interpretação / Recomendação"], 
                     answer: "Empatia / Recomendação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q5",
                     full_excerpt: `C: Eu tenho medo de sair sozinha, parece que algo ruim vai acontecer.<br><strong>T: <span class="highlight-p1">Isso é mais comum do que você imagina, muitas pessoas com ansiedade sentem o mesmo.</span> <span class="highlight-p2">Que tal a gente planejar uma saída bem curta pra começar?</span></strong>`, 
                     options: ["Informação / Recomendação", "Empatia / Recomendação", "Informação / Solicitação de reflexão", "Facilitação / Recomendação"], 
                     answer: "Informação / Recomendação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q6",
                     full_excerpt: `C: Eu acho que não vou conseguir mudar nunca.<br><strong>T: <span class="highlight-p1">Você tem trabalhado com muito esforço, e isso já é um passo importante.</span> <span class="highlight-p2">Continue observando as pequenas conquistas que aparecem no seu dia.</span></strong>`, 
                     options: ["Aprovação / Recomendação", "Empatia / Recomendação", "Aprovação / Solicitação de reflexão", "Informação / Aprovação"], 
                     answer: "Aprovação / Recomendação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q7",
                     full_excerpt: `C: Eu queria entender por que eu sempre me sinto culpada quando digo "não".<br><strong>T: <span class="highlight-p1">Talvez porque você aprendeu que agradar os outros era uma forma de evitar conflitos.</span> <span class="highlight-p2">O que acha de anotar durante a semana cada vez que isso acontecer?</span></strong>`, 
                     options: ["Interpretação / Recomendação", "Solicitação de reflexão / Recomendação", "Interpretação / Solicitação de relato", "Empatia / Recomendação"], 
                     answer: "Interpretação / Recomendação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q8",
                     full_excerpt: `C: Quando ele grita, eu travo. Não consigo responder nada.<br><strong>T: <span class="highlight-p1">Tente perceber o que sente no corpo nesses momentos,</span> <span class="highlight-p2">e se puder, anote pra gente conversar na próxima sessão.</span></strong>`, 
                     options: ["Recomendação / Solicitação de relato", "Solicitação de reflexão / Recomendação", "Facilitação / Solicitação de reflexão", "Solicitação de reflexão / Aprovação"], 
                     answer: "Solicitação de reflexão / Recomendação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q9",
                     full_excerpt: `C: Eu não consigo parar de pensar nas coisas ruins que fiz no passado.<br><strong>T: <span class="highlight-p1">É comum que a gente se prenda a erros do passado, mas isso faz parte do processo humano.</span> <span class="highlight-p2">Você tem feito um ótimo trabalho em tentar lidar com isso.</span></strong>`, 
                     options: ["Informação / Aprovação", "Interpretação / Aprovação", "Empatia / Aprovação", "Informação / Empatia"], 
                     answer: "Informação / Aprovação" 
                 },
-                { 
+                {
                     id: "TERAPEUTA_E4_Q10",
                     full_excerpt: `C: Ontem foi um dia difícil, mas não lembro direito o que aconteceu.<br><strong>T: <span class="highlight-p1">Uhum,</span> <span class="highlight-p2">conta pra mim passo a passo o que aconteceu ontem, do início ao fim.</span></strong>`, 
                     options: ["Facilitação / Solicitação de relato", "Empatia / Solicitação de relato", "Facilitação / Solicitação de reflexão", "Solicitação de relato / Facilitação"], 
@@ -392,7 +396,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "CLIENTE_E1_Q2", definition: "Contempla verbalizações nas quais o cliente estabelece relações causais e/ou explicativas (funcionais, correlacionais ou de contiguidade) entre eventos, descrevendo-as de forma explícita ou sugerindo-as por meio de metáforas ou analogias.", options: ["Meta (MET)", "Oposição (OPO)", "Relações (CER)", "Concordância (CON)"], answer: "Relações (CER)" },
                 { id: "CLIENTE_E1_Q3", definition: "Contempla verbalizações nas quais o cliente expressa julgamento ou avaliação favoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta ou relata satisfação, esperança ou confiança no terapeuta e/ou no processo terapêutico. Inclui também verbalizações nas quais o cliente complementa ou resume a fala do terapeuta ou episódios nos quais o cliente sorri em concordância com o terapeuta.", options: ["Concordância (CON)", "Melhora (MEL)", "Relato (REL)", "Relações (CER)"], answer: "Concordância (CON)" },
                 { id: "CLIENTE_E1_Q4", definition: "Contempla verbalizações nas quais o cliente expressa discordância, julgamento ou avaliação desfavoráveis a respeito de afirmações, sugestões, análises ou outros comportamentos emitidos pelo terapeuta.", options: ["Solicitação (SOL)", "Oposição (OPO)", "Melhora (MEL)", "Meta (MET)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Melhora (MEL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E1_Q5", definition: "Contempla verbalizações nas quais o cliente relata mudanças satisfatórias com relação à sua queixa clínica, problemas médicos, comportamentos relacionados à sua queixa, ou comportamentos considerados, pelo cliente ou pelo terapeuta, como indesejáveis ou inadequados (independentemente da concordância de ambos quanto à melhora).", options: ["Solicitação (SOL)", "Relações (CER)", "Melhora (MEL)", "Meta (MET)"], answer: "Melhora (MEL)" },
                 { id: "CLIENTE_E1_Q6", definition: "Contempla verbalizações do cliente nas quais ele descreve seus projetos, planos ou estratégias para a solução de problemas trazidos como queixas para a terapia.", options: ["Meta (MET)", "Solicitação (SOL)", "Oposição (OPO)", "Relato (REL)"], answer: "Meta (MET)" },
                 { id: "CLIENTE_E1_Q7", definition: "Contempla verbalizações nas quais o cliente apresenta pedidos ou questões ao terapeuta.", options: ["Concordância (CON)", "Relações (CER)", "Melhora (MEL)", "Solicitação (SOL)"], answer: "Solicitação (SOL)" },
                 { id: "CLIENTE_E1_Q8", definition: "Esta categoria contempla verbalizações do cliente não classificáveis nas categorias anteriores. Inclui também verbalizações do cliente ao cumprimentar o terapeuta em sua chegada ou partida, anúncios de interrupções ou comentários ocasionais alheios ao tema em discussão.", options: ["Outras Vocal Cliente (COU)", "Relações (CER)", "Meta (MET)", "Solicitação (SOL)"], answer: "Outras Vocal Cliente (COU)" }
@@ -419,7 +423,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 { id: "CLIENTE_E3_Q9", excerpt: `T: O que você acha que está por trás desse medo?<br><strong>C: Deve ser por causa daquele assalto que sofri no ano passado. Desde aquele dia, eu não consigo andar na rua à noite sem achar que alguém está me seguindo. Ligou um alerta.</strong>`, options: ["Oposição (OPO)", "Melhora (MEL)", "Relações (CER)", "Relato (REL)"], answer: "Relações (CER)" },
                 { id: "CLIENTE_E3_Q10", excerpt: `T: Talvez essa sua dificuldade de dizer "não" esteja ligada a um medo de ser rejeitado.<br><strong>C: Com certeza. Eu nunca tinha ligado uma coisa na outra, mas faz total sentido. Eu sempre quero agradar todo mundo.</strong>`, options: ["Solicitação (SOL)", "Relações (CER)", "Concordância (CON)", "Melhora (MEL)"], answer: "Concordância (CON)" },
                 { id: "CLIENTE_E3_Q11", excerpt: `T: Sugiro que você tente conversar com seu chefe sobre isso.<br><strong>C: De jeito nenhum. Isso é impossível. Você não entende, ele não é o tipo de pessoa com quem se conversa.</strong>`, options: ["Oposição (OPO)", "Meta (MET)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Oposição (OPO)" },
-                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Melhora (MEL)", "Relato (REL)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E3_Q12", excerpt: `T: O que você pensa sobre essa situação agora?<br><strong>C: Eu não aguento mais ser assim. Eu preciso parar de procrastinar. Eu realmente quero começar a organizar minha vida, não dá mais para continuar desse jeito.</strong>`, options: ["Relações (CER)", "Melhora (MEL)", "Meta (MET)", "Relato (REL)"], answer: "Relato (REL)" },
                 { id: "CLIENTE_E3_Q13", excerpt: `T: E o que você espera para o próximo ano?<br><strong>C: Eu decidi que vou morar sozinho. Já comecei a guardar dinheiro e meu plano é encontrar um apartamento perto do trabalho até o meio do ano que vem.</strong>`, options: ["Melhora (MEL)", "Meta (MET)", "Concordância (CON)", "Relato (REL)"], answer: "Meta (MET)" },
                 { id: "CLIENTE_E3_Q14", excerpt: `T: Você mencionou que seu filho está agindo de forma diferente.<br><strong>C: Sim, ele está muito rebelde. Eu não sei mais o que fazer. Você tem algum livro para me indicar sobre adolescência? O que a psicologia diz sobre isso?</strong>`, options: ["Concordância (CON)", "Oposição (OPO)", "Solicitação (SOL)", "Outras Vocal Cliente (COU)"], answer: "Solicitação (SOL)" },
                 { id: "CLIENTE_E3_Q15", excerpt: `T: O que aconteceu na reunião?<br><strong>C: Meu chefe apresentou os novos projetos. Ele falou por quase uma hora. Depois, ele abriu para perguntas, mas ninguém falou nada. Eu só fiquei quieto no meu canto.</strong>`, options: ["Relato (REL)", "Solicitação (SOL)", "Concordância (CON)", "Oposição (OPO)"], answer: "Relato (REL)" },
@@ -892,4 +896,3 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
         // Configura o modal do guia
         setupGuideModal();
     });
-    
