@@ -2,6 +2,12 @@
 
 Este é um aplicativo web para o "Sistema Multidimensional para a Categorização de Comportamentos na Interação Terapêutica" (SiMCCIT). Ele foi desenvolvido para treinar observadores na identificação e categorização de interações verbais entre terapeutas e clientes.
 
+## 🚀 Acesso Online
+
+O aplicativo está disponível para acesso direto em:
+**[https://fabiohmedeiros.github.io/treino-simccit/](https://fabiohmedeiros.github.io/treino-simccit/)**
+
+
 ## Objetivo
 
 O treino visa desenvolver a habilidade de reconhecer, nomear e compreender as categorias de interação verbal, dividindo-se em 4 etapas progressivas:
@@ -24,8 +30,10 @@ O aprendizado é progressivo, com feedback imediato, e o treino é dividido entr
 
 ## Como Usar
 
-1.  Abra o arquivo `index.html` em seu navegador.
-2.  Siga as instruções na tela para iniciar o treino.
+1.  Acesse o link oficial ou abra o arquivo `index.html` em seu navegador.
+2.  Insira a senha de acesso: **simccit**
+3.  Siga as instruções na tela para iniciar o treino.
+
 3.  Selecione o foco do treino (Terapeuta ou Cliente).
 4.  Prossiga pelas etapas, respondendo às questões.
 5.  Utilize o "Guia de Categorias" (botão no canto inferior direito) para consultar definições e exemplos a qualquer momento.
