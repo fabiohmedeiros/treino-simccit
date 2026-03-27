@@ -23,7 +23,19 @@
 </head>
 <body>
 
-    <div id="app-container">
+    <!-- Overlay de Proteção por Senha -->
+    <div id="password-overlay">
+        <div class="password-card">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 1.5rem; margin-bottom: 1.5rem; color: #1e3a8a;">Acesso Restrito</h1>
+            <p style="margin-bottom: 1.5rem; color: var(--color-text-light);">Por favor, insira a senha para acessar o treino:</p>
+            <input type="password" id="password-input" placeholder="Senha" style="margin-bottom: 1rem; text-align: center;">
+            <button id="password-submit-btn" class="primary-button" style="width: 100%;">Entrar</button>
+            <p id="password-error" style="color: var(--color-incorrect); margin-top: 1rem; font-size: 0.875rem; height: 1.25rem;"></p>
+        </div>
+    </div>
+
+    <div id="app-container" class="hidden">
+
         
         <div id="instructions-screen" class="main-card">
             

@@ -455,6 +455,37 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
     const trainingScreen = document.getElementById('training-screen');
     const completionScreen = document.getElementById('completion-screen');
     
+    // --- LÓGICA DE SENHA ---
+    function setupPasswordProtection() {
+        const overlay = document.getElementById('password-overlay');
+        const input = document.getElementById('password-input');
+        const submitBtn = document.getElementById('password-submit-btn');
+        const errorMsg = document.getElementById('password-error');
+        const appContainer = document.getElementById('app-container');
+
+        const correctPassword = "simccit";
+
+        function verify() {
+            if (input.value === correctPassword) {
+                overlay.style.display = 'none';
+                appContainer.classList.remove('hidden');
+            } else {
+                errorMsg.textContent = "Senha incorreta. Tente novamente.";
+                input.value = "";
+                input.focus();
+            }
+        }
+
+        submitBtn.addEventListener('click', verify);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verify();
+        });
+        
+        // Foca no input ao carregar
+        input.focus();
+    }
+
+    
     const stageSelect = document.getElementById('stage-select');
     const focusSelect = document.getElementById('focus-select');
 
@@ -895,4 +926,6 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
         }
         // Configura o modal do guia
         setupGuideModal();
+        // Configura a proteção por senha
+        setupPasswordProtection();
     });
