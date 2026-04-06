@@ -14,7 +14,7 @@ Este documento detalha o funcionamento do sistema de Treino de Observadores SiMC
 3.  **Instruções Iniciais:** Oriente o participante sobre qual **Foco** ele deve realizar (Terapeuta ou Cliente).
 
 ### **B. Coleta de Dados**
-Ao final de cada treino completo (as 4 etapas), o sistema gerará um botão **"Baixar Relatório (.csv)"**.
+Ao final de cada treino completo (as 5 etapas), o sistema gerará um botão **"Baixar Relatório (.csv)"**.
 - Instrua o participante a **não fechar a aba** antes de clicar nesse botão.
 - O arquivo baixado conterá o log detalhado de cada resposta (ensaio) do participante.
 
@@ -22,7 +22,7 @@ Ao final de cada treino completo (as 4 etapas), o sistema gerará um botão **"B
 O arquivo CSV fornece as seguintes métricas para cada questão:
 - **TrialNumber:** Ordem sequencial das tentativas.
 - **QuestionID:** Código único da questão.
-- **Stage:** Etapa do treino (1 a 4).
+- **Stage:** Etapa do treino (1 a 5).
 - **Focus:** Foco do treino (Terapeuta ou Cliente).
 - **CorrectAnswer / UserChoice:** Valor esperado vs. escolha do participante.
 - **Result:** "Certo" ou "Errado".
@@ -36,11 +36,11 @@ O arquivo CSV fornece as seguintes métricas para cada questão:
 **Objetivo:** Desenvolver a habilidade de identificar e categorizar comportamentos verbais.
 
 ### **A. O Fluxo do Treino**
-O aprendizado é dividido em **4 etapas progressivas**:
 1.  **Definição para Nome:** Escolha o nome da categoria que corresponde à definição técnica.
 2.  **Nome para Exemplo:** Escolha o trecho de diálogo que melhor representa a categoria.
 3.  **Categorização de Trecho:** Identifique a categoria da fala em negrito no diálogo.
 4.  **Múltiplas Categorias:** Identifique as duas categorias presentes em uma mesma fala.
+5.  **Erros Comuns:** Diferencie categorias em segmentos críticos (destacados em verde) frequentemente confundidos.
 
 ### **B. Recursos e Feedback**
 - **Feedback Imediato:** O sistema avisa na hora se você acertou ou errou.

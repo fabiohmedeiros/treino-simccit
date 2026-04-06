@@ -60,6 +60,20 @@ Cada questão apresentará um diálogo onde a fala do terapeuta está dividida e
         <div class="example-button"><div>Interpretação / Recomendação</div></div>
     </div>
 </div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
+            etapa5: `Nesta etapa, o objetivo é identificar <strong>erros comuns</strong> ou distinções sutis entre categorias que frequentemente geram confusão.<br>
+Cada questão apresentará um trecho de diálogo com um segmento destacado em <span class="highlight-green">verde</span>. Sua tarefa é analisar o segmento destacado e selecionar a categoria correta entre as duas opções apresentadas.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <div class="dialog-box">C: Eu não sei o que fazer.<br>T: <strong><span class="highlight-green">O que você pensou sobre isso?</span></strong></div>
+        <p class="prompt-title">A categoria que corresponde ao segmento destacado é:</p>
+    </div>
+     <div class="options-grid grid-cols-2">
+        <div class="example-correct"><div>Solicitação de Reflexão (SRF)</div></div>
+        <div class="example-button"><div>Solicitação de Relato (SRE)</div></div>
+    </div>
+</div>
 Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
         },
         cliente: {
@@ -120,6 +134,20 @@ Cada questão apresentará um diálogo onde a fala do cliente está dividida em 
         <div class="example-button"><div>Metas (MET) / Relato (REL)</div></div>
         <div class="example-correct"><div>Relato (REL) / Metas (MET)</div></div>
         <div class="example-button"><div>Relações (CER) / Metas (MET)</div></div>
+    </div>
+</div>
+Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`,
+            etapa5: `Nesta etapa, o objetivo é identificar <strong>erros comuns</strong> ou distinções sutis entre categorias que frequentemente geram confusão.<br>
+Cada questão apresentará um trecho de diálogo com um segmento destacado em <span class="highlight-green">verde</span>. Sua tarefa é analisar o segmento destacado e selecionar a categoria correta entre as duas opções apresentadas.
+<div class='instruction-example-box'>
+    <p style='font-weight: 600; color: var(--color-text-light); margin-bottom: 0.5rem; text-align: left;'>Exemplo:</p>
+    <div class="prompt">
+        <div class="dialog-box">T: Como você se sentiu?<br>C: <strong><span class="highlight-green">Eu acho que sim...</span></strong></div>
+        <p class="prompt-title">A categoria que corresponde ao segmento destacado é:</p>
+    </div>
+     <div class="options-grid grid-cols-2">
+        <div class="example-correct"><div>Relato (REL)</div></div>
+        <div class="example-button"><div>Relações (CER)</div></div>
     </div>
 </div>
 Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos.`
@@ -388,6 +416,17 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     options: ["Facilitação / Solicitação de relato", "Empatia / Solicitação de relato", "Facilitação / Solicitação de reflexão", "Solicitação de relato / Facilitação"], 
                     answer: "Facilitação / Solicitação de relato" 
                 }
+            ],
+            etapa5: [
+                { id: "TERAPEUTA_E5_Q1", excerpt: "*O que você sentiu nessa hora?*", options: ["Solicitação de Relato (SRE)", "Solicitação de Reflexão (SRF)"], answer: "Solicitação de Relato (SRE)" },
+                { id: "TERAPEUTA_E5_Q2", excerpt: "*O que você vê neste flash? O que você vê nessa foto da situação?*", options: ["Solicitação de Reflexão (SRF)", "Solicitação de Relato (SRE)"], answer: "Solicitação de Reflexão (SRF)" },
+                { id: "TERAPEUTA_E5_Q3", excerpt: "Cliente: Ele sempre topa.. ultimamente, reclamando, né? \nTerapeuta: *Por que?*", options: ["Solicitação de Reflexão (SRF)", "Solicitação de Relato (SRE)"], answer: "Solicitação de Reflexão (SRF)" },
+                { id: "TERAPEUTA_E5_Q4", excerpt: "*“Você lidou muito bem com isso”*", options: ["Aprovação (APR)", "Empatia (EMP)"], answer: "Aprovação (APR)" },
+                { id: "TERAPEUTA_E5_Q5", excerpt: "Cliente: “Eu consegui conversar com meu pai sobre aquilo” \nTerapeuta: *“Que bom!”*", options: ["Aprovação (APR)", "Empatia (EMP)"], answer: "Aprovação (APR)" },
+                { id: "TERAPEUTA_E5_Q6", excerpt: "*“Deve ter sido muito frustrante passar por isso”*", options: ["Empatia (EMP)", "Aprovação (APR)"], answer: "Empatia (EMP)" },
+                { id: "TERAPEUTA_E5_Q7", excerpt: "*“Quando você fica ansiosa, você evita essas situações”*", options: ["Interpretação (INT)", "Informação (INF)"], answer: "Interpretação (INT)" },
+                { id: "TERAPEUTA_E5_Q8", excerpt: "*“Isso é comum em quadros de ansiedade”*", options: ["Informação (INF)", "Interpretação (INT)"], answer: "Informação (INF)" },
+                { id: "TERAPEUTA_E5_Q9", excerpt: "*“Quando isso acontece com você, você acaba se isolando”*", options: ["Interpretação (INT)", "Informação (INF)"], answer: "Interpretação (INT)" }
             ]
         },
         cliente: {
@@ -444,6 +483,18 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                  { id: "CLIENTE_E4_Q6", full_excerpt: `T: E como foi usar a técnica de comunicação que praticamos?<br><strong>C: <span class="highlight-p1">Eu consegui! Eu disse para minha irmã que eu não podia ajudar ela no sábado.</span> <span class="highlight-p2">Acho que eu só consegui porque eu percebi que, se eu não me priorizar, eu vou acabar ficando doente.</span></strong>`, options: ["Outras Vocal Cliente (COU) e Relato (REL)", "Relato (REL) e Relações (CER)", "Outras Vocal Cliente (COU) e Relações (CER)", "Melhora (MEL) e Relações (CER)"], answer: "Melhora (MEL) e Relações (CER)" },
                  { id: "CLIENTE_E4_Q7", full_excerpt: `T: Você parece bem hoje.<br><strong>C: <span class="highlight-p1">E eu estou! Consegui entregar o projeto sem surtar, estou dormindo melhor.</span> <span class="highlight-p2">Mas agora eu estou com um problema novo no trabalho. O que eu devo fazer?</span></strong>`, options: ["Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Solicitação (SOL)", "Melhora (MEL) e Relato (REL)", "Relato (REL) e Solicitação (SOL)"], answer: "Melhora (MEL) e Solicitação (SOL)" },
                  { id: "CLIENTE_E4_Q8", full_excerpt: `T: Tente focar em organizar sua rotina primeiro.<br><strong>C: <span class="highlight-p1">Certo, eu concordo que isso é o principal.</span> <span class="highlight-p2">Mas você acha que é melhor eu começar organizando os horários de casa ou os do trabalho? Qual sua sugestão?</span></strong>`, options: ["Concordância (CON) e Meta (MET)", "Concordância (CON) e Solicitação (SOL)", "Relato (REL) e Solicitação (SOL)", "Concordância (CON) e Relações (CER)"], answer: "Concordância (CON) e Solicitação (SOL)" }
+            ],
+            etapa5: [
+                { id: "CLIENTE_E5_Q1", excerpt: "*Então, eu não sei…*", options: ["Relato (REL)", "Relações (CER)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E5_Q2", excerpt: "E acho que eu fico tão brava quando ele me trata mal, que eu nem consigo enxergar essas coisas, sabe? *Até agora…*", options: ["Relato (REL)", "Melhora (MEL)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E5_Q3", excerpt: "*Eu fazia comida e dava patada*, porque eu estava mais nervosa também, né?", options: ["Relato (REL)", "Relações (CER)"], answer: "Relato (REL)" },
+                { id: "CLIENTE_E5_Q4", excerpt: "*“Eu penso mais claro aqui”*", options: ["Melhora (MEL)", "Relações (CER)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E5_Q5", excerpt: "*“Eu acho que é, de novo, aquilo que você me falou. Não tenho que pedir ajuda: eu tenho que perguntar mais, eu tenho que partilhar mais as minhas escolhas.”*", options: ["Melhora (MEL)", "Relações (CER)"], answer: "Melhora (MEL)" },
+                { id: "CLIENTE_E5_Q6", excerpt: "*“Na hora, eu acho que é só o meu impulso de querer: eu quero, e aí eu vou e faço.”*", options: ["Relações (CER)", "Melhora (MEL)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E5_Q7", excerpt: "*“Quando eu falo isso em voz alta, a sensação que eu tenho é que ele acha que eu sou egoísta”*", options: ["Relações (CER)", "Melhora (MEL)"], answer: "Relações (CER)" },
+                { id: "CLIENTE_E5_Q8", excerpt: "*“Enfim.”*", options: ["Outras Vocal Cliente (COU)", "Relato (REL)"], answer: "Outras Vocal Cliente (COU)" },
+                { id: "CLIENTE_E5_Q9", excerpt: "*“É tão bom te ver, Roberto. Sinto falta de você.”*", options: ["Outras Vocal Cliente (COU)", "Concordância (CON)"], answer: "Outras Vocal Cliente (COU)" },
+                { id: "CLIENTE_E5_Q10", excerpt: "*“Você quer saber o que eu acho que ele pensa de mim, hoje?”*", options: ["Solicitação (SOL)", "Relato (REL)"], answer: "Solicitação (SOL)" }
             ]
         }
     };
@@ -584,6 +635,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
             '2': { subtitle: 'Selecione o trecho que corresponde ao conceito.' },
             '3': { subtitle: 'Selecione o conceito que corresponde ao trecho.' },
             '4': { subtitle: 'Identifique as múltiplas categorias no trecho.' },
+            '5': { subtitle: 'Identifique a categoria correta para o segmento destacado.' },
         };
         stageSubtitle.textContent = stageDescriptions[currentStage].subtitle;
     }
@@ -599,8 +651,8 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                 // MODO REVISÃO: Etapa concluída
                 showCustomAlert(`Etapa ${currentStage} concluída!`);
                 currentStage++;
-                if (currentStage > 4) {
-                    // Terminou todas as 4 etapas
+                if (currentStage > 5) {
+                    // Terminou todas as 5 etapas
                     showCompletion();
                 } else {
                     // Vai para a próxima etapa
@@ -625,8 +677,8 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
                     // MODO NORMAL: Etapa concluída
                     showCustomAlert(`Etapa ${currentStage} concluída!`);
                     currentStage++;
-                    if (currentStage > 4) {
-                        // Terminou todas as 4 etapas
+                    if (currentStage > 5) {
+                        // Terminou todas as 5 etapas
                         showCompletion();
                     } else {
                         // Vai para a próxima etapa
@@ -653,6 +705,10 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
             promptText = `<div style="white-space: pre-wrap; text-align: left; background-color: rgba(255,255,255,0.6); padding: 1rem; border-radius: 0.375rem; border: 1px solid #e2e8f0;">${question.excerpt}</div><p style="margin-top: 1rem; text-align: center; font-weight: 600;">A categoria que corresponde ao segmento de verbalização do ${speaker} é:</p>`;
         } else if (currentStage === 4) {
             promptText = `<div style="white-space: pre-wrap; text-align: left; background-color: rgba(255,255,255,0.6); padding: 1rem; border-radius: 0.375rem; border: 1px solid #e2e8f0;">${question.full_excerpt}</div><p style="margin-top: 1rem; text-align: center; font-weight: 600;">As categorias que correspondem, respectivamente, aos segmentos <span class="highlight-p1">destacado em azul</span> e <span class="highlight-p2">destacado em verde</span> são:</p>`;
+        } else if (currentStage === 5) {
+            const speaker = isClientFocus ? 'cliente' : 'terapeuta';
+            const highlightText = question.excerpt.replace(/\*(.*?)\*/g, '<span class="highlight-green">$1</span>');
+            promptText = `<div style="white-space: pre-wrap; text-align: left; background-color: rgba(255,255,255,0.6); padding: 1rem; border-radius: 0.375rem; border: 1px solid #e2e8f0;">${highlightText}</div><p style="margin-top: 1rem; text-align: center; font-weight: 600;">A categoria que corresponde ao segmento <span class="highlight-green">destacado</span> do ${speaker} é:</p>`;
         }
         promptEl.innerHTML = promptText;
 
@@ -900,7 +956,7 @@ Se errar, a questão reaparecerá no final. O treino termina com 100% de acertos
         currentFocus = focusSelect.value;
         trainingResults = []; // Limpa os resultados para o novo treino
         trialCounter = 0;     // Zera o contador de ensaios global
-        currentStage = 1;     // Começa sempre da Etapa 1
+        currentStage = parseInt(stageSelect.value); // Inicia na etapa selecionada
         showStageInstructions();
     });
     confirmStartTrainingBtn.addEventListener('click', startTraining);

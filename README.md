@@ -10,12 +10,13 @@ O aplicativo está disponível para acesso direto em:
 
 ## Objetivo
 
-O treino visa desenvolver a habilidade de reconhecer, nomear e compreender as categorias de interação verbal, dividindo-se em 4 etapas progressivas:
+O treino visa desenvolver a habilidade de reconhecer, nomear e compreender as categorias de interação verbal, dividindo-se em 5 etapas progressivas:
 
 1.  **Reconhecer categorias e suas definições.**
 2.  **Identificar exemplos** de cada categoria.
 3.  **Praticar a diferenciação** entre categorias semelhantes.
 4.  **Analisar trechos** que envolvem múltiplas categorias.
+5.  **Identificar erros comuns** e distinções sutis.
 
 O aprendizado é progressivo, com feedback imediato, e o treino é dividido entre as categorias do **terapeuta** e do **cliente**.
 
