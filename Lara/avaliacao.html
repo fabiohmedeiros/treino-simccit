@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Avaliação — SiMCCIT</title>
+
+<!--
+================================================================================
+
+   SiMCCIT — EIXO II  (projeto "Lara")  —  PILOTO
+
+   Gerado a partir de Lara/Ensaios_Lara_Temas.xlsx e Lara/categorias.csv.
+   30 ensaios. Guia com 25 verbetes em 3 abas.
+
+   NOMES POR EXTENSO: nenhuma sigla ou abreviação aparece neste arquivo — nem
+   nos botões, nem no guia, nem dentro das definições. As siglas existem apenas
+   nos arquivos de apoio (categorias.csv, ordem_dos_ensaios.csv, planilha),
+   para a análise.
+
+   FONTES DE VERDADE
+     Ensaios_Lara_Temas.xlsx  diálogos e os 3 gabaritos
+     categorias.csv           definições dos 3 eixos, na ordem do manual
+   Para mudar conteúdo, edite esses arquivos e regenere.
+
+   TRÊS PERGUNTAS POR ENSAIO, em abas que dividem o mesmo espaço:
+     1. Tema      Eixo II-1, tema da sessão          (15 alternativas)
+     2. Condução  Eixo II-3, condução do tema        (5 alternativas)
+     3. Tempo     Eixo II-2, tempo em que é tratado  (5 alternativas)
+   "Próxima" só libera com as três respondidas.
+
+   ORDEM DOS BOTÕES: FIXA em todos os ensaios e nas três perguntas, seguindo a
+   sequência do manual. Como a posição é constante, Posicao_<id> no CSV não
+   serve para estimar viés de posição.
+
+   ATENÇÃO — GABARITO PROVISÓRIO DOS QUALIFICADORES
+   Condução e Tempo foram atribuídos por julgamento automatizado, para PILOTO.
+   Aguardam revisão da Lara.
+
+   ORDEM DOS ENSAIOS: sorteada uma vez (semente 20261295) e FIXADA aqui.
+   O campo "id" preserva a linha de origem na planilha.
+
+   Para adaptar: role até "BLOCO EDITÁVEL" logo abaixo. É a única parte a mexer.
+   Instruções completas de derivação estão no README.md da pasta principal.
+
+================================================================================
+-->
+
+<script>
+/* ============================================================================
+   ██  BLOCO EDITÁVEL — INÍCIO  ███████████████████████████████████████████████
+
+   Quatro seções, nesta ordem:
+     1. CONFIG      — títulos e textos da sessão
+     2. CATEGORIAS  — as alternativas principais E o conteúdo do guia
+     3. DIMENSOES   — o que o participante responde em cada ensaio
+     4. ENSAIOS     — os itens aplicados, na ordem
+
+   MARCAÇÃO DISPONÍVEL NOS TEXTOS
+     <br>                               quebra de linha
+     <strong>texto</strong>             negrito
+     <em>texto</em>                     itálico
+     <span class="destaque">x</span>    realce amarelo
+     <span class="destaque-a">x</span>  realce azul
+     <span class="destaque-b">x</span>  realce verde
+   ========================================================================= */
+
+
+/* ---------------------------------------------------------------------------
+   1. CONFIGURAÇÃO
+   --------------------------------------------------------------------------- */
+
+const CONFIG = {
+
+  titulo: "SiMCCIT — Eixo II: Tema da sessão",
+
+  // Embaralha a ordem dos botões dentro de cada dimensão, a cada ensaio.
+  //   true  = a posição do botão não vira pista; permite medir viés de posição.
+  //   false = ordem fixa em todos os ensaios, na sequência declarada em
+  //           CATEGORIAS — use para espelhar a ordem do manual.
+  embaralharOpcoes: false,
+
+  // Exige que TODAS as dimensões sejam respondidas antes de liberar "Próxima".
+  exigirResposta: true,
+
+  mostrarProgresso: true,
+
+  instrucoes: `
+    <p>Você vai ler <strong>30 trechos</strong> de sessões de terapia e
+    classificá-los segundo o <strong>Eixo II do SiMCCIT</strong>, que trata do
+    <em>assunto</em> da sessão.</p>
+    <p>Os trechos são independentes entre si: cada um vem de um momento
+    diferente, e não há relação de continuidade de um para o outro.</p>
+  `,
+
+  // Miniatura mostrada na tela de instruções: um trecho FICTÍCIO com as
+  // respostas certas já marcadas, só para o participante ver o formato.
+  // As chaves de "respostas" são os id das DIMENSOES.
+  exemplo: {
+    enunciado: `<strong>T:</strong> E o que você fez depois disso?<br>
+                <strong>C:</strong> Fiquei em casa o dia todo, não quis ver ninguém.`,
+    respostas: { categoria: "Relato" },
+    nota: `Neste exemplo, o cliente descreve o que aconteceu sem explicar por quê —
+           por isso <strong>Relato</strong>, e não Relações.`
+  },
+
+  exemplo: {
+    enunciado: `<strong>TERAPEUTA:</strong> Você chegou mais calada hoje. Aconteceu alguma coisa?<br>
+                <strong>CLIENTE:</strong> Ontem eu e minha irmã discutimos de novo por causa da divisão das contas da casa.<br>
+                <strong>TERAPEUTA:</strong> E como ficou depois da discussão?<br>
+                <strong>CLIENTE:</strong> Cada uma foi para o seu quarto e a gente não se falou o resto da noite.`,
+    respostas: {
+      tema: "Relações com outros familiares",
+      conducao: "Terapeuta inicia/muda",
+      tempo: "Tempo atual fora da sessão"
+    },
+    nota: `O <span class="termo">tema</span> é a relação com a irmã, e não os sentimentos,
+           porque o assunto corrente é o relacionamento familiar. A
+           <span class="termo">condução</span> é do terapeuta, que abriu o assunto ao
+           perguntar. E o <span class="termo">tempo</span> é atual fora da sessão: a
+           discussão foi ontem, não durante o atendimento.`
+  },
+
+  encerramento: `
+    <p>Suas respostas foram registradas. Obrigado por participar!</p>
+  `
+};
+
+
+/* ---------------------------------------------------------------------------
+   2. CATEGORIAS
+
+   Esta lista tem DUAS funções ao mesmo tempo:
+     - é o conjunto de alternativas da dimensão que usar opcoes: "CATEGORIAS";
+     - é o conteúdo do guia de consulta.
+   Por isso o "rotulo" precisa ser escrito uma vez só e usado tal e qual no
+   gabarito dos ensaios.
+
+   CAMPOS
+     rotulo     (obrigatório) Texto do botão e título no guia.
+     definicao  (obrigatório) Caracterização da categoria, exibida no guia.
+     criterio   (opcional)    Critérios de inclusão/exclusão.
+     exemplos   (opcional)    Lista de exemplos exibidos no guia.
+     grupo      (opcional)    Cria abas no guia (ex.: "Terapeuta"/"Cliente").
+                              Com um grupo só, ou nenhum, o guia não usa abas.
+   --------------------------------------------------------------------------- */
+
+const CATEGORIAS = [
+ {
+  "rotulo": "Relação terapêutica",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a eventos que ocorreram dentro da sessão, na interação do cliente com o terapeuta, ou diz respeito a sentimentos ou impressões do cliente ou do terapeuta, um com relação ao outro."
+ },
+ {
+  "rotulo": "Relações com cônjuge/parceiro",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito ao relacionamento do cliente fora da sessão que se refira a envolvimento afetivo amoroso com um parceiro/parceira, ou à busca de um parceiro/parceira, independentemente de haver correspondência por parte da outra pessoa. Pode envolver questões de relacionamento, tais como dificuldades de convivência, queixas, reclamações ou acusações, bem como qualquer tipo de interação – amigável ou não – com pessoas com as quais haja interesse amoroso por parte do cliente, ou com o(a) namorado(a), cônjuge ou companheiro(a).",
+  "criterio": "Caso o interesse amoroso se refira ao terapeuta, deve ser categorizado o tema relação terapêutica."
+ },
+ {
+  "rotulo": "Relações com filhos ou enteados",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito ao relacionamento do cliente, fora da sessão, com um filho ou enteado. Pode envolver questões de relacionamento, tais como dificuldades de convivência, queixas, reclamações ou acusações, orientação de pais, bem como o relato de qualquer tipo de interação – amigável ou não.",
+  "criterio": "Caso assunto trate de dificuldades com o cônjuge/companheiro em razão de qualquer tipo de questão relacionada aos filhos ou enteados, dê preferência ao tema Relação com cônjuge/parceiro."
+ },
+ {
+  "rotulo": "Relações com pais ou padrastos",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito ao relacionamento do cliente, fora da sessão, com pais ou padrastos. Pode envolver questões de relacionamento, tais como dificuldades de convivência, queixas, reclamações ou acusações, bem como qualquer tipo de interação – amigável ou não.",
+  "criterio": "Caso assunto trate de dificuldades com o cônjuge/companheiro em razão de qualquer tipo de questão relacionada aos pais/padrastos, dê preferência ao tema Relação com cônjuge/parceiro."
+ },
+ {
+  "rotulo": "Relações com outros familiares",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito ao relacionamento do cliente com familiares. Pode envolver dificuldades de convivência, queixas, reclamações ou acusações, bem como qualquer tipo de interação – amigável ou não – com familiares, que não o cônjuge/ companheiro.",
+  "criterio": "Caso o assunto trate de dificuldades com o cônjuge/companheiro em razão de qualquer tipo de questão relacionada aos familiares, dê preferência ao tema Relação com cônjuge/parceiro."
+ },
+ {
+  "rotulo": "Trabalho, estudo e/ou carreira",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a questões do cliente relacionadas a trabalho, estudo ou carreira, tanto no que se refere a projetos, decisões, dúvidas, planejamento, problemas de trabalho ou estudo, dificuldades de relacionamento interpessoal que interferem no trabalho ou estudo ou relacionamentos com colegas de trabalho que têm implicações diretas (implicações sugeridas no relato presente do cliente) no trabalho ou estudo.",
+  "criterio": "a. Quando o assunto se refere a envolvimento afetivo amoroso com qualquer pessoa do trabalho, independentemente de haver correspondência por parte desta, deve ser categorizado o tema Relações com cônjuge/parceiro. b. Quando o tema se refere a algum familiar ou cônjuge/companheiro(a) com o qual o cliente vivencia relações de trabalho ou estudo, é categorizado o tema Trabalho, estudo e/ou carreira apenas quando o assunto em questão disser respeito exclusivamente ao desenvolvimento do trabalho ou estudo; caso contrário, é categorizado o tema correspondente – Relações familiares ou Relações com cônjuge/parceiro (Rel cônjuge ). Na dúvida, dê prioridade a essas categorias."
+ },
+ {
+  "rotulo": "Religião",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a questões do cliente relacionadas ao seu engajamento em uma determinada crença ou grupo religioso, no que se refere tanto a atividades, cultos, crenças, dúvidas, problemas, quanto a dificuldades de relacionamento interpessoal relacionadas às atividades religiosas (relação sugerida no relato presente do cliente).",
+  "criterio": "a. Quando o assunto se refere a envolvimento afetivo amoroso com qualquer pessoa do grupo religioso, independentemente de haver correspondência por parte da outra pessoa, deve ser categorizado o tema Relações com cônjuge/ parceiro. b. Quando o tema se refere a algum familiar ou cônjuge/companheiro(a) com o qual o cliente vivencia atividades religiosas, é categorizado o tema Religião apenas quando o assunto em questão diz respeito exclusivamente ao desenvolvimento da atividade religiosa; caso contrário, é categorizado o tema correspondente – Relações familiares ou Relações com cônjuge/ parceiro (Rel cônjuge ). Na dúvida, dê prioridade a essas categorias."
+ },
+ {
+  "rotulo": "Relações interpessoais",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito ao relacionamento do cliente com pessoas com as quais ele convive fora da sessão, à exceção da família, relações amorosas e relações profissionais. Pode envolver dificuldades de convivência, queixas, reclamações ou acusações, bem como qualquer tipo de interação – amigável ou não – com outras pessoas, que não o terapeuta, família ou cônjuge/companheiro ou relações de trabalho.",
+  "criterio": "a. São categorizadas aqui apenas relações interpessoais que não se encaixam em nenhuma das categorias interpessoais anteriores. b. Quando o assunto se refere a qualquer tipo de envolvimento afetivo que sugira interesse amoroso ou relações sexuais consentidas, mesmo que não haja efetivamente um relacionamento, deve ser categorizado o tema Relações com cônjuge/parceiro. c. Quando o assunto se refere a questões de relacionamento com pessoas de trabalho ou estudo, mas sem relação direta com o trabalho ou estudo, categoriza-se o tema Relações Interpessoais. d. Quando o assunto se refere a questões de relacionamento com pessoas de grupo religioso, mas sem relação direta com a atividade religiosa, categoriza-se o tema Relações Interpessoais."
+ },
+ {
+  "rotulo": "Sentimentos em geral, julgamentos ou tendências a ação",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a sentimentos experimentados pelo cliente e eventos a eles relacionados.",
+  "criterio": "a. Deve ser classificado esse tema apenas quando o foco principal da interação é o sentimento propriamente dito, e não quando um sentimento é citado ou relatado como parte de uma descrição relacionada ao terapeuta, outras pessoas ou queixas psiquiátricas. b. A simples menção de um sentimento do cliente ou o relato de um sentimento relacionado a algum evento não são suficientes para sua categorização nesse tema, devendo ser utilizada a categoria correspondente ao evento em questão. Na dúvida, dê prioridade a outras categorias. c. O tema Sentimentos em geral, julgamentos ou tendências a ação geralmente apresenta algum termo que se refira direta ou indiretamente a um estado emocional ou motivacional e/ou um julgamento ou avaliação. O Esquema básico de palavras emocionais, adaptado de Shaver et al. (1987) e readaptado por Brandão (2003), apresentado na Tabela 8, sugere alguns termos que podem referir-se a estados emocionais.<br><br><strong>Tabela 8 — Esquema básico de palavras emocionais, adaptado de Shaver et al. (1987) por Brandão (2003)</strong><br><em>Amor:</em> adoração; afeição; amar; apreciação; atração; carinho; compaixão; desejo; estimular; gamado, louco de paixão; gostar; luxúria, desejo ardente; paixão; prazeroso; proteção; sentimentalidade; ser cuidado por; ternura; vontade.<br><em>Raiva:</em> abominação; agitação; amargura; aversão; ciúmes; desdenho; desgostar (não gostar); desprezo; exaltação; exasperação; feroz; frustração; fúria; hostilidade; incomodado; inveja; ira; irritação; ódio; raiva; rancor; repugnação; resmungar; ressentimento; ser rabugento; ser zangado; tormento; ultrajar; vingança.<br><em>Alegria:</em> alegria; alívio; ânsia; bem-estar; contentamento; deleite; distração (prazer); ditoso; diversão; elação; emoção; encanto; enfeitiçada; enlevo; entusiasmo; entusiasmo; esperança; euforia; excitação; êxito; êxtase; exultar; felicidade; gozo; jovialidade; júbilo; orgulho; otimismo; prazer; relaxado; satisfação; sentir-se melhor; sortudo (feliz); ventura; zelo.<br><em>Tristeza:</em> agonia; abatido; alienação; angústia; arrasado; chateado; chocado; compaixão; depressão; derrota; desagrado; desanimado; desapontado; desesperança; desespero; desgostoso; desgraçado; doloroso; estar na escuridão/tristeza profunda; fracassado; infelicidade; isolado; machucado; melancolia; miséria; negligenciado; pena; pesar; rejeição; ruim (estar ruim/estar mal); saudade; sofrimento; solidão; tristeza.<br><em>Medo:</em> alarmado; ansiedade; apreensão; assustado; choque; confuso; desgosto; histeria; horror; intranquilidade; medo; nervosismo; pânico; pavor; pesaroso; preocupado; tensão; terror.<br><em>Culpa/vergonha:</em> embaraçado; arrependimento; culpado; humilhado; inseguro; insultado; remorso; vergonha; constrangido; deslocado."
+ },
+ {
+  "rotulo": "Questões existenciais",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto em pauta diz respeito a questões do cliente sobre a existência, sobre o sentido de determinadas experiências ou da própria vida. Assuntos de natureza filosófica ou existencial, em geral, devem ser categorizados nessa temática.",
+  "criterio": "Essa categoria deve ser utilizada apenas quando o assunto se refere explicitamente a temas de natureza existencial. Na dúvida, dê prioridade a outras categorias temáticas."
+ },
+ {
+  "rotulo": "Eventos traumáticos",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a eventos experimentados pelo cliente como traumáticos, em especial a situações de violência, eventos que implicaram risco sério de morte ou lesão, perda de entes queridos, ameaça séria à sua integridade física ou emocional ou eventos a eles relacionados.",
+  "criterio": "Deve ser classificado esse tema apenas quando o foco principal da conversação é o evento propriamente dito ou suas decorrências, e não quando o evento é citado ou relatado como parte de uma descrição de outros eventos. Na dúvida, dê prioridade a outras categorias."
+ },
+ {
+  "rotulo": "Atividade de fantasia ou jogo",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto em curso trata de eventos que ocorrem durante uma atividade lúdica, de viagem de fantasia, role-playing, desenho ou qualquer atividade que envolva arte ou fantasia como recursos terapêuticos.",
+  "criterio": "Atividades de fantasia ou jogo deve ser categorizado durante a atividade propriamente dita e/ou a qualquer momento em que o assunto tratado na interação terapêutica se refira diretamente a uma atividade ou jogo realizado ou a ser realizado."
+ },
+ {
+  "rotulo": "Desenvolvimento de técnicas/procedimentos ou entrevistas padronizados",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto em curso trata de eventos que ocorrem durante a aplicação de uma técnica ou procedimento padronizado (com exceção de viagens de fantasia, role- playing, desenho ou qualquer atividade que envolva arte ou fantasia como recursos terapêuticos) ou ainda durante a aplicação de entrevistas ou de escalas de avaliação padronizadas.",
+  "criterio": "A categorização nesse tema deve ser feita apenas durante a aplicação ou desenvolvimento da técnica ou entrevista, ou quando da apresentação do resultado de alguma avaliação por parte do terapeuta decorrente desses procedimentos ou escalas/ entrevistas. Qualquer outro momento em que o terapeuta ou o cliente se refiram a essas técnicas ou procedimentos deve ser categorizado no tema correspondente da conversação. Na dúvida, dê prioridade a outras categorias."
+ },
+ {
+  "rotulo": "Queixas psiquiátricas e sintomas médicos",
+  "grupo": "Temas da sessão",
+  "definicao": "O assunto corrente diz respeito a (a) desconforto físico, descontentamento, desprazer ou dor relacionados a problemas de saúde – doenças ou sintomas físicos, estímulos interoceptivos ou proprioceptivos – incluindo a descrição de procedimentos médicos relacionados; (b) sintomas relacionados a quadros psiquiátricos, bem como tratamentos e procedimentos médicos e psicológicos, medicação, além de procedimentos tomados pelo paciente, familiares ou outros em situações de crise.",
+  "criterio": "A categorização nesse tema deve ser feita apenas quando esse é o foco principal da conversação. Qualquer outro momento em que o terapeuta ou o cliente se refiram a essas queixas, sintomas ou diagnóstico, deve ser categorizado o tema correspondente da conversação. Na dúvida, dê prioridade a outras categorias."
+ },
+ {
+  "rotulo": "Outros temas",
+  "grupo": "Temas da sessão",
+  "definicao": "Essa categoria é utilizada quando não é possível identificar o tema principal da conversação ou quando o tema em curso não se refere a nenhum dos previstos anteriormente."
+ },
+ {
+  "rotulo": "Terapeuta inicia/muda",
+  "grupo": "Condução do tema",
+  "definicao": "O terapeuta introduz um assunto novo. Inclui episódios em que o terapeuta inicia assunto após finalização do assunto anterior, com ou sem um período de silêncio intermediário, ou episódios em que ele muda de assunto, quando o tema em discussão anterior ainda não havia sido encerrado, seja por meio de verbalizações explícitas solicitando a mudança de assunto, seja pela introdução de outro tema não derivado do anterior."
+ },
+ {
+  "rotulo": "Cliente inicia/muda",
+  "grupo": "Condução do tema",
+  "definicao": "O cliente introduz um assunto novo. Inclui episódios em que o cliente inicia assunto após finalização do assunto anterior, com ou sem um período de silêncio intermediário, ou episódios em que ele muda de assunto, quando o tema em discussão anterior ainda não havia sido encerrado, seja por meio de verbalizações explícitas solicitando a mudança de assunto, seja pela introdução de outro tema não derivado do anterior."
+ },
+ {
+  "rotulo": "Terapeuta deriva",
+  "grupo": "Condução do tema",
+  "definicao": "Terapeuta muda o assunto por derivação do tema que estava em curso anteriormente. O novo tema inserido pelo participante deve ter uma relação explícita com o tema tratado anteriormente.",
+  "criterio": "Comumente, a derivação pode se iniciar com expressões como “isso me lembra aquele episódio...”, “falando nisso...”."
+ },
+ {
+  "rotulo": "Cliente deriva",
+  "grupo": "Condução do tema",
+  "definicao": "O cliente muda o assunto por derivação do tema que estava em curso anteriormente. Inclui episódios em que é explícita a relação entre o tema tratado anteriormente e o tema novo inserido."
+ },
+ {
+  "rotulo": "Continuidade do tema",
+  "grupo": "Condução do tema",
+  "definicao": "Categorizado em casos em que a inserção de uma nova categoria de tema ocorreu por mudança de enfoque no tempo, mas não há mudança de tema da sessão."
+ },
+ {
+  "rotulo": "Aqui e agora na sessão",
+  "grupo": "Tempo",
+  "definicao": "O assunto em curso trata de eventos que estão ocorrendo no momento da sessão, na interação terapêutica ou em qualquer evento presente no momento da sessão."
+ },
+ {
+  "rotulo": "Tempo atual fora da sessão",
+  "grupo": "Tempo",
+  "definicao": "O assunto em curso é tratado em tempo presente e se refere a eventos ocorridos na semana do cliente ou eventos recentes tratados pelo cliente e/ou pelo terapeuta no tempo presente. Assuntos tratados como “semana passada” ou “esses dias” são considerados como Tempo atual fora da sessão."
+ },
+ {
+  "rotulo": "Tempo passado",
+  "grupo": "Tempo",
+  "definicao": "O assunto em curso se refere a eventos tratados pelo terapeuta e/ou pelo cliente no tempo passado, com exceção de relatos de eventos recentes (ocorridos nas semanas anteriores do relato).",
+  "criterio": "Na dúvida entre Presente ou Passado, categorize Presente."
+ },
+ {
+  "rotulo": "Tempo futuro",
+  "grupo": "Tempo",
+  "definicao": "O assunto em curso refere-se a eventos tratados pelo terapeuta e/ou pelo cliente no tempo futuro. Podem referir-se a projetos, planejamento, fantasias, questões existenciais, desde que sejam eventos que ainda não ocorreram."
+ },
+ {
+  "rotulo": "Outros",
+  "grupo": "Tempo",
+  "definicao": "O assunto em curso se refere a um tempo não previsto nas categorias anteriores."
+ }
+];
+
+
+/* ---------------------------------------------------------------------------
+   3. DIMENSÕES
+
+   Cada dimensão é UMA pergunta respondida em TODO ensaio. A maioria dos
+   projetos tem uma só (a categoria). Eixos com qualificadores têm mais — por
+   exemplo, categoria + quem iniciou o assunto.
+
+   As dimensões viram ABAS que dividem o mesmo espaço abaixo do enunciado, na
+   ordem declarada aqui. O enunciado fica visível o tempo todo. Ao responder,
+   o app pula sozinho para a próxima pergunta pendente; respondidas todas, ele
+   fica parado para o participante poder revisar. "Próxima" só libera com as
+   TRÊS respondidas (com CONFIG.exigirResposta).
+
+   Circular entre abas e trocar respostas é permitido até confirmar o ensaio —
+   o que não é permitido é voltar a um ensaio já confirmado.
+
+   Cada dimensão tem sua própria latência no CSV (Latencia_<id>): o tempo
+   acumulado com aquela aba aberta. Latencia_total_s é o ensaio inteiro.
+
+   CAMPOS
+     id             (obrigatório) Identificador curto, sem espaços nem acentos.
+                                  Vira nome de coluna no CSV: Escolha_<id>,
+                                  Gabarito_<id>, Resultado_<id>, Posicao_<id>.
+     pergunta       (obrigatório) Texto da pergunta. Aceita HTML.
+     opcoes         (obrigatório) Uma das três formas:
+                                    ["A", "B"]           lista literal
+                                    "CATEGORIAS"          todos os rótulos da seção 2
+                                    { grupo: "Tempo" }    só as categorias desse
+                                                          grupo — use quando o
+                                                          projeto tiver mais de um
+                                                          conjunto de alternativas
+     larguraMinima  (opcional)    Largura mínima de cada botão. Menor = mais
+                                  colunas. Padrão "15rem".
+     altura         (opcional)    Altura fixa dos botões desta dimensão.
+                                  Padrão "4.75rem". Todos os botões ficam com
+                                  exatamente este tamanho, e a letra encolhe
+                                  sozinha até o texto mais longo caber.
+     rotuloAba      (opcional)    Nome curto da aba (ex.: "Tema"). Padrão: o id.
+     ajuda          (opcional)    Frase curta exibida no cartão das instruções.
+     embaralhar     (opcional)    true/false só nesta dimensão. Use false quando
+                                  a ordem for significativa (ex.: escalas).
+   --------------------------------------------------------------------------- */
+
+const DIMENSOES = [
+ {
+  "id": "tema",
+  "rotuloAba": "Tema",
+  "pergunta": "O <span class=\"termo\">tema</span> tratado neste trecho é:",
+  "ajuda": "vale para o trecho todo, independentemente de quem fala",
+  "opcoes": {
+   "grupo": "Temas da sessão"
+  },
+  "larguraMinima": "17rem",
+  "altura": "4.5rem"
+ },
+ {
+  "id": "conducao",
+  "rotuloAba": "Condução",
+  "pergunta": "A <span class=\"termo\">condução do tema</span> neste trecho é:",
+  "ajuda": "quem introduziu o assunto e de que modo",
+  "opcoes": {
+   "grupo": "Condução do tema"
+  },
+  "larguraMinima": "14rem",
+  "altura": "3.5rem"
+ },
+ {
+  "id": "tempo",
+  "rotuloAba": "Tempo",
+  "pergunta": "O <span class=\"termo\">tempo em que o assunto é tratado</span> é:",
+  "ajuda": "quando se passa aquilo de que se fala",
+  "opcoes": {
+   "grupo": "Tempo"
+  },
+  "larguraMinima": "14rem",
+  "altura": "3.5rem"
+ }
+];
+
+
+/* ---------------------------------------------------------------------------
+   4. ENSAIOS
+
+   Aplicados na ordem em que aparecem. Separe cada um com vírgula.
+
+   CAMPOS
+     id         (obrigatório) Código único, vai para o relatório.
+     enunciado  (obrigatório) O material apresentado. Aceita HTML.
+     gabarito   (obrigatório) Com UMA dimensão, basta o texto da resposta certa.
+                              Com VÁRIAS, um objeto com uma chave por dimensão:
+                                gabarito: { categoria: "Relato", iniciou: "Cliente" }
+                              Omita uma chave para não corrigir aquela dimensão.
+     opcoes     (opcional)    Sobrepõe as alternativas neste ensaio. Objeto com
+                              uma chave por dimensão. Use só em ensaios atípicos.
+   --------------------------------------------------------------------------- */
+
+const ENSAIOS = [
+ {
+  "id": "L12",
+  "enunciado": "<strong>TERAPEUTA:</strong> Percebi uma coisa enquanto você contava essa situação com sua chefe agora.<br><strong>CLIENTE:</strong> O quê?<br><strong>TERAPEUTA:</strong> Você conseguiu descrever tudo com calma, sem se culpar excessivamente, mesmo sendo um episódio difícil. Isso é diferente de como você costumava trazer esses relatos aqui.<br><strong>CLIENTE:</strong> Nossa, nem tinha reparado nisso. Eu ainda acho que evito bastante coisa, mas é bom ouvir isso.<br><strong>TERAPEUTA:</strong> É perceptível, sim. Isso tem feito diferença no nosso trabalho aqui.",
+  "gabarito": {
+   "tema": "Relação terapêutica",
+   "conducao": "Terapeuta deriva",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L29",
+  "enunciado": "<strong>CLIENTE:</strong> Sabe, essa semana eu passei bastante tempo escolhendo azulejo pra reforma da cozinha lá de casa.<br><strong>TERAPEUTA:</strong> Como está sendo esse processo pra você?<br><strong>CLIENTE:</strong> Divertido, na verdade. Fico horas vendo catálogo, comparando cor de bancada, esse tipo de coisa. É bom ter algo assim pra pensar que não seja trabalho ou problema.<br><strong>TERAPEUTA:</strong> Parece que essa atividade tem trazido um respiro pra você.<br><strong>CLIENTE:</strong> Exatamente. Nem tem muito o que analisar, é só um gostinho bom de organizar as coisas.",
+  "gabarito": {
+   "tema": "Outros temas",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L23",
+  "enunciado": "<strong>CLIENTE:</strong> Ultimamente eu fico pensando muito sobre o que realmente significa viver, sabe? Tipo, eu acordo, trabalho, durmo, e não sei mais se isso é viver de verdade.<br><strong>TERAPEUTA:</strong> O que te fez começar a pensar nisso com mais intensidade?<br><strong>CLIENTE:</strong> Acho que foi depois da morte do meu avô. Vi que a vida dele foi basicamente trabalho e rotina, e isso me assustou, porque a minha está parecida.<br><strong>TERAPEUTA:</strong> E o que seria, pra você, uma vida que fizesse mais sentido?<br><strong>CLIENTE:</strong> Não sei ao certo. Só sei que não é essa repetição de dias iguais que eu tenho vivido.",
+  "gabarito": {
+   "tema": "Questões existenciais",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L27",
+  "enunciado": "<strong>TERAPEUTA:</strong> Vamos fazer aquele questionário que eu tinha comentado, o BDI, pra vermos como você está nesse período. Pode ser agora?<br><strong>CLIENTE:</strong> Pode. É tipo aquele outro que já respondi antes?<br><strong>TERAPEUTA:</strong> Isso, o formato é parecido. Vou ler cada grupo de frases e você escolhe a que mais representa como você tem se sentido na última semana.<br><strong>CLIENTE:</strong> Pode ler a primeira.<br><strong>TERAPEUTA:</strong> \"Não me sinto triste\", \"Sinto-me triste\", \"Sinto-me triste o tempo todo e não consigo sair disso\", \"Estou tão triste ou infeliz que não consigo suportar\".<br><strong>CLIENTE:</strong> Acho que a segunda descreve melhor como tenho estado.",
+  "gabarito": {
+   "tema": "Desenvolvimento de técnicas/procedimentos ou entrevistas padronizados",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L26",
+  "enunciado": "<strong>CLIENTE:</strong> Trouxe o desenho que você pediu na sessão passada, sobre como eu vejo minha família.<br><strong>TERAPEUTA:</strong> Vamos olhar juntos. Me conta o que você desenhou aqui.<br><strong>CLIENTE:</strong> Desenhei minha mãe bem grande no centro, e eu bem pequeno num canto, quase saindo da folha.<br><strong>TERAPEUTA:</strong> O que te fez desenhar dessa forma, com esse tamanho e essa posição?<br><strong>CLIENTE:</strong> Acho que é assim que eu me sinto em casa, meio apagado perto dela, que sempre domina tudo.<br><strong>TERAPEUTA:</strong> E o seu pai, onde ele está no desenho?<br><strong>CLIENTE:</strong> Nem coloquei ele. Acho que nem me ocorreu, de tão ausente que ele é no dia a dia.",
+  "gabarito": {
+   "tema": "Atividade de fantasia ou jogo",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L22",
+  "enunciado": "<strong>CLIENTE:</strong> Saí da entrevista de emprego com uma frustração enorme, sabia que não tinha ido bem antes mesmo do resultado.<br><strong>TERAPEUTA:</strong> O que você sentiu durante a entrevista?<br><strong>CLIENTE:</strong> Uma trava na hora de responder as perguntas técnicas, mesmo sabendo o conteúdo. Depois fiquei remoendo cada resposta ruim que dei, o dia inteiro.<br><strong>TERAPEUTA:</strong> Essa sensação de frustração ainda está presente agora, enquanto conversamos?<br><strong>CLIENTE:</strong> Um pouco menos, mas ainda incomoda. É como se eu tivesse perdido uma chance que talvez não volte tão cedo.",
+  "gabarito": {
+   "tema": "Sentimentos em geral, julgamentos ou tendências a ação",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L04",
+  "enunciado": "<strong>CLIENTE:</strong> Não sei nem como começar... a Bia conversou comigo no fim de semana e disse que está namorando uma menina da escola.<br><strong>TERAPEUTA:</strong> Como foi pra você receber isso dela?<br><strong>CLIENTE:</strong> Foi surpresa, mas não foi ruim, sabe? O problema é que agora ela me pediu pra eu contar pro pai dela, porque tem medo da reação dele, e eu não sei se esse é meu lugar.<br><strong>TERAPEUTA:</strong> O que te deixa em dúvida sobre assumir esse papel?<br><strong>CLIENTE:</strong> Eu não sou mãe biológica dela, mas fui eu que ela procurou primeiro, não o pai. Isso me deixa numa posição estranha dentro de casa, como se eu tivesse que escolher um lado antes mesmo de ele saber.<br><strong>TERAPEUTA:</strong> Parece que essa confiança que ela depositou em você também trouxe um peso extra.<br><strong>CLIENTE:</strong> Exatamente. Fico feliz que ela confiou em mim, mas ao mesmo tempo com medo de que isso vire uma confusão entre eu e o pai dela.",
+  "gabarito": {
+   "tema": "Relações com filhos ou enteados",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L09",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você tinha comentado que ia começar a tomar o novo antidepressivo essa semana. Como foi?<br><strong>CLIENTE:</strong> Comecei terça-feira, mas desde então ando com uma boca seca horrível e uma sonolência que não passa nem tomando café.<br><strong>TERAPEUTA:</strong> Isso tem atrapalhado seu dia a dia?<br><strong>CLIENTE:</strong> Bastante. Ontem quase dormi numa reunião de trabalho, tive que beliscar minha própria perna pra me manter acordada. E a boca seca me incomoda a noite toda, acordo várias vezes pra beber água.<br><strong>TERAPEUTA:</strong> Você chegou a falar isso com o psiquiatra?<br><strong>CLIENTE:</strong> Ainda não, a consulta de retorno só é daqui a duas semanas. Fico na dúvida se aguento até lá ou se ligo pedindo pra adiantar.",
+  "gabarito": {
+   "tema": "Queixas psiquiátricas e sintomas médicos",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L01",
+  "enunciado": "<strong>CLIENTE:</strong> Hoje a coordenadora me chamou de novo por causa das faltas. Disse que se eu faltar mais uma vez na aula de história vou ficar de recuperação.<br><strong>TERAPEUTA:</strong> E como foi ouvir isso dela?<br><strong>CLIENTE:</strong> Não sei... dá uma raiva, porque não é que eu não queira ir, é que eu não aguento mais ficar sentado numa sala com o professor de história me zoando toda aula na frente da turma.<br><strong>TERAPEUTA:</strong> Ele tem feito isso com frequência?<br><strong>CLIENTE:</strong> Toda aula ele arruma um jeito de falar que eu não presto atenção, que eu vou repetir de ano de novo... Aí eu prefiro matar aula do que ouvir isso de novo",
+  "gabarito": {
+   "tema": "Trabalho, estudo e/ou carreira",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L05",
+  "enunciado": "<strong>CLIENTE:</strong> Tive o sonho de novo essa semana. Já é a terceira vez.<br><strong>TERAPEUTA:</strong> Como foi dessa vez?<br><strong>CLIENTE:</strong> Igual sempre... eu vejo os faróis vindo na contramão, tento desviar, mas nunca consigo. Aí eu acordo antes da batida, com o coração disparado.<br><strong>TERAPEUTA:</strong> E depois que você acorda, como fica o resto da noite?<br><strong>CLIENTE:</strong> Não durmo mais. Fico deitada olhando pro teto, com aquela sensação de que o carro ainda vai bater, mesmo sabendo que é só um sonho. Às vezes eu nem lembro direito do acidente de verdade, só desses sonhos.<br><strong>TERAPEUTA:</strong> Você mencionou não lembrar bem do acidente em si. Isso tem te incomodado, essa lacuna na memória?<br><strong>CLIENTE:</strong> Um pouco. Tem partes que eu simplesmente não consigo acessar, e não sei se é melhor assim ou se eu deveria tentar lembrar.",
+  "gabarito": {
+   "tema": "Eventos traumáticos",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L11",
+  "enunciado": "<strong>CLIENTE:</strong> Antes de começar, eu queria falar uma coisa. Semana passada, quando liguei desesperada, você conseguiu me encaixar mesmo sem ser dia de sessão. Isso significou muito pra mim.<br><strong>TERAPEUTA:</strong> Fico feliz que tenha ajudado. Como você está se sentindo hoje, depois daquele momento?<br><strong>CLIENTE:</strong> Bem melhor. Mas queria mesmo dizer isso, porque às vezes eu esqueço de reconhecer as coisas boas, e aquilo foi importante.<br><strong>TERAPEUTA:</strong> Obrigada por compartilhar isso comigo.",
+  "gabarito": {
+   "tema": "Relação terapêutica",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L15",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você está mais quieto que o normal hoje, com os braços cruzados desde que sentou.<br><strong>CLIENTE:</strong> É que descobri que meu padrasto entrou no meu quarto e mexeu nas minhas coisas enquanto eu estava na escola.<br><strong>TERAPEUTA:</strong> Como você percebeu isso?<br><strong>CLIENTE:</strong> Minhas gavetas estavam fora de ordem, e ele comentou algo que só podia saber se tivesse lido meu caderno. Fiquei com muita raiva, mas não falei nada na hora.<br><strong>TERAPEUTA:</strong> Você pretende conversar com ele sobre isso?<br><strong>CLIENTE:</strong> Não sei se vale a pena. Ele sempre acha que tem o direito de fazer isso porque mora com a gente há anos.",
+  "gabarito": {
+   "tema": "Relações com pais ou padrastos",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L14",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você chegou hoje com uma cara diferente. Tem algo específico rodando na sua cabeça?<br><strong>CLIENTE:</strong> Tem sim... tenho pensado seriamente em pedir o divórcio. Já não é só uma ideia passageira, tenho pensado nisso quase todo dia.<br><strong>TERAPEUTA:</strong> O que mudou pra essa ideia se tornar mais concreta?<br><strong>CLIENTE:</strong> Acho que cansei de esperar as coisas melhorarem sozinhas. A gente vive como colegas de casa há muito tempo, sem brigar, mas também sem nada de verdade entre a gente.<br><strong>TERAPEUTA:</strong> Você já conversou com ele sobre esse sentimento?<br><strong>CLIENTE:</strong> Ainda não. Tenho medo de falar e não ter volta.",
+  "gabarito": {
+   "tema": "Relações com cônjuge/parceiro",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo futuro"
+  }
+ },
+ {
+  "id": "L19",
+  "enunciado": "<strong>CLIENTE:</strong> No fim de semana fui num centro de umbanda pela primeira vez, minha colega de trabalho me convidou.<br><strong>TERAPEUTA:</strong> Como foi essa experiência pra você?<br><strong>CLIENTE:</strong> Estranha, mas de um jeito bom. Fiquei impressionada com os cânticos e o ambiente, mas também meio perdida, porque não sabia bem o que fazer ou como me comportar.<br><strong>TERAPEUTA:</strong> O que ficou mais forte dessa vivência?<br><strong>CLIENTE:</strong> Uma sensação de acolhimento que eu não esperava. Não sei se vou voltar, mas fiquei pensando bastante nisso essa semana.",
+  "gabarito": {
+   "tema": "Religião",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L18",
+  "enunciado": "<strong>CLIENTE:</strong> Minha prima Juliana me mandou uma mensagem enorme me acusando de ter comentado coisas sobre ela pra família toda.<br><strong>TERAPEUTA:</strong> E isso é verdade?<br><strong>CLIENTE:</strong> Não do jeito que ela colocou. Eu só comentei com minha mãe uma preocupação, mas ela distorceu tudo e agora todo mundo da família está tomando partido dela.<br><strong>TERAPEUTA:</strong> Como você está lidando com essa situação?<br><strong>CLIENTE:</strong> Estou exausta. Já é a terceira vez em dois anos que isso acontece entre a gente, sempre a mesma dinâmica de mal-entendido virando briga de família inteira.",
+  "gabarito": {
+   "tema": "Relações com outros familiares",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L25",
+  "enunciado": "<strong>TERAPEUTA:</strong> Vamos fazer aquele exercício que combinamos. Imagine que eu sou seu chefe pedindo pra você ficar até mais tarde de novo. Como você responderia?<br><strong>CLIENTE:</strong> Tá bom... [pausa] Eu ia falar \"hoje não posso, já tenho compromisso marcado.\"<br><strong>TERAPEUTA:</strong> Agora insista comigo, como se eu fosse pressionar você a ficar mesmo assim.<br><strong>CLIENTE:</strong> Entendo que seja importante, mas realmente não posso hoje. Podemos resolver isso amanhã cedo?<br><strong>TERAPEUTA:</strong> Como foi pra você falar isso, mesmo em uma simulação?<br><strong>CLIENTE:</strong> Estranho, mas menos difícil do que eu imaginava. Na vida real acho que eu gaguejaria bem mais.",
+  "gabarito": {
+   "tema": "Atividade de fantasia ou jogo",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L07",
+  "enunciado": "<strong>CLIENTE:</strong> Sábado eu fui numa festa de aniversário, reencontrei um grupo de amigas do colégio que eu não via fazia uns dez anos.<br><strong>TERAPEUTA:</strong> Como foi esse reencontro?<br><strong>CLIENTE:</strong> Estranho no começo, mas depois foi ficando bom. Só que teve uma hora que a Renata comentou \"nossa, você sumiu, achei que tinha nos esquecido\", e isso me incomodou o resto da noite.<br><strong>TERAPEUTA:</strong> O que exatamente incomodou nesse comentário dela?<br><strong>CLIENTE:</strong> Não sei se foi cobrança ou brincadeira. Fiquei tentando decifrar o tom o tempo todo, ao invés de aproveitar a festa, e no fim voltei pra casa mais cansada do que se tivesse ficado no sofá.",
+  "gabarito": {
+   "tema": "Relações interpessoais",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L03",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você chegou hoje parecendo mais cansada que o normal. Aconteceu alguma coisa?<br><strong>CLIENTE:</strong> Tive mais uma briga feia com o Lucas ontem à noite. Ele chegou passado da hora que combinamos e quando fui falar alguma coisa ele simplesmente subiu e bateu a porta do quarto.<br><strong>TERAPEUTA:</strong> E o que aconteceu depois que ele bateu a porta?<br><strong>CLIENTE:</strong> Fiquei ali parada no corredor, sem saber se batia na porta de novo ou se deixava quieto. Acabei deixando, mas fiquei remoendo a noite toda, pensando que ele nem me respeita mais.<br><strong>TERAPEUTA:</strong> Essa sensação de não ser respeitada por ele, ela é recorrente nessas situações?<br><strong>CLIENTE:</strong> É, ultimamente parece que qualquer combinado que eu faço com ele não vale nada. Antes ele pelo menos me avisava quando ia atrasar.",
+  "gabarito": {
+   "tema": "Relações com filhos ou enteados",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L06",
+  "enunciado": "<strong>TERAPEUTA:</strong> Na última sessão você disse que preferia não entrar em detalhes sobre o assalto ainda. Sente que hoje é um dia possível pra isso, ou prefere continuar esperando?<br><strong>CLIENTE:</strong> Acho que consigo falar um pouco. Foi na saída do mercado, dois caras encostaram uma arma nas minhas costas e pediram a bolsa e o celular.<br><strong>TERAPEUTA:</strong> O que você lembra de ter sentido naquele momento?<br><strong>CLIENTE:</strong> Um branco total. Eu nem gritei, nem corri, só congelei. Entreguei tudo tremendo e fiquei parada até eles sumirem.<br><strong>TERAPEUTA:</strong> E depois disso, no dia a dia, esse momento tem voltado de alguma forma?<br><strong>CLIENTE:</strong> Toda vez que alguém chega perto de mim por trás, mesmo sem querer, tipo numa fila, eu tenho um sobressalto e o coração dispara na hora. Já várias vezes as pessoas nem perceberam nada e eu já estava suando frio.",
+  "gabarito": {
+   "tema": "Eventos traumáticos",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo passado"
+  }
+ },
+ {
+  "id": "L28",
+  "enunciado": "<strong>CLIENTE:</strong> Você comentou que hoje ia aplicar aquela escala sobre relacionamentos, é isso mesmo?<br><strong>TERAPEUTA:</strong> Isso, a escala de vínculo. Vou fazer algumas perguntas sobre como você costuma se relacionar nas suas relações mais próximas, pode ser?<br><strong>CLIENTE:</strong> Pode.<br><strong>TERAPEUTA:</strong> Em geral, você sente facilidade em confiar nas pessoas com quem se envolve afetivamente?<br><strong>CLIENTE:</strong> Não muito. Sempre espero que algo dê errado, mesmo quando está tudo bem.<br><strong>TERAPEUTA:</strong> E você costuma buscar proximidade ou prefere manter distância quando percebe que está se apegando a alguém?<br><strong>CLIENTE:</strong> Acho que fico no meio termo, quero chegar perto mas ao mesmo tempo já penso em formas de me proteger caso a pessoa vá embora.",
+  "gabarito": {
+   "tema": "Desenvolvimento de técnicas/procedimentos ou entrevistas padronizados",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L13",
+  "enunciado": "<strong>CLIENTE:</strong> Ontem eu e o Rafael brigamos feio por causa de uma viagem que ele marcou sem me consultar.<br><strong>TERAPEUTA:</strong> Como foi essa briga?<br><strong>CLIENTE:</strong> Ele disse que eu sempre arrumo motivo pra reclamar, e eu disse que ele nunca me inclui nas decisões. Terminou com ele saindo de casa e dormindo na casa do irmão.<br><strong>TERAPEUTA:</strong> E hoje, vocês já conversaram sobre isso?<br><strong>CLIENTE:</strong> Trocamos só mensagens secas. Nenhum dos dois quis ceder ainda.",
+  "gabarito": {
+   "tema": "Relações com cônjuge/parceiro",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L24",
+  "enunciado": "<strong>TERAPEUTA:</strong> Fiquei pensando numa frase que você disse ainda agora, sobre \"só ir levando\".<br><strong>CLIENTE:</strong> É... fico pensando se faz sentido continuar nessa rotina de trabalhar tanto por coisas que no fundo não me realizam.<br><strong>TERAPEUTA:</strong> O que te faz duvidar que valha a pena?<br><strong>CLIENTE:</strong> Sinto que estou trocando tempo de vida por coisas materiais que nem me fazem tão feliz assim. Às vezes penso que deveria mudar tudo, mas depois acho que é só uma crise passageira.<br><strong>TERAPEUTA:</strong> Essa dúvida entre mudar tudo ou seguir como está tem te acompanhado com que frequência?<br><strong>CLIENTE:</strong> Quase todo dia, principalmente à noite, antes de dormir.",
+  "gabarito": {
+   "tema": "Questões existenciais",
+   "conducao": "Terapeuta deriva",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L08",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você comentou rapidamente na semana passada sobre um almoço com uma colega. Quer falar mais sobre isso?<br><strong>CLIENTE:</strong> Ah, sim. Fui almoçar com a Camila, a gente trabalha junto mas quase não conversa fora do expediente. Foi bom, rimos bastante, mas ela acabou comentando umas coisas da vida pessoal dela que eu não esperava.<br><strong>TERAPEUTA:</strong> Que tipo de coisas?<br><strong>CLIENTE:</strong> Ela falou meio por cima que está se separando, e eu não sabia nem o que responder. Fiquei com aquela sensação de que agora criamos um vínculo maior do que eu realmente queria ter com ela.<br><strong>TERAPEUTA:</strong> Essa proximidade que surgiu te deixou desconfortável de alguma forma?<br><strong>CLIENTE:</strong> Um pouco. Não é que eu não goste dela, é que eu prefiro manter as coisas mais separadas, trabalho é trabalho, e agora não sei bem como vou agir com ela na segunda-feira.",
+  "gabarito": {
+   "tema": "Relações interpessoais",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L17",
+  "enunciado": "<strong>TERAPEUTA:</strong> Fico pensando naquela expressão que você fez quando entrou hoje. Aconteceu alguma coisa diferente essa semana?<br><strong>CLIENTE:</strong> É, a tia Marisa me chamou pra tomar um café depois de uns cinco anos sem falar comigo.<br><strong>TERAPEUTA:</strong> O que você sentiu ao receber esse convite?<br><strong>CLIENTE:</strong> Uma mistura de curiosidade e desconfiança. A gente brigou feio há anos, por causa de uma herança da minha avó, e agora do nada ela quer se aproximar de novo.<br><strong>TERAPEUTA:</strong> Você pretende aceitar o convite?<br><strong>CLIENTE:</strong> Acho que sim, mas vou com o pé atrás, sem esperar muito dessa reaproximação.",
+  "gabarito": {
+   "tema": "Relações com outros familiares",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L30",
+  "enunciado": "<strong>TERAPEUTA:</strong> Notei aquele livro sobre astronomia saindo da sua bolsa agora há pouco. Está lendo sobre isso?<br><strong>CLIENTE:</strong> Ah, é, assisti um documentário sobre o espaço essa semana, sobre buracos negros e essas coisas. Achei fascinante, aí fui atrás de mais material.<br><strong>TERAPEUTA:</strong> O que mais chamou sua atenção nele?<br><strong>CLIENTE:</strong> A parte que explicava como o tempo passa diferente perto de um buraco negro. Fiquei impressionada, nunca tinha parado pra pensar nisso.<br><strong>TERAPEUTA:</strong> Você costuma se interessar por esse tipo de conteúdo?<br><strong>CLIENTE:</strong> De vez em quando. É bom porque tira minha cabeça de tudo o resto por um tempo, é um assunto que não tem nada a ver com minha vida.",
+  "gabarito": {
+   "tema": "Outros temas",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L02",
+  "enunciado": "<strong>TERAPEUTA:</strong> Na semana passada você comentou rapidamente sobre uma reunião difícil com os professores. Quer retomar isso?<br><strong>CLIENTE:</strong> Ah, é... foi tenso. Um grupo de professores quer entrar com uma reivindicação formal por causa do corte no material didático, e eu fiquei no meio, porque a decisão não foi minha, veio da mantenedora.<br><strong>TERAPEUTA:</strong> E como foi pra você estar nesse meio de campo?<br><strong>CLIENTE:</strong> Péssimo. Eu concordo com eles, sinceramente, mas não posso dizer isso abertamente porque sou eu quem representa a direção. Acabei escutando calada um bocado de coisa.<br><strong>TERAPEUTA:</strong> Você mencionou concordar com os professores, mas precisar se calar. Isso tem se repetido?<br><strong>CLIENTE:</strong> Vira e mexe. Às vezes eu me pergunto se ainda dá pra ser diretora e continuar do lado de quem eu realmente sou dentro da escola.",
+  "gabarito": {
+   "tema": "Trabalho, estudo e/ou carreira",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L20",
+  "enunciado": "<strong>TERAPEUTA:</strong> Reparei que você desviou o assunto duas vezes agora que chegamos perto de falar da igreja. Quer tentar de novo?<br><strong>CLIENTE:</strong> Pode ser... tenho ido cada vez menos aos cultos e não sei se é só uma fase ou se estou mesmo me afastando de tudo aquilo.<br><strong>TERAPEUTA:</strong> O que mudou pra você começar a questionar isso?<br><strong>CLIENTE:</strong> Acho que percebi que ia mais por hábito e pressão da família do que por realmente acreditar em tudo que se prega lá. Isso me deixa com um certo peso na consciência.<br><strong>TERAPEUTA:</strong> Esse peso vem mais de dentro de você ou da reação que imagina que sua família teria?<br><strong>CLIENTE:</strong> Confesso que é mais medo da reação deles. Sozinha, acho que eu conseguiria lidar com essa distância.",
+  "gabarito": {
+   "tema": "Religião",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L16",
+  "enunciado": "<strong>CLIENTE:</strong> Meus pais viajaram de novo semana passada e nem me disseram direito quando voltam.<br><strong>TERAPEUTA:</strong> Como tem sido ficar sozinho em casa esse tempo?<br><strong>CLIENTE:</strong> No começo é até bom, mas depois de uns dias bate uma sensação estranha, tipo eu não sei se eles vão voltar quando disseram ou se vão estender de novo, como sempre fazem.<br><strong>TERAPEUTA:</strong> Você já falou com eles sobre como isso te afeta?<br><strong>CLIENTE:</strong> Uma vez tentei, mas minha mãe disse que eu já tenho idade pra me virar sozinho. Aí eu desisti de comentar.",
+  "gabarito": {
+   "tema": "Relações com pais ou padrastos",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ },
+ {
+  "id": "L21",
+  "enunciado": "<strong>TERAPEUTA:</strong> Você mexeu no celular três vezes desde que sentou aqui. Está esperando alguma resposta?<br><strong>CLIENTE:</strong> É, do meu namorado. Ele demorou pra responder minha mensagem e uma parte de mim já imagina um monte de coisa ruim.<br><strong>TERAPEUTA:</strong> O que passa pela sua cabeça nesses momentos?<br><strong>CLIENTE:</strong> Que ele está com outra pessoa, que não sou suficiente, essas coisas. Sei que na maioria das vezes não faz sentido, mas o sentimento vem forte mesmo assim.<br><strong>TERAPEUTA:</strong> E o que você costuma fazer quando esse sentimento aparece?<br><strong>CLIENTE:</strong> Às vezes eu mando várias mensagens seguidas, e depois fico com vergonha de ter feito isso.",
+  "gabarito": {
+   "tema": "Sentimentos em geral, julgamentos ou tendências a ação",
+   "conducao": "Terapeuta inicia/muda",
+   "tempo": "Aqui e agora na sessão"
+  }
+ },
+ {
+  "id": "L10",
+  "enunciado": "<strong>CLIENTE:</strong> Essa semana tive três crises de enxaqueca, uma atrás da outra. Teve dia que eu nem consegui sair da cama.<br><strong>TERAPEUTA:</strong> Como foram essas crises, o que você sentia?<br><strong>CLIENTE:</strong> Uma dor latejante do lado direito da cabeça, enjoo, e uma sensibilidade à luz que eu tinha que ficar de olho fechado no quarto escuro. Nem celular eu conseguia olhar.<br><strong>TERAPEUTA:</strong> Você percebeu se teve algo que desencadeou essas crises com mais frequência dessa vez?<br><strong>CLIENTE:</strong> Acho que foi a semana de provas na faculdade, dormi mal todos os dias. Mas não sei se é só isso, porque às vezes vem enxaqueca sem eu ter feito nada de diferente.",
+  "gabarito": {
+   "tema": "Queixas psiquiátricas e sintomas médicos",
+   "conducao": "Cliente inicia/muda",
+   "tempo": "Tempo atual fora da sessão"
+  }
+ }
+];
+
+/* ██  BLOCO EDITÁVEL — FIM  ██████████████████████████████████████████████████
+   Daqui para baixo é o funcionamento do aplicativo. Não altere.
+   ========================================================================= */
+</script>
+
+<style>
+:root {
+  --primaria: #4f46e5;
+  --secundaria: #7c3aed;
+  --texto-escuro: #334155;
+  --texto-claro: #64748b;
+  --fundo-claro: #f1f5f9;
+  --borda: #cbd5e1;
+  --selecao: #4f46e5;
+  --selecao-fundo: #eef2ff;
+  --concluido: #10b981;
+  --marca-termo: #fde68a;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(to bottom right, #e0f2fe, #e0e7ff);
+  color: #1e293b; padding: 1rem;
+}
+
+#app { width: 100%; max-width: 60rem; margin: 0 auto; }
+.oculto, .hidden { display: none !important; }
+
+.cartao {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 1rem; padding: 2rem 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+h1.titulo {
+  font-size: 1.875rem; line-height: 1.25; color: #1e3a8a;
+  margin: 0 0 1.5rem; text-align: center;
+}
+
+.botao-primario {
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  color: white; font-weight: bold; font-size: 1rem;
+  padding: 0.75rem 2rem; border-radius: 0.5rem; border: none; cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+.botao-primario:hover:not(:disabled) { transform: scale(1.04); }
+.botao-primario:disabled { background: var(--borda); cursor: not-allowed; box-shadow: none; }
+
+.barra-topo {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.25rem; color: var(--texto-claro);
+  font-size: 0.95rem; font-weight: 500;
+}
+.barra-progresso {
+  height: 6px; background: var(--fundo-claro);
+  border-radius: 999px; overflow: hidden; margin-bottom: 1.5rem;
+}
+.barra-progresso > div {
+  height: 100%;
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  transition: width 0.3s ease;
+}
+
+#enunciado {
+  background-color: rgba(255,255,255,0.7); border: 1px solid #e2e8f0;
+  padding: 1.5rem; border-radius: 0.5rem;
+  font-size: 1.125rem; line-height: 1.75; text-align: left;
+  box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.04);
+}
+
+/* --- Abas das perguntas ---
+   As perguntas dividem o MESMO espaço da tela: cada aba mostra a sua, e o
+   participante circula livremente entre elas antes de confirmar o ensaio. --- */
+.abas-dimensao {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-top: 1.75rem; border-bottom: 2px solid var(--borda);
+}
+.aba-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.1rem; border: none; background: none; cursor: pointer;
+  font-family: inherit; font-size: 1rem; font-weight: 600;
+  color: var(--texto-claro);
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.aba-btn:hover { color: var(--texto-escuro); }
+.aba-btn.ativa { color: var(--primaria); border-bottom-color: var(--primaria); }
+.aba-marca {
+  width: 1.35rem; height: 1.35rem; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700;
+  background: var(--borda); color: white; transition: background 0.15s;
+}
+.aba-btn.ativa .aba-marca { background: var(--primaria); }
+.aba-btn.respondida .aba-marca { background: var(--concluido); }
+
+.dimensao { margin-top: 1.5rem; animation: entrada 0.16s ease-out; }
+@keyframes entrada { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .dimensao { animation: none; } }
+
+.pergunta {
+  margin: 0 0 1rem; font-weight: 600; font-size: 1.05rem;
+  text-align: center; color: var(--texto-escuro);
+}
+/* Termo técnico destacado dentro da pergunta. */
+.termo {
+  background: linear-gradient(transparent 58%, var(--marca-termo) 58%);
+  padding: 0 0.15em; font-weight: 700; color: #1e3a8a;
+}
+
+/* auto-fit acomoda de 2 a 16+ alternativas sem configuração manual */
+.opcoes {
+  display: grid; gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(var(--largura-opcao, 15rem), 1fr));
+  justify-content: center;
+}
+
+/* Todos os botões de uma dimensão têm EXATAMENTE o mesmo tamanho.
+   A letra encolhe sozinha (ajustarFonte) até o texto mais longo caber. */
+.opcao {
+  background-color: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  height: var(--altura-opcao, 4.75rem);
+  display: flex; align-items: center; gap: 0.7rem;
+  overflow: hidden;
+  font-size: var(--fonte-opcao, 1rem);
+  line-height: 1.3;
+  font-family: inherit; color: var(--texto-escuro);
+  text-align: left; cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+/* Marcador redondo: deixa claro que é uma escolha, não um bloco cinza. */
+.opcao::before {
+  content: ""; flex-shrink: 0;
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  border: 2px solid var(--borda); background: white;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.opcao:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 4px 10px -2px rgba(79, 70, 229, 0.18);
+  transform: translateY(-1px);
+}
+.opcao:hover::before { border-color: var(--primaria); }
+
+/* Seleção deliberadamente NEUTRA: indica escolha, não acerto. */
+.opcao.selecionada {
+  border-color: var(--selecao); background-color: var(--selecao-fundo);
+  font-weight: 600;
+  box-shadow: 0 4px 10px -2px rgba(79, 70, 229, 0.22);
+}
+.opcao.selecionada::before {
+  border-color: var(--selecao); background: var(--selecao);
+  box-shadow: inset 0 0 0 3px white;
+}
+.opcao:focus-visible { outline: 3px solid var(--secundaria); outline-offset: 2px; }
+
+.rodape-ensaio { margin-top: 1.25rem; text-align: center; }
+
+.destaque   { background-color: #fef08a; padding: 0.1em 0.2em; border-radius: 0.2em; }
+.destaque-a { background-color: #bfdbfe; padding: 0.1em 0.2em; border-radius: 0.2em; }
+.destaque-b { background-color: #bbf7d0; padding: 0.1em 0.2em; border-radius: 0.2em; }
+
+#tela-final { text-align: center; }
+#campo-codigo {
+  width: 100%; max-width: 20rem; padding: 0.75rem 1rem;
+  font-size: 1rem; font-family: inherit;
+  border: 2px solid var(--borda); border-radius: 0.5rem; text-align: center;
+}
+#campo-codigo:focus { outline: none; border-color: var(--primaria); }
+.caixa-pesquisador {
+  margin-top: 2rem; padding: 1.5rem; background-color: var(--fundo-claro);
+  border: 1px dashed var(--borda); border-radius: 0.75rem;
+}
+.rotulo-pesquisador {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--texto-claro); font-weight: 700; margin: 0 0 0.75rem;
+}
+.aviso { margin-top: 1rem; font-size: 0.9rem; color: var(--texto-claro); min-height: 1.25rem; }
+
+.guide-fab {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  width: 4rem; height: 4rem; border-radius: 50%;
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  color: white; border: none; cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; transition: transform 0.2s ease;
+}
+.guide-fab:hover { transform: scale(1.1); }
+.guide-modal-overlay {
+  position: fixed; inset: 0; background-color: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1001; padding: 1rem;
+}
+.guide-container {
+  background-color: white; border-radius: 1rem; padding: 2rem;
+  width: 100%; max-width: 50rem; max-height: 90vh;
+  overflow-y: auto; position: relative; text-align: left;
+}
+.guide-close-btn {
+  position: sticky; top: -1rem; float: right;
+  background: white; border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: -1rem; border: none; font-size: 2rem; cursor: pointer;
+  color: var(--texto-claro); line-height: 1; z-index: 2;
+}
+.guide-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--borda); margin-bottom: 1.5rem; }
+.guide-tab-btn {
+  padding: 0.75rem 1.25rem; border: none; background: none; cursor: pointer;
+  font-size: 1.125rem; font-weight: 600; font-family: inherit;
+  color: var(--texto-claro); border-bottom: 3px solid transparent; transition: all 0.2s;
+}
+.guide-tab-btn.active { color: var(--primaria); border-bottom-color: var(--primaria); }
+.guide-category {
+  margin-bottom: 1.5rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fundo-claro);
+}
+.guide-category:last-child { border-bottom: none; margin-bottom: 0; }
+.guide-category h3 {
+  font-size: 1.25rem; color: var(--texto-escuro); margin: 0 0 0.5rem;
+}
+.guide-category p { font-size: 1rem; line-height: 1.6; color: var(--texto-claro); margin: 0; }
+.guide-criterio {
+  margin-top: 0.75rem; padding: 0.75rem; border-radius: 0.375rem;
+  background-color: #fffbeb; border-left: 3px solid #fbbf24;
+  font-size: 0.95rem !important; color: var(--texto-escuro) !important;
+}
+.guide-criterio strong { display: block; margin-bottom: 0.25rem; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 0.04em; color: #92400e; }
+.guide-examples { margin-top: 1rem; padding-left: 1rem; border-left: 3px solid #e2e8f0; }
+.guide-examples-title {
+  font-weight: 600; color: var(--texto-escuro);
+  font-size: 0.9rem; margin: 0 0 0.5rem;
+}
+.guide-example {
+  background-color: var(--fundo-claro); padding: 0.75rem; border-radius: 0.375rem;
+  margin-bottom: 0.5rem !important; font-style: italic;
+  color: var(--texto-escuro) !important;
+}
+.guide-example:last-child { margin-bottom: 0 !important; }
+
+/* --- Tela de instruções --- */
+.instr-intro { color: var(--texto-escuro); font-size: 1.05rem; line-height: 1.7; }
+.instr-intro p { margin: 0 0 1rem; }
+
+.instr-secao { margin-top: 2.25rem; }
+.instr-secao-titulo {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--primaria);
+  margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;
+}
+.instr-secao-titulo::after {
+  content: ""; flex: 1; height: 1px; background: var(--borda);
+}
+
+.cartoes-pergunta { display: grid; gap: 0.75rem; }
+.cartao-pergunta {
+  display: flex; gap: 0.9rem; align-items: flex-start;
+  padding: 1rem 1.1rem; border: 1px solid var(--borda);
+  border-radius: 0.6rem; background: rgba(255,255,255,0.75);
+}
+.cartao-num {
+  flex-shrink: 0; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  background: linear-gradient(to bottom right, var(--primaria), var(--secundaria));
+  color: white; font-weight: 700; font-size: 0.95rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.cartao-texto { color: var(--texto-escuro); line-height: 1.5; }
+.cartao-texto .cartao-quantas {
+  display: block; margin-top: 0.2rem;
+  font-size: 0.875rem; color: var(--texto-claro);
+}
+
+/* Miniatura estática de um ensaio, só ilustrativa. */
+.exemplo {
+  border: 1px solid var(--borda); border-radius: 0.75rem;
+  overflow: hidden; background: rgba(255,255,255,0.75);
+}
+.exemplo-etiqueta {
+  background: var(--fundo-claro); padding: 0.5rem 1rem;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--texto-claro);
+  border-bottom: 1px solid var(--borda);
+}
+.exemplo-corpo { padding: 1.1rem; }
+.exemplo-dialogo {
+  background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem;
+  padding: 0.9rem 1rem; line-height: 1.65; color: var(--texto-escuro);
+  font-size: 0.97rem;
+}
+.exemplo-seta {
+  text-align: center; color: var(--texto-claro);
+  font-size: 1.3rem; line-height: 1; margin: 0.6rem 0;
+}
+.exemplo-linhas { display: grid; gap: 0.5rem; }
+.exemplo-linha {
+  display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+  padding: 0.6rem 0.8rem; border-radius: 0.45rem; background: var(--fundo-claro);
+}
+.exemplo-num {
+  flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  background: var(--primaria); color: white;
+  font-size: 0.8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.exemplo-pergunta { color: var(--texto-claro); font-size: 0.93rem; flex: 1; min-width: 11rem; }
+.exemplo-resposta {
+  border: 2px solid var(--selecao); background: var(--selecao-fundo);
+  color: var(--texto-escuro); font-weight: 600; font-size: 0.9rem;
+  padding: 0.35rem 0.7rem; border-radius: 0.4rem;
+}
+.exemplo-nota {
+  margin: 0.9rem 0 0; font-size: 0.875rem; color: var(--texto-claro);
+  line-height: 1.55;
+}
+
+.instr-regras { display: grid; gap: 0.7rem; }
+.instr-regra {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  color: var(--texto-escuro); line-height: 1.5;
+}
+.instr-regra svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--primaria); }
+
+/* Tela do ensaio sem rolagem: em telas de computador a tela inteira é ocupada
+   e as alternativas encolhem para caber (a letra acompanha, via ajustarFonte).
+   O trecho, se for longo, rola dentro da própria caixa. Em telas muito baixas
+   ou estreitas (celular) a página volta a rolar normalmente. */
+@media (min-width: 641px) and (min-height: 540px) {
+  #tela-ensaio {
+    display: flex; flex-direction: column;
+    height: calc(100vh - 2rem); height: calc(100dvh - 2rem);
+    padding-block: 0.9rem;
+  }
+  #tela-ensaio > * { flex: none; }
+  #tela-ensaio .barra-topo { margin-bottom: 0.35rem; }
+  #tela-ensaio .barra-progresso { margin-bottom: 0.8rem; }
+  #tela-ensaio #enunciado {
+    flex: 0 1 auto; min-height: 5.5rem; overflow-y: auto;
+    padding: 0.8rem 1.25rem; font-size: 1rem; line-height: 1.55;
+  }
+  #tela-ensaio .abas-dimensao { margin-top: 0.8rem; }
+  #tela-ensaio .aba-btn { padding-block: 0.45rem; }
+  #tela-ensaio #dimensoes {
+    flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column;
+  }
+  #tela-ensaio .dimensao {
+    flex: 1 1 auto; min-height: 0; margin-top: 0.8rem;
+    display: flex; flex-direction: column;
+  }
+  #tela-ensaio .pergunta { flex: none; margin-bottom: 0.6rem; }
+  /* As linhas ocupam até a altura configurada; se faltar espaço, dividem-no. */
+  #tela-ensaio .opcoes {
+    flex: 0 1 auto; min-height: 0; align-content: start; gap: 0.5rem 0.9rem;
+    grid-auto-rows: minmax(0, var(--altura-opcao, 4.75rem));
+  }
+  #tela-ensaio .opcao { height: auto; min-height: 0; padding-block: 0.25rem; }
+  #tela-ensaio .rodape-ensaio { margin-top: 0.7rem; }
+  #tela-ensaio .aviso { margin-top: 0.3rem; min-height: 1rem; }
+}
+
+@media (max-width: 640px) {
+  body { padding: 0.5rem; }
+  .cartao { padding: 1.25rem 1rem; }
+  h1.titulo { font-size: 1.375rem; }
+  .opcoes { grid-template-columns: 1fr; }
+  .aba-btn { padding: 0.6rem 0.7rem; font-size: 0.9rem; }
+  .exemplo-linha { flex-direction: column; align-items: flex-start; }
+  #enunciado { padding: 1rem; font-size: 1rem; }
+  .guide-container { padding: 1.25rem; }
+  .guide-fab { width: 3.25rem; height: 3.25rem; bottom: 1rem; right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <section id="tela-instrucoes" class="cartao">
+    <h1 class="titulo" id="titulo-instrucoes"></h1>
+    <div id="texto-instrucoes" class="instr-intro"></div>
+    <div id="instr-perguntas" class="instr-secao"></div>
+    <div id="instr-exemplo" class="instr-secao"></div>
+    <div id="instr-regras" class="instr-secao"></div>
+    <div style="text-align: center; margin-top: 2.25rem;">
+      <button id="btn-iniciar" class="botao-primario">Iniciar</button>
+    </div>
+  </section>
+
+  <section id="tela-ensaio" class="cartao oculto">
+    <div class="barra-topo"><span id="indicador-progresso"></span></div>
+    <div class="barra-progresso"><div id="preenchimento-progresso" style="width: 0%"></div></div>
+    <div id="enunciado"></div>
+    <div id="abas-dimensao" class="abas-dimensao" role="tablist"></div>
+    <div id="dimensoes"></div>
+    <div class="rodape-ensaio">
+      <button id="btn-proxima" class="botao-primario">Próxima</button>
+      <p class="aviso" id="aviso-ensaio"></p>
+    </div>
+  </section>
+
+  <section id="tela-final" class="cartao oculto">
+    <h1 class="titulo" style="color: var(--primaria);">Avaliação concluída</h1>
+    <div id="texto-encerramento" style="color: var(--texto-escuro); font-size: 1.1rem;"></div>
+    <div class="caixa-pesquisador">
+      <p class="rotulo-pesquisador">Para o pesquisador responsável</p>
+      <label for="campo-codigo" style="display:block; margin-bottom:0.5rem; color:var(--texto-claro);">
+        Código de identificação do participante
+      </label>
+      <input type="text" id="campo-codigo" placeholder="ex.: P07" autocomplete="off">
+      <div style="margin-top: 1.25rem;">
+        <button id="btn-baixar" class="botao-primario">Salvar respostas (.csv)</button>
+      </div>
+      <p class="aviso" id="aviso-final"></p>
+    </div>
+  </section>
+
+</div>
+
+<button id="btn-guia" class="guide-fab" aria-label="Abrir guia de categorias" title="Guia de categorias">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+</button>
+
+<div id="modal-guia" class="guide-modal-overlay oculto">
+  <div class="guide-container">
+    <button id="fechar-guia" class="guide-close-btn" aria-label="Fechar guia">&times;</button>
+    <div class="guide-tabs" id="guia-abas"></div>
+    <div id="guia-conteudo"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const CHAVE_ARMAZENAMENTO = "simccit_avaliacao_v1";
+
+  let indice = 0;
+  let aba = 0;              // qual DIMENSÃO está visível agora
+  let escolhas = {};        // { idDaDimensao: textoEscolhido }
+  let ordemExibida = {};    // { idDaDimensao: [opções na ordem em que apareceram] }
+  let latencias = {};       // { idDaDimensao: segundos acumulados com a aba aberta }
+  let inicioEnsaio = 0;
+  let inicioAba = 0;
+  let respostas = [];
+  let emAndamento = false;
+
+  const el = (id) => document.getElementById(id);
+  const telaInstrucoes = el("tela-instrucoes");
+  const telaEnsaio     = el("tela-ensaio");
+  const telaFinal      = el("tela-final");
+  const caixaDimensoes = el("dimensoes");
+  const caixaAbas      = el("abas-dimensao");
+  const btnProxima     = el("btn-proxima");
+  const avisoEnsaio    = el("aviso-ensaio");
+
+  /* --------------------------------------------------------------------
+     ACESSO ÀS DIMENSÕES
+     -------------------------------------------------------------------- */
+
+  /* Alternativas de uma dimensão num dado ensaio: as do próprio ensaio, se
+     declaradas; senão as da dimensão; e "CATEGORIAS" resolve para os rótulos
+     da seção 2 — é o que dispensa repetir as opções em cada ensaio. */
+  function opcoesDe(dim, ensaio) {
+    if (ensaio && ensaio.opcoes && ensaio.opcoes[dim.id]) return ensaio.opcoes[dim.id];
+    if (dim.opcoes === "CATEGORIAS") return CATEGORIAS.map((c) => c.rotulo);
+    // { grupo: "Tempo" } → só as categorias daquele grupo. É o que permite a
+    // um projeto ter várias dimensões, cada uma com seu conjunto próprio,
+    // todas documentadas no mesmo guia.
+    if (dim.opcoes && typeof dim.opcoes === "object" && !Array.isArray(dim.opcoes) && dim.opcoes.grupo) {
+      return CATEGORIAS.filter((c) => (c.grupo || "") === dim.opcoes.grupo).map((c) => c.rotulo);
+    }
+    return dim.opcoes;
+  }
+
+  /* Com uma única dimensão, gabarito pode ser só o texto da resposta certa.
+     Com várias, é um objeto com uma chave por dimensão. */
+  function gabaritoDe(ensaio, idDim) {
+    const g = ensaio.gabarito;
+    if (g === undefined || g === null) return undefined;
+    if (typeof g === "string") return DIMENSOES[0].id === idDim ? g : undefined;
+    return g[idDim];
+  }
+
+  function embaralhar(lista) {
+    const copia = lista.slice();
+    for (let i = copia.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copia[i], copia[j]] = [copia[j], copia[i]];
+    }
+    return copia;
+  }
+
+  function mostrarTela(tela) {
+    [telaInstrucoes, telaEnsaio, telaFinal].forEach((t) => {
+      t.classList.toggle("oculto", t !== tela);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function agoraISO() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ` +
+           `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  }
+
+  /* --------------------------------------------------------------------
+     VALIDAÇÃO
+     Roda antes de qualquer coisa. Erros de digitação no bloco editável
+     aparecem aqui, e não no meio de uma coleta.
+     -------------------------------------------------------------------- */
+  function validar() {
+    const problemas = [];
+
+    if (!Array.isArray(CATEGORIAS) || CATEGORIAS.length < 2) {
+      problemas.push("CATEGORIAS precisa ter pelo menos 2 categorias.");
+    } else {
+      const rotulos = new Set();
+      CATEGORIAS.forEach((c, i) => {
+        const onde = `Categoria ${i + 1} (${c && c.rotulo ? c.rotulo : "sem rotulo"})`;
+        if (!c.rotulo) problemas.push(`${onde}: falta o campo "rotulo".`);
+        else if (rotulos.has(c.rotulo)) problemas.push(`${onde}: rótulo repetido.`);
+        else rotulos.add(c.rotulo);
+        if (!c.definicao) problemas.push(`${onde}: falta o campo "definicao" (usado no guia).`);
+      });
+    }
+
+    if (!Array.isArray(DIMENSOES) || DIMENSOES.length === 0) {
+      problemas.push("DIMENSOES precisa ter pelo menos uma dimensão.");
+      return problemas;
+    }
+    const idsDim = new Set();
+    DIMENSOES.forEach((dim, i) => {
+      const onde = `Dimensão ${i + 1} (${dim && dim.id ? dim.id : "sem id"})`;
+      if (!dim.id) problemas.push(`${onde}: falta o campo "id".`);
+      else if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(dim.id)) {
+        problemas.push(`${onde}: o id "${dim.id}" precisa começar com letra e ` +
+          `conter apenas letras, números e _ (vira nome de coluna no CSV).`);
+      } else if (idsDim.has(dim.id)) problemas.push(`${onde}: id repetido.`);
+      else idsDim.add(dim.id);
+      if (!dim.pergunta) problemas.push(`${onde}: falta o campo "pergunta".`);
+      const ops = opcoesDe(dim, null);
+      const grupoPedido = dim.opcoes && dim.opcoes.grupo;
+      if (grupoPedido && (!Array.isArray(ops) || ops.length === 0)) {
+        const existentes = [...new Set(CATEGORIAS.map((c) => c.grupo || "(sem grupo)"))];
+        problemas.push(`${onde}: nenhuma categoria tem grupo "${grupoPedido}". ` +
+          `Grupos existentes: ${existentes.join(", ")}.`);
+      } else if (!Array.isArray(ops) || ops.length < 2) {
+        problemas.push(`${onde}: precisa de pelo menos 2 alternativas em "opcoes".`);
+      } else if (new Set(ops).size !== ops.length) {
+        problemas.push(`${onde}: há alternativas repetidas em "opcoes".`);
+      }
+    });
+
+    if (!Array.isArray(ENSAIOS) || ENSAIOS.length === 0) {
+      problemas.push("A lista ENSAIOS está vazia.");
+      return problemas;
+    }
+
+    const ids = new Set();
+    ENSAIOS.forEach((e, i) => {
+      const onde = `Ensaio ${i + 1} (id: ${e && e.id ? e.id : "sem id"})`;
+      if (!e.id) problemas.push(`${onde}: falta o campo "id".`);
+      else if (ids.has(e.id)) problemas.push(`${onde}: o id "${e.id}" está repetido.`);
+      else ids.add(e.id);
+
+      if (!e.enunciado) problemas.push(`${onde}: falta o campo "enunciado".`);
+
+      if (e.gabarito && typeof e.gabarito === "object") {
+        Object.keys(e.gabarito).forEach((k) => {
+          if (!idsDim.has(k)) {
+            problemas.push(`${onde}: o gabarito tem a chave "${k}", que não é ` +
+              `id de nenhuma dimensão (${[...idsDim].join(", ")}).`);
+          }
+        });
+      } else if (typeof e.gabarito === "string" && DIMENSOES.length > 1) {
+        problemas.push(`${onde}: há ${DIMENSOES.length} dimensões, então o ` +
+          `gabarito precisa ser um objeto com uma chave por dimensão, não um texto.`);
+      }
+
+      DIMENSOES.forEach((dim) => {
+        const g = gabaritoDe(e, dim.id);
+        if (g === undefined) return;
+        const ops = opcoesDe(dim, e);
+        if (!Array.isArray(ops) || !ops.includes(g)) {
+          problemas.push(`${onde}, dimensão "${dim.id}": o gabarito "${g}" não ` +
+            `corresponde exatamente a nenhuma alternativa. Confira acentos e espaços.`);
+        }
+      });
+    });
+
+    return problemas;
+  }
+
+  function exibirErros(problemas) {
+    telaInstrucoes.innerHTML =
+      `<h1 class="titulo" style="color:#b91c1c;">Erro na configuração</h1>
+       <p style="color:var(--texto-escuro);">Corrija os pontos abaixo no bloco
+       editável do arquivo e recarregue a página. A avaliação não foi iniciada.</p>
+       <ul style="color:#b91c1c; line-height:1.8; text-align:left;">
+         ${problemas.map((p) => `<li>${p}</li>`).join("")}
+       </ul>`;
+    mostrarTela(telaInstrucoes);
+  }
+
+  /* --------------------------------------------------------------------
+     PERSISTÊNCIA
+     -------------------------------------------------------------------- */
+  function salvar() {
+    try {
+      localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify({
+        indice: indice, respostas: respostas, atualizadoEm: agoraISO()
+      }));
+    } catch (erro) { /* modo privativo: segue sem retomada automática */ }
+  }
+  function limparSalvo() {
+    try { localStorage.removeItem(CHAVE_ARMAZENAMENTO); } catch (erro) {}
+  }
+  function lerSalvo() {
+    try {
+      const bruto = localStorage.getItem(CHAVE_ARMAZENAMENTO);
+      if (!bruto) return null;
+      const d = JSON.parse(bruto);
+      if (!d || !Array.isArray(d.respostas) || d.respostas.length === 0) return null;
+      return d;
+    } catch (erro) { return null; }
+  }
+
+  /* --------------------------------------------------------------------
+     TAMANHO UNIFORME DOS BOTÕES
+
+     Todos os botões de uma dimensão têm altura fixa e idêntica. A letra
+     encolhe até o rótulo mais longo caber — assim nenhum texto é cortado e
+     nenhum botão fica maior que os outros.
+     Depende de medição real; em ambientes sem layout (jsdom) mantém o padrão.
+     -------------------------------------------------------------------- */
+  function ajustarFonte(grade) {
+    const botoes = [...grade.querySelectorAll(".opcao")];
+    if (!botoes.length) return;
+
+    const MAX = 1.0, MIN = 0.62, PASSO = 0.02;
+    let tamanho = MAX;
+    grade.style.setProperty("--fonte-opcao", MAX + "rem");
+
+    const naoCabe = () => botoes.some((b) => b.scrollHeight > b.clientHeight + 1);
+    let guarda = 0;
+    while (tamanho > MIN && guarda++ < 40 && naoCabe()) {
+      tamanho -= PASSO;
+      grade.style.setProperty("--fonte-opcao", tamanho.toFixed(2) + "rem");
+    }
+    grade.dataset.fonte = tamanho.toFixed(2);
+  }
+
+  /* --------------------------------------------------------------------
+     ENSAIO
+     -------------------------------------------------------------------- */
+  function renderizarEnsaio() {
+    const ensaio = ENSAIOS[indice];
+    aba = 0;
+    escolhas = {};
+    ordemExibida = {};
+    latencias = {};
+    DIMENSOES.forEach((d) => { latencias[d.id] = 0; });
+
+    el("enunciado").innerHTML = ensaio.enunciado;
+    el("indicador-progresso").textContent = CONFIG.mostrarProgresso
+      ? `Ensaio ${indice + 1} de ${ENSAIOS.length}` : "";
+    el("preenchimento-progresso").style.width = `${(indice / ENSAIOS.length) * 100}%`;
+
+    montarAbas();
+    inicioEnsaio = Date.now();
+    mostrarAba(0);
+  }
+
+  function rotuloAba(dim, i) {
+    return dim.rotuloAba || dim.id.charAt(0).toUpperCase() + dim.id.slice(1);
+  }
+
+  function montarAbas() {
+    caixaAbas.innerHTML = "";
+    caixaAbas.classList.toggle("oculto", DIMENSOES.length < 2);
+    DIMENSOES.forEach((dim, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "aba-btn";
+      b.setAttribute("role", "tab");
+      b.innerHTML = `<span class="aba-marca">${i + 1}</span><span>${rotuloAba(dim, i)}</span>`;
+      b.addEventListener("click", () => mostrarAba(i));
+      caixaAbas.appendChild(b);
+    });
+  }
+
+  /* Marca visualmente quais perguntas já foram respondidas. */
+  function atualizarAbas() {
+    [...caixaAbas.children].forEach((b, i) => {
+      const dim = DIMENSOES[i];
+      const respondida = escolhas[dim.id] !== undefined;
+      b.classList.toggle("ativa", i === aba);
+      b.classList.toggle("respondida", respondida && i !== aba);
+      b.setAttribute("aria-selected", i === aba ? "true" : "false");
+      const marca = b.querySelector(".aba-marca");
+      marca.textContent = respondida ? "\u2713" : String(i + 1);
+    });
+  }
+
+  /* Troca a pergunta visível. O tempo de cada uma é acumulado enquanto a
+     respectiva aba está aberta — com abas, o participante vai e volta. */
+  function mostrarAba(i) {
+    if (inicioAba && DIMENSOES[aba]) {
+      latencias[DIMENSOES[aba].id] += (Date.now() - inicioAba) / 1000;
+    }
+    aba = i;
+    inicioAba = Date.now();
+    renderizarDimensao();
+    atualizarAbas();
+  }
+
+  function renderizarDimensao() {
+    const ensaio = ENSAIOS[indice];
+    const dim = DIMENSOES[aba];
+    avisoEnsaio.textContent = "";
+
+    const bloco = document.createElement("div");
+    bloco.className = "dimensao";
+    bloco.dataset.dim = dim.id;
+
+    const p = document.createElement("p");
+    p.className = "pergunta";
+    p.innerHTML = dim.pergunta;
+    bloco.appendChild(p);
+
+    const grade = document.createElement("div");
+    grade.className = "opcoes";
+    grade.setAttribute("role", "radiogroup");
+    grade.setAttribute("aria-label", dim.pergunta.replace(/<[^>]*>/g, ""));
+    grade.style.setProperty("--largura-opcao", dim.larguraMinima || "15rem");
+    grade.style.setProperty("--altura-opcao", dim.altura || "4.75rem");
+
+    // A ordem sorteada é mantida enquanto o ensaio durar: trocar de aba e
+    // voltar não pode reembaralhar os botões sob o participante.
+    if (!ordemExibida[dim.id]) {
+      const deveEmbaralhar = dim.embaralhar !== undefined ? dim.embaralhar : CONFIG.embaralharOpcoes;
+      const base = opcoesDe(dim, ensaio);
+      ordemExibida[dim.id] = deveEmbaralhar ? embaralhar(base) : base.slice();
+    }
+
+    ordemExibida[dim.id].forEach((texto) => {
+      const botao = document.createElement("button");
+      botao.type = "button";
+      botao.className = "opcao";
+      botao.innerHTML = `<span>${texto}</span>`;
+      botao.setAttribute("role", "radio");
+      const marcado = escolhas[dim.id] === texto;
+      botao.classList.toggle("selecionada", marcado);
+      botao.setAttribute("aria-checked", marcado ? "true" : "false");
+      botao.addEventListener("click", () => selecionar(dim.id, texto, botao, grade));
+      grade.appendChild(botao);
+    });
+
+    bloco.appendChild(grade);
+    caixaDimensoes.innerHTML = "";
+    caixaDimensoes.appendChild(bloco);
+    ajustarFonte(grade);
+    atualizarBotaoProxima();
+  }
+
+  /* Seleção SEM feedback: marca a escolha daquela dimensão e permite trocar. */
+  function selecionar(idDim, texto, botao, grade) {
+    escolhas[idDim] = texto;
+    grade.querySelectorAll(".opcao").forEach((b) => {
+      const ativo = b === botao;
+      b.classList.toggle("selecionada", ativo);
+      b.setAttribute("aria-checked", ativo ? "true" : "false");
+    });
+    avisoEnsaio.textContent = "";
+    atualizarAbas();
+    atualizarBotaoProxima();
+
+    // Vai sozinho para a próxima pergunta ainda sem resposta. Se todas já
+    // foram respondidas, fica onde está, para o participante poder revisar.
+    const pendente = DIMENSOES.findIndex((d) => escolhas[d.id] === undefined);
+    if (pendente !== -1) setTimeout(() => mostrarAba(pendente), 140);
+  }
+
+  function faltando() {
+    return DIMENSOES.filter((d) => escolhas[d.id] === undefined);
+  }
+
+  function atualizarBotaoProxima() {
+    btnProxima.disabled = CONFIG.exigirResposta && faltando().length > 0;
+    btnProxima.textContent = (indice === ENSAIOS.length - 1) ? "Finalizar" : "Próxima";
+  }
+
+  function avancar() {
+    const pendentes = faltando();
+    if (CONFIG.exigirResposta && pendentes.length > 0) {
+      avisoEnsaio.textContent = pendentes.length === 1
+        ? `Falta responder a pergunta "${rotuloAba(pendentes[0])}".`
+        : `Faltam responder: ${pendentes.map((d) => rotuloAba(d)).join(", ")}.`;
+      mostrarAba(DIMENSOES.indexOf(pendentes[0]));
+      return;
+    }
+    // fecha a contagem de tempo da aba aberta
+    if (inicioAba && DIMENSOES[aba]) {
+      latencias[DIMENSOES[aba].id] += (Date.now() - inicioAba) / 1000;
+      inicioAba = 0;
+    }
+    registrarEnsaio();
+  }
+
+  function registrarEnsaio() {
+    const ensaio = ENSAIOS[indice];
+    const registro = { Ordem: indice + 1, EnsaioID: ensaio.id };
+
+    DIMENSOES.forEach((dim) => {
+      const escolha = escolhas[dim.id];
+      const gab = gabaritoDe(ensaio, dim.id);
+      let resultado;
+      if (gab === undefined)          resultado = "sem gabarito";
+      else if (escolha === undefined) resultado = "sem resposta";
+      else if (escolha === gab)       resultado = "Certo";
+      else                            resultado = "Errado";
+
+      registro["Escolha_" + dim.id]   = escolha === undefined ? "" : escolha;
+      registro["Gabarito_" + dim.id]  = gab === undefined ? "" : gab;
+      registro["Resultado_" + dim.id] = resultado;
+      registro["Posicao_" + dim.id]   = escolha === undefined
+        ? "" : (ordemExibida[dim.id].indexOf(escolha) + 1);
+      // Tempo acumulado com a aba daquela pergunta aberta.
+      registro["Latencia_" + dim.id]  = (latencias[dim.id] || 0).toFixed(2);
+    });
+
+    registro.Latencia_total_s = ((Date.now() - inicioEnsaio) / 1000).toFixed(2);
+    registro.DataHora = agoraISO();
+    respostas.push(registro);
+
+    indice++;
+    salvar();   // grava já apontando para o PRÓXIMO ensaio
+
+    if (indice >= ENSAIOS.length) finalizar();
+    else renderizarEnsaio();
+  }
+
+  function finalizar() {
+    emAndamento = false;
+    el("preenchimento-progresso").style.width = "100%";
+    /* Nenhum escore é exibido: mostrar desempenho aqui seria feedback. */
+    mostrarTela(telaFinal);
+    el("campo-codigo").focus();
+  }
+
+  /* --------------------------------------------------------------------
+     EXPORTAÇÃO
+     -------------------------------------------------------------------- */
+  function campoCsv(valor) {
+    const t = String(valor === undefined || valor === null ? "" : valor);
+    return /[",;\n\r]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+  }
+
+  function sanitizarNome(t) {
+    return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_-]+/g, "_")
+            .replace(/^_+|_+$/g, "").slice(0, 40);
+  }
+
+  function colunasCsv() {
+    const cols = ["Participante", "Ordem", "EnsaioID"];
+    DIMENSOES.forEach((d) => {
+      cols.push("Escolha_" + d.id, "Gabarito_" + d.id, "Resultado_" + d.id,
+                "Posicao_" + d.id, "Latencia_" + d.id);
+    });
+    cols.push("Latencia_total_s", "DataHora");
+    return cols;
+  }
+
+  function baixarCsv() {
+    const bruto = el("campo-codigo").value.trim();
+    if (!bruto) {
+      el("aviso-final").textContent = "Informe o código do participante antes de salvar.";
+      el("campo-codigo").focus();
+      return;
+    }
+    const codigo = sanitizarNome(bruto) || "participante";
+    const colunas = colunasCsv();
+
+    const linhas = [colunas.join(",")];
+    respostas.forEach((r) => {
+      linhas.push(colunas.map((c) =>
+        campoCsv(c === "Participante" ? bruto : r[c])).join(","));
+    });
+
+    const blob = new Blob(["\uFEFF" + linhas.join("\r\n")],
+                          { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const data = new Date().toISOString().slice(0, 10);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${codigo}_${data}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    el("aviso-final").textContent = `Arquivo salvo como ${codigo}_${data}.csv`;
+    limparSalvo();
+  }
+
+  /* --------------------------------------------------------------------
+     TELA DE INSTRUÇÕES
+
+     O texto de CONFIG.instrucoes é a abertura. O resto — cartões das
+     perguntas, exemplo ilustrado e regras — é gerado a partir de DIMENSOES,
+     para que a explicação nunca fique fora de sincronia com a tarefa real.
+     -------------------------------------------------------------------- */
+  function montarInstrucoes() {
+    el("texto-instrucoes").innerHTML = CONFIG.instrucoes || "";
+
+    // --- cartões: uma linha por pergunta ---
+    const secP = el("instr-perguntas");
+    secP.innerHTML = "";
+    if (DIMENSOES.length) {
+      const t = document.createElement("p");
+      t.className = "instr-secao-titulo";
+      t.textContent = DIMENSOES.length > 1
+        ? `Em cada trecho você responde a ${DIMENSOES.length} perguntas`
+        : "O que você responde";
+      secP.appendChild(t);
+
+      const grade = document.createElement("div");
+      grade.className = "cartoes-pergunta";
+      DIMENSOES.forEach((dim, i) => {
+        const c = document.createElement("div");
+        c.className = "cartao-pergunta";
+        const n = document.createElement("div");
+        n.className = "cartao-num";
+        n.textContent = String(i + 1);
+        const tx = document.createElement("div");
+        tx.className = "cartao-texto";
+        const quantas = (opcoesDe(dim, null) || []).length;
+        tx.innerHTML = dim.pergunta +
+          `<span class="cartao-quantas">${quantas} alternativas${dim.ajuda ? " — " + dim.ajuda : ""}</span>`;
+        c.appendChild(n); c.appendChild(tx);
+        grade.appendChild(c);
+      });
+      secP.appendChild(grade);
+    }
+
+    // --- exemplo ilustrado ---
+    const secE = el("instr-exemplo");
+    secE.innerHTML = "";
+    const ex = CONFIG.exemplo;
+    if (ex && ex.enunciado) {
+      const t = document.createElement("p");
+      t.className = "instr-secao-titulo";
+      t.textContent = "Veja como fica";
+      secE.appendChild(t);
+
+      const cx = document.createElement("div");
+      cx.className = "exemplo";
+      const etq = document.createElement("div");
+      etq.className = "exemplo-etiqueta";
+      etq.textContent = "Exemplo — trecho fictício, apenas para ilustrar";
+      cx.appendChild(etq);
+
+      const corpo = document.createElement("div");
+      corpo.className = "exemplo-corpo";
+
+      const dlg = document.createElement("div");
+      dlg.className = "exemplo-dialogo";
+      dlg.innerHTML = ex.enunciado;
+      corpo.appendChild(dlg);
+
+      const seta = document.createElement("div");
+      seta.className = "exemplo-seta";
+      seta.textContent = "\u2193";
+      corpo.appendChild(seta);
+
+      const linhas = document.createElement("div");
+      linhas.className = "exemplo-linhas";
+      DIMENSOES.forEach((dim, i) => {
+        const resp = ex.respostas ? ex.respostas[dim.id] : undefined;
+        if (resp === undefined) return;
+        const l = document.createElement("div");
+        l.className = "exemplo-linha";
+        l.innerHTML =
+          `<span class="exemplo-num">${i + 1}</span>` +
+          `<span class="exemplo-pergunta">${dim.pergunta}</span>` +
+          `<span class="exemplo-resposta">${resp}</span>`;
+        linhas.appendChild(l);
+      });
+      corpo.appendChild(linhas);
+
+      if (ex.nota) {
+        const n = document.createElement("p");
+        n.className = "exemplo-nota";
+        n.innerHTML = ex.nota;
+        corpo.appendChild(n);
+      }
+      cx.appendChild(corpo);
+      secE.appendChild(cx);
+    }
+
+    // --- regras: invariantes do desenho, iguais em todo projeto ---
+    const secR = el("instr-regras");
+    secR.innerHTML = "";
+    const t = document.createElement("p");
+    t.className = "instr-secao-titulo";
+    t.textContent = "Antes de começar";
+    secR.appendChild(t);
+
+    const ic = {
+      relogio: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+      bloqueio: '<rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+      olho: '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"></path><line x1="1" y1="1" x2="23" y2="23"></line>',
+      livro: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
+    };
+    const regras = [
+      [ic.relogio,  "<strong>Não há limite de tempo.</strong> Responda no seu ritmo."],
+      [ic.bloqueio, "<strong>Não é possível voltar</strong> a um trecho já respondido. Dentro do mesmo trecho, você pode circular entre as perguntas e trocar suas escolhas até clicar em Próxima."],
+      [ic.olho,     "<strong>Você não receberá retorno</strong> sobre acertos ou erros durante a avaliação."],
+      [ic.livro,    "<strong>Consulte o guia</strong> a qualquer momento, no ícone de livro no canto inferior direito."]
+    ];
+    const lista = document.createElement("div");
+    lista.className = "instr-regras";
+    regras.forEach(([caminho, txt]) => {
+      const d = document.createElement("div");
+      d.className = "instr-regra";
+      d.innerHTML =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ` +
+        `fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" ` +
+        `stroke-linejoin="round">${caminho}</svg><span>${txt}</span>`;
+      lista.appendChild(d);
+    });
+    secR.appendChild(lista);
+  }
+
+  /* --------------------------------------------------------------------
+     GUIA — gerado a partir de CATEGORIAS, não escrito à mão.
+     É o que permite ao mesmo template servir a qualquer eixo.
+     -------------------------------------------------------------------- */
+  function montarGuia() {
+    const abas = el("guia-abas");
+    const conteudo = el("guia-conteudo");
+    const grupos = [];
+    CATEGORIAS.forEach((c) => {
+      const g = c.grupo || "";
+      if (!grupos.includes(g)) grupos.push(g);
+    });
+
+    function secaoDe(grupo) {
+      const div = document.createElement("div");
+      div.className = "guide-section";
+      CATEGORIAS.filter((c) => (c.grupo || "") === grupo).forEach((c) => {
+        const bloco = document.createElement("div");
+        bloco.className = "guide-category";
+
+        const h = document.createElement("h3");
+        h.textContent = c.rotulo;
+        bloco.appendChild(h);
+
+        const p = document.createElement("p");
+        p.innerHTML = c.definicao;
+        bloco.appendChild(p);
+
+        if (c.criterio) {
+          const cr = document.createElement("p");
+          cr.className = "guide-criterio";
+          cr.innerHTML = "<strong>Critérios de inclusão ou exclusão</strong>" + c.criterio;
+          bloco.appendChild(cr);
+        }
+        if (Array.isArray(c.exemplos) && c.exemplos.length) {
+          const cx = document.createElement("div");
+          cx.className = "guide-examples";
+          const t = document.createElement("h4");
+          t.className = "guide-examples-title";
+          t.textContent = "Exemplos:";
+          cx.appendChild(t);
+          c.exemplos.forEach((ex) => {
+            const pe = document.createElement("p");
+            pe.className = "guide-example";
+            pe.innerHTML = ex;
+            cx.appendChild(pe);
+          });
+          bloco.appendChild(cx);
+        }
+        div.appendChild(bloco);
+      });
+      return div;
+    }
+
+    const secoes = grupos.map(secaoDe);
+    secoes.forEach((s, i) => {
+      if (i > 0) s.classList.add("oculto");
+      conteudo.appendChild(s);
+    });
+
+    // Abas só fazem sentido quando o eixo tem mais de um grupo.
+    if (grupos.length > 1) {
+      grupos.forEach((g, i) => {
+        const b = document.createElement("button");
+        b.className = "guide-tab-btn" + (i === 0 ? " active" : "");
+        b.textContent = g || "Geral";
+        b.addEventListener("click", () => {
+          abas.querySelectorAll(".guide-tab-btn").forEach((x, j) =>
+            x.classList.toggle("active", j === i));
+          secoes.forEach((s, j) => s.classList.toggle("oculto", j !== i));
+        });
+        abas.appendChild(b);
+      });
+    } else {
+      abas.classList.add("oculto");
+    }
+  }
+
+  function configurarGuia() {
+    const modal = el("modal-guia");
+    montarGuia();
+    el("btn-guia").addEventListener("click", () => modal.classList.remove("oculto"));
+    el("fechar-guia").addEventListener("click", () => modal.classList.add("oculto"));
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.add("oculto");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") modal.classList.add("oculto");
+    });
+  }
+
+  /* Sem isto, o botão "voltar" do navegador burlaria a irreversibilidade. */
+  function travarRetorno() {
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", () => history.pushState(null, "", location.href));
+    window.addEventListener("beforeunload", (e) => {
+      if (!emAndamento) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  }
+
+  function iniciarAvaliacao() {
+    emAndamento = true;
+    mostrarTela(telaEnsaio);
+    renderizarEnsaio();
+  }
+
+  function inicializar() {
+    const problemas = validar();
+    if (problemas.length > 0) { exibirErros(problemas); return; }
+
+    el("titulo-instrucoes").textContent = CONFIG.titulo;
+    el("texto-encerramento").innerHTML = CONFIG.encerramento;
+    montarInstrucoes();
+    document.title = CONFIG.titulo;
+
+    configurarGuia();
+    travarRetorno();
+
+    el("btn-iniciar").addEventListener("click", iniciarAvaliacao);
+    btnProxima.addEventListener("click", avancar);
+    el("btn-baixar").addEventListener("click", baixarCsv);
+    el("campo-codigo").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") baixarCsv();
+    });
+    // Botões de tamanho fixo: recalcula a letra quando a janela muda.
+    window.addEventListener("resize", () => {
+      document.querySelectorAll("#dimensoes .opcoes").forEach(ajustarFonte);
+    });
+
+    const salvo = lerSalvo();
+    if (salvo) {
+      const feitos = salvo.respostas.length;
+      const texto = `Foi encontrada uma sessão interrompida, com ${feitos} ` +
+        `${feitos === 1 ? "ensaio respondido" : "ensaios respondidos"} ` +
+        `(${salvo.atualizadoEm}).\n\n` +
+        `OK = retomar do ensaio ${Math.min(feitos + 1, ENSAIOS.length)}.\n` +
+        `Cancelar = descartar e começar do zero.`;
+      if (window.confirm(texto)) {
+        respostas = salvo.respostas;
+        // A contagem de respostas é a fonte de verdade: sobrevive a um
+        // rascunho antigo ou corrompido, ao contrário do índice gravado.
+        indice = Math.min(salvo.respostas.length, ENSAIOS.length);
+        if (indice >= ENSAIOS.length) finalizar();
+        else iniciarAvaliacao();
+        return;
+      }
+      limparSalvo();
+    }
+
+    mostrarTela(telaInstrucoes);
+  }
+
+  document.addEventListener("DOMContentLoaded", inicializar);
+})();
+</script>
+
+</body>
+</html>

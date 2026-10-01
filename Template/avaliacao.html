@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Avaliação — SiMCCIT</title>
+
+<!--
+================================================================================
+
+   SiMCCIT — TEMPLATE GERAL DE AVALIAÇÃO POR ENSAIOS
+
+   Arquivo único, sem internet e sem instalação: abre com duplo clique.
+   Cada projeto derivado (um eixo, um recorte de categorias) é uma CÓPIA deste
+   arquivo com o bloco editável trocado.
+
+   Para adaptar: role até "BLOCO EDITÁVEL" logo abaixo. É a única parte a mexer.
+   Instruções completas de derivação estão no README.md da pasta principal.
+
+================================================================================
+-->
+
+<script>
+/* ============================================================================
+   ██  BLOCO EDITÁVEL — INÍCIO  ███████████████████████████████████████████████
+
+   Quatro seções, nesta ordem:
+     1. CONFIG      — títulos e textos da sessão
+     2. CATEGORIAS  — as alternativas principais E o conteúdo do guia
+     3. DIMENSOES   — o que o participante responde em cada ensaio
+     4. ENSAIOS     — os itens aplicados, na ordem
+
+   MARCAÇÃO DISPONÍVEL NOS TEXTOS
+     <br>                               quebra de linha
+     <strong>texto</strong>             negrito
+     <em>texto</em>                     itálico
+     <span class="destaque">x</span>    realce amarelo
+     <span class="destaque-a">x</span>  realce azul
+     <span class="destaque-b">x</span>  realce verde
+   ========================================================================= */
+
+
+/* ---------------------------------------------------------------------------
+   1. CONFIGURAÇÃO
+   --------------------------------------------------------------------------- */
+
+const CONFIG = {
+
+  titulo: "EXEMPLO — substituir pelo título do projeto",
+
+  // Embaralha a ordem dos botões dentro de cada dimensão, a cada ensaio.
+  //   true  = a posição do botão não vira pista; permite medir viés de posição.
+  //   false = ordem fixa em todos os ensaios, na sequência declarada em
+  //           CATEGORIAS — use para espelhar a ordem do manual.
+  embaralharOpcoes: true,
+
+  // Exige que TODAS as dimensões sejam respondidas antes de liberar "Próxima".
+  exigirResposta: true,
+
+  mostrarProgresso: true,
+
+  instrucoes: `
+    <p>Nesta avaliação, você verá uma série de trechos de interação entre
+    terapeuta e cliente.</p>
+
+    <p>Em cada tela, leia o trecho apresentado e responda à pergunta abaixo
+    dele. Quando houver mais de uma pergunta sobre o mesmo trecho, elas ficam
+    em <strong>abas</strong>, no mesmo lugar da tela — você circula entre elas
+    à vontade, e só avança depois de responder a todas.</p>
+
+    <p>Não há limite de tempo: responda no seu ritmo. <strong>Não é possível
+    voltar</strong> a um trecho já respondido, e você <strong>não receberá
+    retorno</strong> sobre suas escolhas.</p>
+
+    <p>A qualquer momento, consulte as definições de todas as categorias
+    clicando no ícone de livro no canto inferior direito da tela.</p>
+  `,
+
+  // Miniatura mostrada na tela de instruções: um trecho FICTÍCIO com as
+  // respostas certas já marcadas, só para o participante ver o formato.
+  // As chaves de "respostas" são os id das DIMENSOES.
+  exemplo: {
+    enunciado: `<strong>T:</strong> E o que você fez depois disso?<br>
+                <strong>C:</strong> Fiquei em casa o dia todo, não quis ver ninguém.`,
+    respostas: { categoria: "Relato" },
+    nota: `Neste exemplo, o cliente descreve o que aconteceu sem explicar por quê —
+           por isso <strong>Relato</strong>, e não Relações.`
+  },
+
+  encerramento: `
+    <p>Suas respostas foram registradas. Obrigado por participar!</p>
+  `
+};
+
+
+/* ---------------------------------------------------------------------------
+   2. CATEGORIAS
+
+   Esta lista tem DUAS funções ao mesmo tempo:
+     - é o conjunto de alternativas da dimensão que usar opcoes: "CATEGORIAS";
+     - é o conteúdo do guia de consulta.
+   Por isso o "rotulo" precisa ser escrito uma vez só e usado tal e qual no
+   gabarito dos ensaios.
+
+   CAMPOS
+     rotulo     (obrigatório) Texto do botão e título no guia.
+     definicao  (obrigatório) Caracterização da categoria, exibida no guia.
+     criterio   (opcional)    Critérios de inclusão/exclusão.
+     exemplos   (opcional)    Lista de exemplos exibidos no guia.
+     grupo      (opcional)    Cria abas no guia (ex.: "Terapeuta"/"Cliente").
+                              Com um grupo só, ou nenhum, o guia não usa abas.
+   --------------------------------------------------------------------------- */
+
+const CATEGORIAS = [
+  {
+    rotulo: "Relato",
+    definicao: `Contempla verbalizações em que o cliente descreve ou informa o
+                terapeuta sobre a ocorrência de eventos, respostas emocionais,
+                estados motivacionais e/ou tendências a ações, sem estabelecer
+                relações causais ou funcionais entre eles.`,
+    exemplos: [
+      `C: "Estou triste, T. To mal... To perdidinha de novo..."`,
+      `C: "Naquela hora eu só queria gritar e sair correndo dali..."`
+    ]
+  },
+  {
+    rotulo: "Relações",
+    definicao: `É caracterizada por verbalizações em que o cliente estabelece
+                relações causais e/ou explicativas (funcionais, correlacionais
+                ou de contiguidade) entre eventos.`,
+    exemplos: [
+      `C: "Eu acho que eu trabalho tanto porque assim eu evito discussões em casa."`
+    ]
+  },
+  {
+    rotulo: "Metas",
+    definicao: `Contempla verbalizações do cliente nas quais ele descreve seus
+                projetos, planos ou estratégias para a solução de problemas
+                trazidos como queixas para a terapia.`,
+    criterio: `Refere-se a ação futura. Ação já executada é Relato.`,
+    exemplos: [
+      `C: "Vou ligar para ela e conversar sobre o que aconteceu."`
+    ]
+  }
+];
+
+
+/* ---------------------------------------------------------------------------
+   3. DIMENSÕES
+
+   Cada dimensão é UMA pergunta respondida em TODO ensaio. A maioria dos
+   projetos tem uma só (a categoria). Eixos com qualificadores têm mais — por
+   exemplo, categoria + quem iniciou o assunto.
+
+   As dimensões viram ABAS que dividem o mesmo espaço abaixo do enunciado, na
+   ordem declarada aqui. O enunciado fica visível o tempo todo. Ao responder,
+   o app pula sozinho para a próxima pergunta pendente; respondidas todas, ele
+   fica parado para o participante poder revisar. "Próxima" só libera com as
+   TRÊS respondidas (com CONFIG.exigirResposta).
+
+   Circular entre abas e trocar respostas é permitido até confirmar o ensaio —
+   o que não é permitido é voltar a um ensaio já confirmado.
+
+   Cada dimensão tem sua própria latência no CSV (Latencia_<id>): o tempo
+   acumulado com aquela aba aberta. Latencia_total_s é o ensaio inteiro.
+
+   CAMPOS
+     id             (obrigatório) Identificador curto, sem espaços nem acentos.
+                                  Vira nome de coluna no CSV: Escolha_<id>,
+                                  Gabarito_<id>, Resultado_<id>, Posicao_<id>.
+     pergunta       (obrigatório) Texto da pergunta. Aceita HTML.
+     opcoes         (obrigatório) Uma das três formas:
+                                    ["A", "B"]           lista literal
+                                    "CATEGORIAS"          todos os rótulos da seção 2
+                                    { grupo: "Tempo" }    só as categorias desse
+                                                          grupo — use quando o
+                                                          projeto tiver mais de um
+                                                          conjunto de alternativas
+     larguraMinima  (opcional)    Largura mínima de cada botão. Menor = mais
+                                  colunas. Padrão "15rem".
+     altura         (opcional)    Altura fixa dos botões desta dimensão.
+                                  Padrão "4.75rem". Todos os botões ficam com
+                                  exatamente este tamanho, e a letra encolhe
+                                  sozinha até o texto mais longo caber.
+     rotuloAba      (opcional)    Nome curto da aba (ex.: "Tema"). Padrão: o id.
+     ajuda          (opcional)    Frase curta exibida no cartão das instruções.
+     embaralhar     (opcional)    true/false só nesta dimensão. Use false quando
+                                  a ordem for significativa (ex.: escalas).
+   --------------------------------------------------------------------------- */
+
+const DIMENSOES = [
+  {
+    id: "categoria",
+    pergunta: 'A <span class="termo">categoria</span> que corresponde ao trecho é:',
+    rotuloAba: "Categoria",
+    opcoes: "CATEGORIAS",
+    larguraMinima: "15rem"
+  }
+];
+
+
+/* ---------------------------------------------------------------------------
+   4. ENSAIOS
+
+   Aplicados na ordem em que aparecem. Separe cada um com vírgula.
+
+   CAMPOS
+     id         (obrigatório) Código único, vai para o relatório.
+     enunciado  (obrigatório) O material apresentado. Aceita HTML.
+     gabarito   (obrigatório) Com UMA dimensão, basta o texto da resposta certa.
+                              Com VÁRIAS, um objeto com uma chave por dimensão:
+                                gabarito: { categoria: "Relato", iniciou: "Cliente" }
+                              Omita uma chave para não corrigir aquela dimensão.
+     opcoes     (opcional)    Sobrepõe as alternativas neste ensaio. Objeto com
+                              uma chave por dimensão. Use só em ensaios atípicos.
+   --------------------------------------------------------------------------- */
+
+const ENSAIOS = [
+
+  {
+    id: "E01",
+    enunciado: `T: E o que você fez depois disso?<br>
+                <strong>C: Eu fiquei em casa o dia todo. Não quis ver ninguém,
+                não atendi o telefone.</strong>`,
+    gabarito: "Relato"
+  },
+
+  {
+    id: "E02",
+    enunciado: `T: Como você pretende resolver isso?<br>
+                <strong>C: Vou ligar para ela e conversar sobre o que
+                aconteceu.</strong>`,
+    gabarito: "Metas"
+  }
+
+  /* ↓↓↓ Cole os próximos ensaios aqui. Não esqueça a vírgula acima. ↓↓↓ */
+
+];
+
+/* ██  BLOCO EDITÁVEL — FIM  ██████████████████████████████████████████████████
+   Daqui para baixo é o funcionamento do aplicativo. Não altere.
+   ========================================================================= */
+</script>
+
+<style>
+:root {
+  --primaria: #4f46e5;
+  --secundaria: #7c3aed;
+  --texto-escuro: #334155;
+  --texto-claro: #64748b;
+  --fundo-claro: #f1f5f9;
+  --borda: #cbd5e1;
+  --selecao: #4f46e5;
+  --selecao-fundo: #eef2ff;
+  --concluido: #10b981;
+  --marca-termo: #fde68a;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(to bottom right, #e0f2fe, #e0e7ff);
+  color: #1e293b; padding: 1rem;
+}
+
+#app { width: 100%; max-width: 60rem; margin: 0 auto; }
+.oculto, .hidden { display: none !important; }
+
+.cartao {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 1rem; padding: 2rem 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+h1.titulo {
+  font-size: 1.875rem; line-height: 1.25; color: #1e3a8a;
+  margin: 0 0 1.5rem; text-align: center;
+}
+
+.botao-primario {
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  color: white; font-weight: bold; font-size: 1rem;
+  padding: 0.75rem 2rem; border-radius: 0.5rem; border: none; cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+.botao-primario:hover:not(:disabled) { transform: scale(1.04); }
+.botao-primario:disabled { background: var(--borda); cursor: not-allowed; box-shadow: none; }
+
+.barra-topo {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.25rem; color: var(--texto-claro);
+  font-size: 0.95rem; font-weight: 500;
+}
+.barra-progresso {
+  height: 6px; background: var(--fundo-claro);
+  border-radius: 999px; overflow: hidden; margin-bottom: 1.5rem;
+}
+.barra-progresso > div {
+  height: 100%;
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  transition: width 0.3s ease;
+}
+
+#enunciado {
+  background-color: rgba(255,255,255,0.7); border: 1px solid #e2e8f0;
+  padding: 1.5rem; border-radius: 0.5rem;
+  font-size: 1.125rem; line-height: 1.75; text-align: left;
+  box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.04);
+}
+
+/* --- Abas das perguntas ---
+   As perguntas dividem o MESMO espaço da tela: cada aba mostra a sua, e o
+   participante circula livremente entre elas antes de confirmar o ensaio. --- */
+.abas-dimensao {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-top: 1.75rem; border-bottom: 2px solid var(--borda);
+}
+.aba-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.1rem; border: none; background: none; cursor: pointer;
+  font-family: inherit; font-size: 1rem; font-weight: 600;
+  color: var(--texto-claro);
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.aba-btn:hover { color: var(--texto-escuro); }
+.aba-btn.ativa { color: var(--primaria); border-bottom-color: var(--primaria); }
+.aba-marca {
+  width: 1.35rem; height: 1.35rem; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700;
+  background: var(--borda); color: white; transition: background 0.15s;
+}
+.aba-btn.ativa .aba-marca { background: var(--primaria); }
+.aba-btn.respondida .aba-marca { background: var(--concluido); }
+
+.dimensao { margin-top: 1.5rem; animation: entrada 0.16s ease-out; }
+@keyframes entrada { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .dimensao { animation: none; } }
+
+.pergunta {
+  margin: 0 0 1rem; font-weight: 600; font-size: 1.05rem;
+  text-align: center; color: var(--texto-escuro);
+}
+/* Termo técnico destacado dentro da pergunta. */
+.termo {
+  background: linear-gradient(transparent 58%, var(--marca-termo) 58%);
+  padding: 0 0.15em; font-weight: 700; color: #1e3a8a;
+}
+
+/* auto-fit acomoda de 2 a 16+ alternativas sem configuração manual */
+.opcoes {
+  display: grid; gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(var(--largura-opcao, 15rem), 1fr));
+  justify-content: center;
+}
+
+/* Todos os botões de uma dimensão têm EXATAMENTE o mesmo tamanho.
+   A letra encolhe sozinha (ajustarFonte) até o texto mais longo caber. */
+.opcao {
+  background-color: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  height: var(--altura-opcao, 4.75rem);
+  display: flex; align-items: center; gap: 0.7rem;
+  overflow: hidden;
+  font-size: var(--fonte-opcao, 1rem);
+  line-height: 1.3;
+  font-family: inherit; color: var(--texto-escuro);
+  text-align: left; cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+/* Marcador redondo: deixa claro que é uma escolha, não um bloco cinza. */
+.opcao::before {
+  content: ""; flex-shrink: 0;
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  border: 2px solid var(--borda); background: white;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.opcao:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 4px 10px -2px rgba(79, 70, 229, 0.18);
+  transform: translateY(-1px);
+}
+.opcao:hover::before { border-color: var(--primaria); }
+
+/* Seleção deliberadamente NEUTRA: indica escolha, não acerto. */
+.opcao.selecionada {
+  border-color: var(--selecao); background-color: var(--selecao-fundo);
+  font-weight: 600;
+  box-shadow: 0 4px 10px -2px rgba(79, 70, 229, 0.22);
+}
+.opcao.selecionada::before {
+  border-color: var(--selecao); background: var(--selecao);
+  box-shadow: inset 0 0 0 3px white;
+}
+.opcao:focus-visible { outline: 3px solid var(--secundaria); outline-offset: 2px; }
+
+.rodape-ensaio { margin-top: 1.25rem; text-align: center; }
+
+.destaque   { background-color: #fef08a; padding: 0.1em 0.2em; border-radius: 0.2em; }
+.destaque-a { background-color: #bfdbfe; padding: 0.1em 0.2em; border-radius: 0.2em; }
+.destaque-b { background-color: #bbf7d0; padding: 0.1em 0.2em; border-radius: 0.2em; }
+
+#tela-final { text-align: center; }
+#campo-codigo {
+  width: 100%; max-width: 20rem; padding: 0.75rem 1rem;
+  font-size: 1rem; font-family: inherit;
+  border: 2px solid var(--borda); border-radius: 0.5rem; text-align: center;
+}
+#campo-codigo:focus { outline: none; border-color: var(--primaria); }
+.caixa-pesquisador {
+  margin-top: 2rem; padding: 1.5rem; background-color: var(--fundo-claro);
+  border: 1px dashed var(--borda); border-radius: 0.75rem;
+}
+.rotulo-pesquisador {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--texto-claro); font-weight: 700; margin: 0 0 0.75rem;
+}
+.aviso { margin-top: 1rem; font-size: 0.9rem; color: var(--texto-claro); min-height: 1.25rem; }
+
+.guide-fab {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  width: 4rem; height: 4rem; border-radius: 50%;
+  background: linear-gradient(to right, var(--primaria), var(--secundaria));
+  color: white; border: none; cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; transition: transform 0.2s ease;
+}
+.guide-fab:hover { transform: scale(1.1); }
+.guide-modal-overlay {
+  position: fixed; inset: 0; background-color: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1001; padding: 1rem;
+}
+.guide-container {
+  background-color: white; border-radius: 1rem; padding: 2rem;
+  width: 100%; max-width: 50rem; max-height: 90vh;
+  overflow-y: auto; position: relative; text-align: left;
+}
+.guide-close-btn {
+  position: sticky; top: -1rem; float: right;
+  background: white; border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: -1rem; border: none; font-size: 2rem; cursor: pointer;
+  color: var(--texto-claro); line-height: 1; z-index: 2;
+}
+.guide-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--borda); margin-bottom: 1.5rem; }
+.guide-tab-btn {
+  padding: 0.75rem 1.25rem; border: none; background: none; cursor: pointer;
+  font-size: 1.125rem; font-weight: 600; font-family: inherit;
+  color: var(--texto-claro); border-bottom: 3px solid transparent; transition: all 0.2s;
+}
+.guide-tab-btn.active { color: var(--primaria); border-bottom-color: var(--primaria); }
+.guide-category {
+  margin-bottom: 1.5rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fundo-claro);
+}
+.guide-category:last-child { border-bottom: none; margin-bottom: 0; }
+.guide-category h3 {
+  font-size: 1.25rem; color: var(--texto-escuro); margin: 0 0 0.5rem;
+}
+.guide-category p { font-size: 1rem; line-height: 1.6; color: var(--texto-claro); margin: 0; }
+.guide-criterio {
+  margin-top: 0.75rem; padding: 0.75rem; border-radius: 0.375rem;
+  background-color: #fffbeb; border-left: 3px solid #fbbf24;
+  font-size: 0.95rem !important; color: var(--texto-escuro) !important;
+}
+.guide-criterio strong { display: block; margin-bottom: 0.25rem; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 0.04em; color: #92400e; }
+.guide-examples { margin-top: 1rem; padding-left: 1rem; border-left: 3px solid #e2e8f0; }
+.guide-examples-title {
+  font-weight: 600; color: var(--texto-escuro);
+  font-size: 0.9rem; margin: 0 0 0.5rem;
+}
+.guide-example {
+  background-color: var(--fundo-claro); padding: 0.75rem; border-radius: 0.375rem;
+  margin-bottom: 0.5rem !important; font-style: italic;
+  color: var(--texto-escuro) !important;
+}
+.guide-example:last-child { margin-bottom: 0 !important; }
+
+/* --- Tela de instruções --- */
+.instr-intro { color: var(--texto-escuro); font-size: 1.05rem; line-height: 1.7; }
+.instr-intro p { margin: 0 0 1rem; }
+
+.instr-secao { margin-top: 2.25rem; }
+.instr-secao-titulo {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--primaria);
+  margin: 0 0 1rem; display: flex; align-items: center; gap: 0.6rem;
+}
+.instr-secao-titulo::after {
+  content: ""; flex: 1; height: 1px; background: var(--borda);
+}
+
+.cartoes-pergunta { display: grid; gap: 0.75rem; }
+.cartao-pergunta {
+  display: flex; gap: 0.9rem; align-items: flex-start;
+  padding: 1rem 1.1rem; border: 1px solid var(--borda);
+  border-radius: 0.6rem; background: rgba(255,255,255,0.75);
+}
+.cartao-num {
+  flex-shrink: 0; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  background: linear-gradient(to bottom right, var(--primaria), var(--secundaria));
+  color: white; font-weight: 700; font-size: 0.95rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.cartao-texto { color: var(--texto-escuro); line-height: 1.5; }
+.cartao-texto .cartao-quantas {
+  display: block; margin-top: 0.2rem;
+  font-size: 0.875rem; color: var(--texto-claro);
+}
+
+/* Miniatura estática de um ensaio, só ilustrativa. */
+.exemplo {
+  border: 1px solid var(--borda); border-radius: 0.75rem;
+  overflow: hidden; background: rgba(255,255,255,0.75);
+}
+.exemplo-etiqueta {
+  background: var(--fundo-claro); padding: 0.5rem 1rem;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--texto-claro);
+  border-bottom: 1px solid var(--borda);
+}
+.exemplo-corpo { padding: 1.1rem; }
+.exemplo-dialogo {
+  background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem;
+  padding: 0.9rem 1rem; line-height: 1.65; color: var(--texto-escuro);
+  font-size: 0.97rem;
+}
+.exemplo-seta {
+  text-align: center; color: var(--texto-claro);
+  font-size: 1.3rem; line-height: 1; margin: 0.6rem 0;
+}
+.exemplo-linhas { display: grid; gap: 0.5rem; }
+.exemplo-linha {
+  display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+  padding: 0.6rem 0.8rem; border-radius: 0.45rem; background: var(--fundo-claro);
+}
+.exemplo-num {
+  flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  background: var(--primaria); color: white;
+  font-size: 0.8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.exemplo-pergunta { color: var(--texto-claro); font-size: 0.93rem; flex: 1; min-width: 11rem; }
+.exemplo-resposta {
+  border: 2px solid var(--selecao); background: var(--selecao-fundo);
+  color: var(--texto-escuro); font-weight: 600; font-size: 0.9rem;
+  padding: 0.35rem 0.7rem; border-radius: 0.4rem;
+}
+.exemplo-nota {
+  margin: 0.9rem 0 0; font-size: 0.875rem; color: var(--texto-claro);
+  line-height: 1.55;
+}
+
+.instr-regras { display: grid; gap: 0.7rem; }
+.instr-regra {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  color: var(--texto-escuro); line-height: 1.5;
+}
+.instr-regra svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--primaria); }
+
+@media (max-width: 640px) {
+  body { padding: 0.5rem; }
+  .cartao { padding: 1.25rem 1rem; }
+  h1.titulo { font-size: 1.375rem; }
+  .opcoes { grid-template-columns: 1fr; }
+  .aba-btn { padding: 0.6rem 0.7rem; font-size: 0.9rem; }
+  .exemplo-linha { flex-direction: column; align-items: flex-start; }
+  #enunciado { padding: 1rem; font-size: 1rem; }
+  .guide-container { padding: 1.25rem; }
+  .guide-fab { width: 3.25rem; height: 3.25rem; bottom: 1rem; right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <section id="tela-instrucoes" class="cartao">
+    <h1 class="titulo" id="titulo-instrucoes"></h1>
+    <div id="texto-instrucoes" class="instr-intro"></div>
+    <div id="instr-perguntas" class="instr-secao"></div>
+    <div id="instr-exemplo" class="instr-secao"></div>
+    <div id="instr-regras" class="instr-secao"></div>
+    <div style="text-align: center; margin-top: 2.25rem;">
+      <button id="btn-iniciar" class="botao-primario">Iniciar</button>
+    </div>
+  </section>
+
+  <section id="tela-ensaio" class="cartao oculto">
+    <div class="barra-topo"><span id="indicador-progresso"></span></div>
+    <div class="barra-progresso"><div id="preenchimento-progresso" style="width: 0%"></div></div>
+    <div id="enunciado"></div>
+    <div id="abas-dimensao" class="abas-dimensao" role="tablist"></div>
+    <div id="dimensoes"></div>
+    <div class="rodape-ensaio">
+      <button id="btn-proxima" class="botao-primario">Próxima</button>
+      <p class="aviso" id="aviso-ensaio"></p>
+    </div>
+  </section>
+
+  <section id="tela-final" class="cartao oculto">
+    <h1 class="titulo" style="color: var(--primaria);">Avaliação concluída</h1>
+    <div id="texto-encerramento" style="color: var(--texto-escuro); font-size: 1.1rem;"></div>
+    <div class="caixa-pesquisador">
+      <p class="rotulo-pesquisador">Para o pesquisador responsável</p>
+      <label for="campo-codigo" style="display:block; margin-bottom:0.5rem; color:var(--texto-claro);">
+        Código de identificação do participante
+      </label>
+      <input type="text" id="campo-codigo" placeholder="ex.: P07" autocomplete="off">
+      <div style="margin-top: 1.25rem;">
+        <button id="btn-baixar" class="botao-primario">Salvar respostas (.csv)</button>
+      </div>
+      <p class="aviso" id="aviso-final"></p>
+    </div>
+  </section>
+
+</div>
+
+<button id="btn-guia" class="guide-fab" aria-label="Abrir guia de categorias" title="Guia de categorias">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+</button>
+
+<div id="modal-guia" class="guide-modal-overlay oculto">
+  <div class="guide-container">
+    <button id="fechar-guia" class="guide-close-btn" aria-label="Fechar guia">&times;</button>
+    <div class="guide-tabs" id="guia-abas"></div>
+    <div id="guia-conteudo"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const CHAVE_ARMAZENAMENTO = "simccit_avaliacao_v1";
+
+  let indice = 0;
+  let aba = 0;              // qual DIMENSÃO está visível agora
+  let escolhas = {};        // { idDaDimensao: textoEscolhido }
+  let ordemExibida = {};    // { idDaDimensao: [opções na ordem em que apareceram] }
+  let latencias = {};       // { idDaDimensao: segundos acumulados com a aba aberta }
+  let inicioEnsaio = 0;
+  let inicioAba = 0;
+  let respostas = [];
+  let emAndamento = false;
+
+  const el = (id) => document.getElementById(id);
+  const telaInstrucoes = el("tela-instrucoes");
+  const telaEnsaio     = el("tela-ensaio");
+  const telaFinal      = el("tela-final");
+  const caixaDimensoes = el("dimensoes");
+  const caixaAbas      = el("abas-dimensao");
+  const btnProxima     = el("btn-proxima");
+  const avisoEnsaio    = el("aviso-ensaio");
+
+  /* --------------------------------------------------------------------
+     ACESSO ÀS DIMENSÕES
+     -------------------------------------------------------------------- */
+
+  /* Alternativas de uma dimensão num dado ensaio: as do próprio ensaio, se
+     declaradas; senão as da dimensão; e "CATEGORIAS" resolve para os rótulos
+     da seção 2 — é o que dispensa repetir as opções em cada ensaio. */
+  function opcoesDe(dim, ensaio) {
+    if (ensaio && ensaio.opcoes && ensaio.opcoes[dim.id]) return ensaio.opcoes[dim.id];
+    if (dim.opcoes === "CATEGORIAS") return CATEGORIAS.map((c) => c.rotulo);
+    // { grupo: "Tempo" } → só as categorias daquele grupo. É o que permite a
+    // um projeto ter várias dimensões, cada uma com seu conjunto próprio,
+    // todas documentadas no mesmo guia.
+    if (dim.opcoes && typeof dim.opcoes === "object" && !Array.isArray(dim.opcoes) && dim.opcoes.grupo) {
+      return CATEGORIAS.filter((c) => (c.grupo || "") === dim.opcoes.grupo).map((c) => c.rotulo);
+    }
+    return dim.opcoes;
+  }
+
+  /* Com uma única dimensão, gabarito pode ser só o texto da resposta certa.
+     Com várias, é um objeto com uma chave por dimensão. */
+  function gabaritoDe(ensaio, idDim) {
+    const g = ensaio.gabarito;
+    if (g === undefined || g === null) return undefined;
+    if (typeof g === "string") return DIMENSOES[0].id === idDim ? g : undefined;
+    return g[idDim];
+  }
+
+  function embaralhar(lista) {
+    const copia = lista.slice();
+    for (let i = copia.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copia[i], copia[j]] = [copia[j], copia[i]];
+    }
+    return copia;
+  }
+
+  function mostrarTela(tela) {
+    [telaInstrucoes, telaEnsaio, telaFinal].forEach((t) => {
+      t.classList.toggle("oculto", t !== tela);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function agoraISO() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ` +
+           `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  }
+
+  /* --------------------------------------------------------------------
+     VALIDAÇÃO
+     Roda antes de qualquer coisa. Erros de digitação no bloco editável
+     aparecem aqui, e não no meio de uma coleta.
+     -------------------------------------------------------------------- */
+  function validar() {
+    const problemas = [];
+
+    if (!Array.isArray(CATEGORIAS) || CATEGORIAS.length < 2) {
+      problemas.push("CATEGORIAS precisa ter pelo menos 2 categorias.");
+    } else {
+      const rotulos = new Set();
+      CATEGORIAS.forEach((c, i) => {
+        const onde = `Categoria ${i + 1} (${c && c.rotulo ? c.rotulo : "sem rotulo"})`;
+        if (!c.rotulo) problemas.push(`${onde}: falta o campo "rotulo".`);
+        else if (rotulos.has(c.rotulo)) problemas.push(`${onde}: rótulo repetido.`);
+        else rotulos.add(c.rotulo);
+        if (!c.definicao) problemas.push(`${onde}: falta o campo "definicao" (usado no guia).`);
+      });
+    }
+
+    if (!Array.isArray(DIMENSOES) || DIMENSOES.length === 0) {
+      problemas.push("DIMENSOES precisa ter pelo menos uma dimensão.");
+      return problemas;
+    }
+    const idsDim = new Set();
+    DIMENSOES.forEach((dim, i) => {
+      const onde = `Dimensão ${i + 1} (${dim && dim.id ? dim.id : "sem id"})`;
+      if (!dim.id) problemas.push(`${onde}: falta o campo "id".`);
+      else if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(dim.id)) {
+        problemas.push(`${onde}: o id "${dim.id}" precisa começar com letra e ` +
+          `conter apenas letras, números e _ (vira nome de coluna no CSV).`);
+      } else if (idsDim.has(dim.id)) problemas.push(`${onde}: id repetido.`);
+      else idsDim.add(dim.id);
+      if (!dim.pergunta) problemas.push(`${onde}: falta o campo "pergunta".`);
+      const ops = opcoesDe(dim, null);
+      const grupoPedido = dim.opcoes && dim.opcoes.grupo;
+      if (grupoPedido && (!Array.isArray(ops) || ops.length === 0)) {
+        const existentes = [...new Set(CATEGORIAS.map((c) => c.grupo || "(sem grupo)"))];
+        problemas.push(`${onde}: nenhuma categoria tem grupo "${grupoPedido}". ` +
+          `Grupos existentes: ${existentes.join(", ")}.`);
+      } else if (!Array.isArray(ops) || ops.length < 2) {
+        problemas.push(`${onde}: precisa de pelo menos 2 alternativas em "opcoes".`);
+      } else if (new Set(ops).size !== ops.length) {
+        problemas.push(`${onde}: há alternativas repetidas em "opcoes".`);
+      }
+    });
+
+    if (!Array.isArray(ENSAIOS) || ENSAIOS.length === 0) {
+      problemas.push("A lista ENSAIOS está vazia.");
+      return problemas;
+    }
+
+    const ids = new Set();
+    ENSAIOS.forEach((e, i) => {
+      const onde = `Ensaio ${i + 1} (id: ${e && e.id ? e.id : "sem id"})`;
+      if (!e.id) problemas.push(`${onde}: falta o campo "id".`);
+      else if (ids.has(e.id)) problemas.push(`${onde}: o id "${e.id}" está repetido.`);
+      else ids.add(e.id);
+
+      if (!e.enunciado) problemas.push(`${onde}: falta o campo "enunciado".`);
+
+      if (e.gabarito && typeof e.gabarito === "object") {
+        Object.keys(e.gabarito).forEach((k) => {
+          if (!idsDim.has(k)) {
+            problemas.push(`${onde}: o gabarito tem a chave "${k}", que não é ` +
+              `id de nenhuma dimensão (${[...idsDim].join(", ")}).`);
+          }
+        });
+      } else if (typeof e.gabarito === "string" && DIMENSOES.length > 1) {
+        problemas.push(`${onde}: há ${DIMENSOES.length} dimensões, então o ` +
+          `gabarito precisa ser um objeto com uma chave por dimensão, não um texto.`);
+      }
+
+      DIMENSOES.forEach((dim) => {
+        const g = gabaritoDe(e, dim.id);
+        if (g === undefined) return;
+        const ops = opcoesDe(dim, e);
+        if (!Array.isArray(ops) || !ops.includes(g)) {
+          problemas.push(`${onde}, dimensão "${dim.id}": o gabarito "${g}" não ` +
+            `corresponde exatamente a nenhuma alternativa. Confira acentos e espaços.`);
+        }
+      });
+    });
+
+    return problemas;
+  }
+
+  function exibirErros(problemas) {
+    telaInstrucoes.innerHTML =
+      `<h1 class="titulo" style="color:#b91c1c;">Erro na configuração</h1>
+       <p style="color:var(--texto-escuro);">Corrija os pontos abaixo no bloco
+       editável do arquivo e recarregue a página. A avaliação não foi iniciada.</p>
+       <ul style="color:#b91c1c; line-height:1.8; text-align:left;">
+         ${problemas.map((p) => `<li>${p}</li>`).join("")}
+       </ul>`;
+    mostrarTela(telaInstrucoes);
+  }
+
+  /* --------------------------------------------------------------------
+     PERSISTÊNCIA
+     -------------------------------------------------------------------- */
+  function salvar() {
+    try {
+      localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify({
+        indice: indice, respostas: respostas, atualizadoEm: agoraISO()
+      }));
+    } catch (erro) { /* modo privativo: segue sem retomada automática */ }
+  }
+  function limparSalvo() {
+    try { localStorage.removeItem(CHAVE_ARMAZENAMENTO); } catch (erro) {}
+  }
+  function lerSalvo() {
+    try {
+      const bruto = localStorage.getItem(CHAVE_ARMAZENAMENTO);
+      if (!bruto) return null;
+      const d = JSON.parse(bruto);
+      if (!d || !Array.isArray(d.respostas) || d.respostas.length === 0) return null;
+      return d;
+    } catch (erro) { return null; }
+  }
+
+  /* --------------------------------------------------------------------
+     TAMANHO UNIFORME DOS BOTÕES
+
+     Todos os botões de uma dimensão têm altura fixa e idêntica. A letra
+     encolhe até o rótulo mais longo caber — assim nenhum texto é cortado e
+     nenhum botão fica maior que os outros.
+     Depende de medição real; em ambientes sem layout (jsdom) mantém o padrão.
+     -------------------------------------------------------------------- */
+  function ajustarFonte(grade) {
+    const botoes = [...grade.querySelectorAll(".opcao")];
+    if (!botoes.length) return;
+
+    const MAX = 1.0, MIN = 0.62, PASSO = 0.02;
+    let tamanho = MAX;
+    grade.style.setProperty("--fonte-opcao", MAX + "rem");
+
+    const naoCabe = () => botoes.some((b) => b.scrollHeight > b.clientHeight + 1);
+    let guarda = 0;
+    while (tamanho > MIN && guarda++ < 40 && naoCabe()) {
+      tamanho -= PASSO;
+      grade.style.setProperty("--fonte-opcao", tamanho.toFixed(2) + "rem");
+    }
+    grade.dataset.fonte = tamanho.toFixed(2);
+  }
+
+  /* --------------------------------------------------------------------
+     ENSAIO
+     -------------------------------------------------------------------- */
+  function renderizarEnsaio() {
+    const ensaio = ENSAIOS[indice];
+    aba = 0;
+    escolhas = {};
+    ordemExibida = {};
+    latencias = {};
+    DIMENSOES.forEach((d) => { latencias[d.id] = 0; });
+
+    el("enunciado").innerHTML = ensaio.enunciado;
+    el("indicador-progresso").textContent = CONFIG.mostrarProgresso
+      ? `Ensaio ${indice + 1} de ${ENSAIOS.length}` : "";
+    el("preenchimento-progresso").style.width = `${(indice / ENSAIOS.length) * 100}%`;
+
+    montarAbas();
+    inicioEnsaio = Date.now();
+    mostrarAba(0);
+  }
+
+  function rotuloAba(dim, i) {
+    return dim.rotuloAba || dim.id.charAt(0).toUpperCase() + dim.id.slice(1);
+  }
+
+  function montarAbas() {
+    caixaAbas.innerHTML = "";
+    caixaAbas.classList.toggle("oculto", DIMENSOES.length < 2);
+    DIMENSOES.forEach((dim, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "aba-btn";
+      b.setAttribute("role", "tab");
+      b.innerHTML = `<span class="aba-marca">${i + 1}</span><span>${rotuloAba(dim, i)}</span>`;
+      b.addEventListener("click", () => mostrarAba(i));
+      caixaAbas.appendChild(b);
+    });
+  }
+
+  /* Marca visualmente quais perguntas já foram respondidas. */
+  function atualizarAbas() {
+    [...caixaAbas.children].forEach((b, i) => {
+      const dim = DIMENSOES[i];
+      const respondida = escolhas[dim.id] !== undefined;
+      b.classList.toggle("ativa", i === aba);
+      b.classList.toggle("respondida", respondida && i !== aba);
+      b.setAttribute("aria-selected", i === aba ? "true" : "false");
+      const marca = b.querySelector(".aba-marca");
+      marca.textContent = respondida ? "\u2713" : String(i + 1);
+    });
+  }
+
+  /* Troca a pergunta visível. O tempo de cada uma é acumulado enquanto a
+     respectiva aba está aberta — com abas, o participante vai e volta. */
+  function mostrarAba(i) {
+    if (inicioAba && DIMENSOES[aba]) {
+      latencias[DIMENSOES[aba].id] += (Date.now() - inicioAba) / 1000;
+    }
+    aba = i;
+    inicioAba = Date.now();
+    renderizarDimensao();
+    atualizarAbas();
+  }
+
+  function renderizarDimensao() {
+    const ensaio = ENSAIOS[indice];
+    const dim = DIMENSOES[aba];
+    avisoEnsaio.textContent = "";
+
+    const bloco = document.createElement("div");
+    bloco.className = "dimensao";
+    bloco.dataset.dim = dim.id;
+
+    const p = document.createElement("p");
+    p.className = "pergunta";
+    p.innerHTML = dim.pergunta;
+    bloco.appendChild(p);
+
+    const grade = document.createElement("div");
+    grade.className = "opcoes";
+    grade.setAttribute("role", "radiogroup");
+    grade.setAttribute("aria-label", dim.pergunta.replace(/<[^>]*>/g, ""));
+    grade.style.setProperty("--largura-opcao", dim.larguraMinima || "15rem");
+    grade.style.setProperty("--altura-opcao", dim.altura || "4.75rem");
+
+    // A ordem sorteada é mantida enquanto o ensaio durar: trocar de aba e
+    // voltar não pode reembaralhar os botões sob o participante.
+    if (!ordemExibida[dim.id]) {
+      const deveEmbaralhar = dim.embaralhar !== undefined ? dim.embaralhar : CONFIG.embaralharOpcoes;
+      const base = opcoesDe(dim, ensaio);
+      ordemExibida[dim.id] = deveEmbaralhar ? embaralhar(base) : base.slice();
+    }
+
+    ordemExibida[dim.id].forEach((texto) => {
+      const botao = document.createElement("button");
+      botao.type = "button";
+      botao.className = "opcao";
+      botao.innerHTML = `<span>${texto}</span>`;
+      botao.setAttribute("role", "radio");
+      const marcado = escolhas[dim.id] === texto;
+      botao.classList.toggle("selecionada", marcado);
+      botao.setAttribute("aria-checked", marcado ? "true" : "false");
+      botao.addEventListener("click", () => selecionar(dim.id, texto, botao, grade));
+      grade.appendChild(botao);
+    });
+
+    bloco.appendChild(grade);
+    caixaDimensoes.innerHTML = "";
+    caixaDimensoes.appendChild(bloco);
+    ajustarFonte(grade);
+    atualizarBotaoProxima();
+  }
+
+  /* Seleção SEM feedback: marca a escolha daquela dimensão e permite trocar. */
+  function selecionar(idDim, texto, botao, grade) {
+    escolhas[idDim] = texto;
+    grade.querySelectorAll(".opcao").forEach((b) => {
+      const ativo = b === botao;
+      b.classList.toggle("selecionada", ativo);
+      b.setAttribute("aria-checked", ativo ? "true" : "false");
+    });
+    avisoEnsaio.textContent = "";
+    atualizarAbas();
+    atualizarBotaoProxima();
+
+    // Vai sozinho para a próxima pergunta ainda sem resposta. Se todas já
+    // foram respondidas, fica onde está, para o participante poder revisar.
+    const pendente = DIMENSOES.findIndex((d) => escolhas[d.id] === undefined);
+    if (pendente !== -1) setTimeout(() => mostrarAba(pendente), 140);
+  }
+
+  function faltando() {
+    return DIMENSOES.filter((d) => escolhas[d.id] === undefined);
+  }
+
+  function atualizarBotaoProxima() {
+    btnProxima.disabled = CONFIG.exigirResposta && faltando().length > 0;
+    btnProxima.textContent = (indice === ENSAIOS.length - 1) ? "Finalizar" : "Próxima";
+  }
+
+  function avancar() {
+    const pendentes = faltando();
+    if (CONFIG.exigirResposta && pendentes.length > 0) {
+      avisoEnsaio.textContent = pendentes.length === 1
+        ? `Falta responder a pergunta "${rotuloAba(pendentes[0])}".`
+        : `Faltam responder: ${pendentes.map((d) => rotuloAba(d)).join(", ")}.`;
+      mostrarAba(DIMENSOES.indexOf(pendentes[0]));
+      return;
+    }
+    // fecha a contagem de tempo da aba aberta
+    if (inicioAba && DIMENSOES[aba]) {
+      latencias[DIMENSOES[aba].id] += (Date.now() - inicioAba) / 1000;
+      inicioAba = 0;
+    }
+    registrarEnsaio();
+  }
+
+  function registrarEnsaio() {
+    const ensaio = ENSAIOS[indice];
+    const registro = { Ordem: indice + 1, EnsaioID: ensaio.id };
+
+    DIMENSOES.forEach((dim) => {
+      const escolha = escolhas[dim.id];
+      const gab = gabaritoDe(ensaio, dim.id);
+      let resultado;
+      if (gab === undefined)          resultado = "sem gabarito";
+      else if (escolha === undefined) resultado = "sem resposta";
+      else if (escolha === gab)       resultado = "Certo";
+      else                            resultado = "Errado";
+
+      registro["Escolha_" + dim.id]   = escolha === undefined ? "" : escolha;
+      registro["Gabarito_" + dim.id]  = gab === undefined ? "" : gab;
+      registro["Resultado_" + dim.id] = resultado;
+      registro["Posicao_" + dim.id]   = escolha === undefined
+        ? "" : (ordemExibida[dim.id].indexOf(escolha) + 1);
+      // Tempo acumulado com a aba daquela pergunta aberta.
+      registro["Latencia_" + dim.id]  = (latencias[dim.id] || 0).toFixed(2);
+    });
+
+    registro.Latencia_total_s = ((Date.now() - inicioEnsaio) / 1000).toFixed(2);
+    registro.DataHora = agoraISO();
+    respostas.push(registro);
+
+    indice++;
+    salvar();   // grava já apontando para o PRÓXIMO ensaio
+
+    if (indice >= ENSAIOS.length) finalizar();
+    else renderizarEnsaio();
+  }
+
+  function finalizar() {
+    emAndamento = false;
+    el("preenchimento-progresso").style.width = "100%";
+    /* Nenhum escore é exibido: mostrar desempenho aqui seria feedback. */
+    mostrarTela(telaFinal);
+    el("campo-codigo").focus();
+  }
+
+  /* --------------------------------------------------------------------
+     EXPORTAÇÃO
+     -------------------------------------------------------------------- */
+  function campoCsv(valor) {
+    const t = String(valor === undefined || valor === null ? "" : valor);
+    return /[",;\n\r]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+  }
+
+  function sanitizarNome(t) {
+    return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_-]+/g, "_")
+            .replace(/^_+|_+$/g, "").slice(0, 40);
+  }
+
+  function colunasCsv() {
+    const cols = ["Participante", "Ordem", "EnsaioID"];
+    DIMENSOES.forEach((d) => {
+      cols.push("Escolha_" + d.id, "Gabarito_" + d.id, "Resultado_" + d.id,
+                "Posicao_" + d.id, "Latencia_" + d.id);
+    });
+    cols.push("Latencia_total_s", "DataHora");
+    return cols;
+  }
+
+  function baixarCsv() {
+    const bruto = el("campo-codigo").value.trim();
+    if (!bruto) {
+      el("aviso-final").textContent = "Informe o código do participante antes de salvar.";
+      el("campo-codigo").focus();
+      return;
+    }
+    const codigo = sanitizarNome(bruto) || "participante";
+    const colunas = colunasCsv();
+
+    const linhas = [colunas.join(",")];
+    respostas.forEach((r) => {
+      linhas.push(colunas.map((c) =>
+        campoCsv(c === "Participante" ? bruto : r[c])).join(","));
+    });
+
+    const blob = new Blob(["\uFEFF" + linhas.join("\r\n")],
+                          { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const data = new Date().toISOString().slice(0, 10);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${codigo}_${data}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    el("aviso-final").textContent = `Arquivo salvo como ${codigo}_${data}.csv`;
+    limparSalvo();
+  }
+
+  /* --------------------------------------------------------------------
+     TELA DE INSTRUÇÕES
+
+     O texto de CONFIG.instrucoes é a abertura. O resto — cartões das
+     perguntas, exemplo ilustrado e regras — é gerado a partir de DIMENSOES,
+     para que a explicação nunca fique fora de sincronia com a tarefa real.
+     -------------------------------------------------------------------- */
+  function montarInstrucoes() {
+    el("texto-instrucoes").innerHTML = CONFIG.instrucoes || "";
+
+    // --- cartões: uma linha por pergunta ---
+    const secP = el("instr-perguntas");
+    secP.innerHTML = "";
+    if (DIMENSOES.length) {
+      const t = document.createElement("p");
+      t.className = "instr-secao-titulo";
+      t.textContent = DIMENSOES.length > 1
+        ? `Em cada trecho você responde a ${DIMENSOES.length} perguntas`
+        : "O que você responde";
+      secP.appendChild(t);
+
+      const grade = document.createElement("div");
+      grade.className = "cartoes-pergunta";
+      DIMENSOES.forEach((dim, i) => {
+        const c = document.createElement("div");
+        c.className = "cartao-pergunta";
+        const n = document.createElement("div");
+        n.className = "cartao-num";
+        n.textContent = String(i + 1);
+        const tx = document.createElement("div");
+        tx.className = "cartao-texto";
+        const quantas = (opcoesDe(dim, null) || []).length;
+        tx.innerHTML = dim.pergunta +
+          `<span class="cartao-quantas">${quantas} alternativas${dim.ajuda ? " — " + dim.ajuda : ""}</span>`;
+        c.appendChild(n); c.appendChild(tx);
+        grade.appendChild(c);
+      });
+      secP.appendChild(grade);
+    }
+
+    // --- exemplo ilustrado ---
+    const secE = el("instr-exemplo");
+    secE.innerHTML = "";
+    const ex = CONFIG.exemplo;
+    if (ex && ex.enunciado) {
+      const t = document.createElement("p");
+      t.className = "instr-secao-titulo";
+      t.textContent = "Veja como fica";
+      secE.appendChild(t);
+
+      const cx = document.createElement("div");
+      cx.className = "exemplo";
+      const etq = document.createElement("div");
+      etq.className = "exemplo-etiqueta";
+      etq.textContent = "Exemplo — trecho fictício, apenas para ilustrar";
+      cx.appendChild(etq);
+
+      const corpo = document.createElement("div");
+      corpo.className = "exemplo-corpo";
+
+      const dlg = document.createElement("div");
+      dlg.className = "exemplo-dialogo";
+      dlg.innerHTML = ex.enunciado;
+      corpo.appendChild(dlg);
+
+      const seta = document.createElement("div");
+      seta.className = "exemplo-seta";
+      seta.textContent = "\u2193";
+      corpo.appendChild(seta);
+
+      const linhas = document.createElement("div");
+      linhas.className = "exemplo-linhas";
+      DIMENSOES.forEach((dim, i) => {
+        const resp = ex.respostas ? ex.respostas[dim.id] : undefined;
+        if (resp === undefined) return;
+        const l = document.createElement("div");
+        l.className = "exemplo-linha";
+        l.innerHTML =
+          `<span class="exemplo-num">${i + 1}</span>` +
+          `<span class="exemplo-pergunta">${dim.pergunta}</span>` +
+          `<span class="exemplo-resposta">${resp}</span>`;
+        linhas.appendChild(l);
+      });
+      corpo.appendChild(linhas);
+
+      if (ex.nota) {
+        const n = document.createElement("p");
+        n.className = "exemplo-nota";
+        n.innerHTML = ex.nota;
+        corpo.appendChild(n);
+      }
+      cx.appendChild(corpo);
+      secE.appendChild(cx);
+    }
+
+    // --- regras: invariantes do desenho, iguais em todo projeto ---
+    const secR = el("instr-regras");
+    secR.innerHTML = "";
+    const t = document.createElement("p");
+    t.className = "instr-secao-titulo";
+    t.textContent = "Antes de começar";
+    secR.appendChild(t);
+
+    const ic = {
+      relogio: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+      bloqueio: '<rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+      olho: '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"></path><line x1="1" y1="1" x2="23" y2="23"></line>',
+      livro: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
+    };
+    const regras = [
+      [ic.relogio,  "<strong>Não há limite de tempo.</strong> Responda no seu ritmo."],
+      [ic.bloqueio, "<strong>Não é possível voltar</strong> a um trecho já respondido. Dentro do mesmo trecho, você pode circular entre as perguntas e trocar suas escolhas até clicar em Próxima."],
+      [ic.olho,     "<strong>Você não receberá retorno</strong> sobre acertos ou erros durante a avaliação."],
+      [ic.livro,    "<strong>Consulte o guia</strong> a qualquer momento, no ícone de livro no canto inferior direito."]
+    ];
+    const lista = document.createElement("div");
+    lista.className = "instr-regras";
+    regras.forEach(([caminho, txt]) => {
+      const d = document.createElement("div");
+      d.className = "instr-regra";
+      d.innerHTML =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" ` +
+        `fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" ` +
+        `stroke-linejoin="round">${caminho}</svg><span>${txt}</span>`;
+      lista.appendChild(d);
+    });
+    secR.appendChild(lista);
+  }
+
+  /* --------------------------------------------------------------------
+     GUIA — gerado a partir de CATEGORIAS, não escrito à mão.
+     É o que permite ao mesmo template servir a qualquer eixo.
+     -------------------------------------------------------------------- */
+  function montarGuia() {
+    const abas = el("guia-abas");
+    const conteudo = el("guia-conteudo");
+    const grupos = [];
+    CATEGORIAS.forEach((c) => {
+      const g = c.grupo || "";
+      if (!grupos.includes(g)) grupos.push(g);
+    });
+
+    function secaoDe(grupo) {
+      const div = document.createElement("div");
+      div.className = "guide-section";
+      CATEGORIAS.filter((c) => (c.grupo || "") === grupo).forEach((c) => {
+        const bloco = document.createElement("div");
+        bloco.className = "guide-category";
+
+        const h = document.createElement("h3");
+        h.textContent = c.rotulo;
+        bloco.appendChild(h);
+
+        const p = document.createElement("p");
+        p.innerHTML = c.definicao;
+        bloco.appendChild(p);
+
+        if (c.criterio) {
+          const cr = document.createElement("p");
+          cr.className = "guide-criterio";
+          cr.innerHTML = "<strong>Critérios de inclusão ou exclusão</strong>" + c.criterio;
+          bloco.appendChild(cr);
+        }
+        if (Array.isArray(c.exemplos) && c.exemplos.length) {
+          const cx = document.createElement("div");
+          cx.className = "guide-examples";
+          const t = document.createElement("h4");
+          t.className = "guide-examples-title";
+          t.textContent = "Exemplos:";
+          cx.appendChild(t);
+          c.exemplos.forEach((ex) => {
+            const pe = document.createElement("p");
+            pe.className = "guide-example";
+            pe.innerHTML = ex;
+            cx.appendChild(pe);
+          });
+          bloco.appendChild(cx);
+        }
+        div.appendChild(bloco);
+      });
+      return div;
+    }
+
+    const secoes = grupos.map(secaoDe);
+    secoes.forEach((s, i) => {
+      if (i > 0) s.classList.add("oculto");
+      conteudo.appendChild(s);
+    });
+
+    // Abas só fazem sentido quando o eixo tem mais de um grupo.
+    if (grupos.length > 1) {
+      grupos.forEach((g, i) => {
+        const b = document.createElement("button");
+        b.className = "guide-tab-btn" + (i === 0 ? " active" : "");
+        b.textContent = g || "Geral";
+        b.addEventListener("click", () => {
+          abas.querySelectorAll(".guide-tab-btn").forEach((x, j) =>
+            x.classList.toggle("active", j === i));
+          secoes.forEach((s, j) => s.classList.toggle("oculto", j !== i));
+        });
+        abas.appendChild(b);
+      });
+    } else {
+      abas.classList.add("oculto");
+    }
+  }
+
+  function configurarGuia() {
+    const modal = el("modal-guia");
+    montarGuia();
+    el("btn-guia").addEventListener("click", () => modal.classList.remove("oculto"));
+    el("fechar-guia").addEventListener("click", () => modal.classList.add("oculto"));
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.add("oculto");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") modal.classList.add("oculto");
+    });
+  }
+
+  /* Sem isto, o botão "voltar" do navegador burlaria a irreversibilidade. */
+  function travarRetorno() {
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", () => history.pushState(null, "", location.href));
+    window.addEventListener("beforeunload", (e) => {
+      if (!emAndamento) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  }
+
+  function iniciarAvaliacao() {
+    emAndamento = true;
+    mostrarTela(telaEnsaio);
+    renderizarEnsaio();
+  }
+
+  function inicializar() {
+    const problemas = validar();
+    if (problemas.length > 0) { exibirErros(problemas); return; }
+
+    el("titulo-instrucoes").textContent = CONFIG.titulo;
+    el("texto-encerramento").innerHTML = CONFIG.encerramento;
+    montarInstrucoes();
+    document.title = CONFIG.titulo;
+
+    configurarGuia();
+    travarRetorno();
+
+    el("btn-iniciar").addEventListener("click", iniciarAvaliacao);
+    btnProxima.addEventListener("click", avancar);
+    el("btn-baixar").addEventListener("click", baixarCsv);
+    el("campo-codigo").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") baixarCsv();
+    });
+    // Botões de tamanho fixo: recalcula a letra quando a janela muda.
+    window.addEventListener("resize", () => {
+      document.querySelectorAll("#dimensoes .opcoes").forEach(ajustarFonte);
+    });
+
+    const salvo = lerSalvo();
+    if (salvo) {
+      const feitos = salvo.respostas.length;
+      const texto = `Foi encontrada uma sessão interrompida, com ${feitos} ` +
+        `${feitos === 1 ? "ensaio respondido" : "ensaios respondidos"} ` +
+        `(${salvo.atualizadoEm}).\n\n` +
+        `OK = retomar do ensaio ${Math.min(feitos + 1, ENSAIOS.length)}.\n` +
+        `Cancelar = descartar e começar do zero.`;
+      if (window.confirm(texto)) {
+        respostas = salvo.respostas;
+        // A contagem de respostas é a fonte de verdade: sobrevive a um
+        // rascunho antigo ou corrompido, ao contrário do índice gravado.
+        indice = Math.min(salvo.respostas.length, ENSAIOS.length);
+        if (indice >= ENSAIOS.length) finalizar();
+        else iniciarAvaliacao();
+        return;
+      }
+      limparSalvo();
+    }
+
+    mostrarTela(telaInstrucoes);
+  }
+
+  document.addEventListener("DOMContentLoaded", inicializar);
+})();
+</script>
+
+</body>
+</html>

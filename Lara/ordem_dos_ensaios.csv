@@ -1,0 +1,31 @@
+﻿posicao_aplicacao,id,linha_planilha,tema,sigla_tema,quem_inicia,conducao_sigla,conducao,tempo_sigla,tempo
+1,L12,12,Relação terapêutica,RTR,Terapeuta,TDR,Terapeuta deriva,AGR,Aqui e agora na sessão
+2,L29,29,Outros temas,OTM,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+3,L23,23,Questões existenciais,EXT,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+4,L27,27,Desenvolvimento de técnicas/procedimentos ou entrevistas padronizados,TEC,Terapeuta,TIN,Terapeuta inicia/muda,AGR,Aqui e agora na sessão
+5,L26,26,Atividade de fantasia ou jogo,FTS,Cliente,CIN,Cliente inicia/muda,AGR,Aqui e agora na sessão
+6,L22,22,"Sentimentos em geral, julgamentos ou tendências a ação",STM,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+7,L04,4,Relações com filhos ou enteados,RFI,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+8,L09,9,Queixas psiquiátricas e sintomas médicos,QXS,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+9,L01,1,"Trabalho, estudo e/ou carreira",TRB,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+10,L05,5,Eventos traumáticos,TRA,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+11,L11,11,Relação terapêutica,RTR,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+12,L15,15,Relações com pais ou padrastos,RPA,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+13,L14,14,Relações com cônjuge/parceiro,RCP,Terapeuta,TIN,Terapeuta inicia/muda,FUT,Tempo futuro
+14,L19,19,Religião,RLG,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+15,L18,18,Relações com outros familiares,RFA,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+16,L25,25,Atividade de fantasia ou jogo,FTS,Terapeuta,TIN,Terapeuta inicia/muda,AGR,Aqui e agora na sessão
+17,L07,7,Relações interpessoais,RIT,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+18,L03,3,Relações com filhos ou enteados,RFI,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+19,L06,6,Eventos traumáticos,TRA,Terapeuta,TIN,Terapeuta inicia/muda,PAS,Tempo passado
+20,L28,28,Desenvolvimento de técnicas/procedimentos ou entrevistas padronizados,TEC,Cliente,CIN,Cliente inicia/muda,AGR,Aqui e agora na sessão
+21,L13,13,Relações com cônjuge/parceiro,RCP,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+22,L24,24,Questões existenciais,EXT,Terapeuta,TDR,Terapeuta deriva,PRE,Tempo atual fora da sessão
+23,L08,8,Relações interpessoais,RIT,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+24,L17,17,Relações com outros familiares,RFA,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+25,L30,30,Outros temas,OTM,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+26,L02,2,"Trabalho, estudo e/ou carreira",TRB,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+27,L20,20,Religião,RLG,Terapeuta,TIN,Terapeuta inicia/muda,PRE,Tempo atual fora da sessão
+28,L16,16,Relações com pais ou padrastos,RPA,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
+29,L21,21,"Sentimentos em geral, julgamentos ou tendências a ação",STM,Terapeuta,TIN,Terapeuta inicia/muda,AGR,Aqui e agora na sessão
+30,L10,10,Queixas psiquiátricas e sintomas médicos,QXS,Cliente,CIN,Cliente inicia/muda,PRE,Tempo atual fora da sessão
